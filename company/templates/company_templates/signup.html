@@ -1,0 +1,36 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% block title %}
+    
+{% endblock title %}
+    <title></title>
+{% block content %}
+<section class="registro">
+    <div class="content-registro">
+        <div class="content-registro-info">
+            <div class="content-registro-info-titulo">
+                <h1>Registrate</h1>
+                <p>Ingresa con tu cuenta preferida de manera mas rapida y segura con:</p>
+            </div>
+        </div>
+        <div class="content-registro-opciones">
+            <div class="content-registro-opciones-botones">
+                <div class="content-registro-opciones-boton">
+                    <i class="fa-brands fa-google"></i>
+                    <a>Empezar con Google</a>
+                </div>
+                <div class="content-registro-opciones-boton">
+                    <i class="fa-brands fa-facebook"></i>
+                    <a>Empezar con Fcebook</a>
+                </div>
+                <p>
+                    o
+                </p>
+                <div class="content-registro-opciones-boton">
+                    <a href="{% url 'creacion' %}">Empezar con Otawind</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+

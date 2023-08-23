@@ -1,0 +1,112 @@
+/* Tabla de contenido */
+/* 
+
+1 - Contendio general
+2 - Formulario
+3 - Mensaje de error
+
+*/
+/* 1 - Contenido general */
+.content-bussines{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.content-bussines-general{
+    display: block;
+}
+
+.content-bussines-general h1{
+    margin: 50px;
+}
+
+.content-bussines .linea{
+    background-color: #7D05B4;
+    height: auto;
+    width: 5px;
+    margin-right: 15px;
+}
+/* Fin */
+
+/* 3 - Mensaje de error */
+#error{
+    background-color: #e09dff;
+    color: red;
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+
+#success{
+    background-color: #e09dff;
+    color: green;
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.content-bussines-general-errors{
+    margin: 40px;
+    color: red;
+}
+
+.content-bussines-general-errors ul{
+    font-size: 16px;
+}
+
+
+/* Fin */
+
+/* 2 - Formulario */
+.content-bussines-general-form{
+    margin: 40px;
+    margin-top: 80px;
+    display: block;
+    height: 100%;
+    text-align: left;
+}
+
+.content-bussines-general-form-fields{
+    font-size: 18px;
+    margin-top: 18px;
+}
+
+.content-bussines-general-form-fields label{
+    color: black;
+}
+
+.content-bussines-general-form-fields input{
+    width: 350px;
+    height: 10px;
+    padding: 10px;
+    color: #7D05B4;
+}
+
+.content-bussines-general-form-fields #id_description{
+    width: 450px;
+    padding: 10px;
+    color: #7D05B4;
+}
+
+.content-bussines-general-form #btn-submit{
+    margin-top: 30px;
+    width: 150px;
+    color: white;
+    background-color: #7D05B4;
+    height: 40px;
+}
+
+.content-bussines-general-form #btn-submit:hover{
+    background-color: #e5b7fa;
+    color: black;
+}
+
+/* Fin */
+
+

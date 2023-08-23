@@ -1,0 +1,48 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% load static %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+
+{% comment %} Mensaje de error {% endcomment %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+        <p id="error">{{message}}</p>
+    {% else %}
+    <p id="success">{{message}}</p>
+    {% endif %} 
+    {% endfor %}  
+{% comment %} Fin {% endcomment %} 
+    <div class="content-bussines">
+        {% include 'company_templates/layouts/layout-dashboard.html' %} 
+        <div class="content-bussines-general">
+            <h1>Edicion de perfil de empresa</h1>
+            
+            <div class="content-bussines-general-errors"> 
+                <p>{{form.errors}}</p>  
+            </div>
+                
+            <form enctype="multipart/form-data" class="content-bussines-general-form" method="POST" action="">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="content-bussines-general-form-fields">
+                        <label>{{field.label}}</label><br>
+                        <div class="input-{{forloop.counter}}">
+                            {{field}}
+                        </div>
+                    </div>
+                {% endfor %}  
+                <div class="btn-form">
+                    <input id="btn-submit" type="submit" value="Guardar"> 
+                </div>           
+            </form>
+            </div>
+        </div> 
+    </div> 
+{% endblock content %}
+
+<script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+
+

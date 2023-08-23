@@ -1,0 +1,34 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+
+    <div class="content-dash">
+        {% include 'company_templates/layouts/layout-dashboard.html' %}     
+        <div class="content-dash-general">
+            <h1>Informacion general</h1>
+            <div class="content-dash-general-estadistica">
+                <div class="content-dash-general-estadistica-card">
+                    <h3>
+                        {{bussines}}
+                    </h3>
+                    <p>Vistas a tu empresa</p>
+                </div>
+                <div class="content-dash-general-estadistica-card">
+                    <h3>0</h3>
+                    <p>Impresiones</p>
+                </div>
+                <div class="content-dash-general-estadistica-card">
+                    <h3>0</h3>
+                    <p>Me gustas alcanzados</p>
+                </div>
+            </div>
+            <div class="content-dash-general-productos">
+                <h1>Ultimos productos</h1>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+

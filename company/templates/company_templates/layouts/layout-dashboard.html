@@ -1,0 +1,55 @@
+{% load static %}
+<section class="menu-dashboard">
+    <div class="content-dashboard">
+        <h2>Administra tu empresa</h2>
+        <p>Menu de opciones</p>
+        <div class="content-dashboard-menu">
+            <div class="content-dashboard-menu-general">
+                <div class="content-dashboard-menu-boton">
+                    <a href="{% url 'bussines' %}">
+                        <i class="fa-regular fa-building"></i>
+                        <h4>Perfil de empresa</h4>
+                    </a>
+                </div>
+
+                <div class="content-dashboard-menu-boton">
+                    <i class="fa-solid fa-shop"></i>
+                    <h4>Mis productos o servicios</h4>
+                </div>
+
+                <div class="content-dashboard-menu-boton">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <h4>Mis catalogos</h4>
+                </div>
+
+                <div id="finanzas" class="content-dashboard-menu-boton">
+                    <div id="msg-comming"><p>Proximamente</p></div>
+                    <i class="fa-solid fa-coins"></i>
+                    <h4>Finanzas</h4>
+                </div>
+
+                <div id="inventario" class="content-dashboard-menu-boton">
+                    <div id="msg-comming"><p>Proximamente</p></div>
+                    <i class="fa-regular fa-file-lines"></i>
+                    <h4>Inventario</h4>
+                </div>
+
+                <div class="content-dashboard-menu-boton">
+                    <i class="fa-solid fa-square-plus"></i>
+                    <h4>Agregar catalogo</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+
+<script>
+    $(document).ready(()=>{
+        // Menu dashboard
+        //$('#finanzas').prop("disabled", true)
+        $('#finanzas').css('background-color','grey')
+        $('#inventario').css('background-color','grey')
+    })
+</script>

@@ -1,0 +1,34 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% block title %}
+
+{% endblock title %}
+<title>Creacion de cuenta</title>
+{% block content %}
+    <section class="creacion">
+        <div class="content-creacion">
+            <div class="content-creacion-titulo"><h1>Datos personales</h1></div>
+            <div class="content-creacion-general">
+                <div class="content-creacion-general-form">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {% for form in register_form %}
+                        <div class="content-creacion-general-form-bloque">
+                            <label>{{form.label}}</label>
+                            {{form}}
+                        </div>
+                        {% endfor %}
+                        <div class="content-creacion-general-form-botones">
+                            <input id="btn-registrar" type="button" value="Cancelar">
+                            <input id="btn-registrar" type="submit" value="Registrar">
+                        </div>
+                    </form>
+                </div>
+                <div class="content-creacion-general-form-paso">
+                    <input type="button" id="btn-siguiente" value="Siguiente">
+                    <h2>Paso 1 de 2</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+

@@ -1,0 +1,45 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+<section class="login">
+    <div class="content-login">
+        <div class="content-login-info">
+            <div class="content-login-info-titulo">
+                <h1>Ingresa y empieza a lucir como un profeisonal</h1>
+            </div>
+            <div class="content-login-info-form">
+                {% for mess in messages %}
+                {% if mess.tags == 'error' %}
+                    <div class="content-login-info-form-msg">
+                            <p>{{mess}}</p>   
+                    </div>
+                {% endif %}
+                {% endfor %}
+                <div class="linespace"></div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <label>Correo</label>
+                    <input type="username" name="username" class="username">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" class="password">
+                    <input type="submit" id="btn-ingresar" class="content-login-info-form-ingresar" value="Ingresar">
+                    <a href="">He olvidado mi contraseña</a>
+                </form>
+            </div>
+        </div>
+        <div class="content-login-opciones ">
+            <div class="content-login-opciones-social">
+                <p>Ó ingresa con:</p>
+                <div class="content-login-opciones-social-icon">
+                    <i class="fa-brands fa-facebook"></i>
+                    <i class="fa-brands fa-google"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+

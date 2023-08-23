@@ -1,0 +1,240 @@
+﻿{% extends 'company_templates/layouts/layout.html' %}
+
+{% block title %}
+    <title>Bienvenido</title>
+{% endblock %}
+
+{% block content %}
+<div class="banner">
+    <div class="banner-content">
+        <h1>OTAWIND</h1>
+        <div class="banner-content-linea"></div>
+        <p>Una manera mas facil de verte profesional mostrandole a tus clientes
+            tus productos, servicios, costos, catalogos, y mucho mas.
+        </p>
+        <div class="banner-content-botones">
+            <a href="">Explicame mas</a>
+            <p>Ya lo se todo</p>
+            <a href="">Empezar ya!</a>
+        </div>
+    </div>
+</div>
+
+<section class="producto">
+    <div class="content-producto">
+        <div class="content-producto-descripcion">
+            <h1>Productos y servicios profesionales</h1>
+            <p>Has que tus productos se vean mas atractivos para que tus clientes sepan lo 
+                maravilloso de tus productos o servicios.
+            </p>
+        </div>
+
+        <div class="content-producto-card">
+            <div class="content-producto-card-img">
+                <img src="../static/images/foto-card.jpeg"></img>
+            </div>
+            <div class="content-producto-card-general">
+                <div class="content-producto-card-general-descripcion">
+                    <h1>El mejor producto</h1>
+                        <div class="content-producto-card-general-titulo">
+                            <p id="valor">US9.99</p>
+                        </div>
+                    <p id="descripcion-producto">Tu mejor descripcion puede traer muchos clientes promoviendo tu excelente producto o servicio</p>
+                </div>
+            </div>
+        </div>   
+    </div>
+</section>
+
+<section class="catalogo">
+    <div class="content-catalogo">
+        <div class="content-catalogo-descripcion">
+            <h1>Catalogos espectaculares</h1>
+            <p>
+                Tus catalogos atractivos y profesionales, muestrale a todos tus clientes tus productos y servicios.
+            </p>
+        </div>
+        <div class="content-catalogo-card">
+            <div class="content-catalogo-card-general">
+                <img src="../static/images/foto-card.jpeg"></img>
+                <div class="content-catalogo-card-general-descripcion">
+                    <h1>Catalogo de productos</h1>
+                    <h4>340</h4>
+                    <strong>Productos disponibles</strong>
+                    <p>Describe de la mejor forma a tu catalogo asi tus clientes podran conocer un poco de tus productos o servicios</p>
+                    <a href="#"><button>Ver catalogo</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="catalogo-grid">
+        <div class="catalogo-grid-content-descripcion">
+            <h1>El orden de tus catalogos es muy importante</h1>
+        </div>
+        <div class="catalogo-grid-card">
+            <div class="catalogo-grid-card-tabla">
+                <table class="tabla-producto">
+                    <div class="tabla-producto-nav">
+                        <h2>Portafolio de productos y servicios</h2>
+                        <div class="buscar-tabla">
+                            <h5>buscar</h5>
+                            <input type="text" placeholder="">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </div>
+                        
+                    </div>
+                    
+                    <tr>
+                        <td>ID producto</td>
+                        <td>Producto</td>
+                        <td>Precio</td>
+                        <td>Categoria</td>
+                        <td>Ver</td>
+                    </tr>
+                    <tr>
+                        <td>092837</td>
+                        <td>producto 1</td>
+                        <td>$99.9</td>
+                        <td>Categoria 1</td>
+                        <td><i class="fa-solid fa-eye"></i></td>
+                    </tr>
+                    <tr>
+                        <td>092837</td>
+                        <td>producto 2</td>
+                        <td>$99.9</td>
+                        <td>Categoria 2</td>
+                        <td><i class="fa-solid fa-eye"></i></td>
+                    </tr>
+                    <tr>
+                        <td>092837</td>
+                        <td>producto 3</td>
+                        <td>$99.9</td>
+                        <td>Categoria 1</td>
+                        <td><i class="fa-solid fa-eye"></i></td>
+                    </tr>
+                    <tr>
+                        <td>092837</td>
+                        <td>producto 4</td>
+                        <td>$99.9</td>
+                        <td>Categoria 3</td>
+                        <td><i class="fa-solid fa-eye"></i></td>
+                    </tr>
+                    <tr>
+                        <td>092837</td>
+                        <td>producto 5</td>
+                        <td>$99.9</td>
+                        <td>Categoria 1</td>
+                        <td><i class="fa-solid fa-eye"></i></td>
+                    </tr>
+                    <tr>
+                        <td>092837</td>
+                        <td>producto 6</td>
+                        <td>$99.9</td>
+                        <td>Categoria 1</td>
+                        <td><i class="fa-solid fa-eye"></i></td>
+                    </tr>
+                    <tr>
+                        <td>092837</td>
+                        <td>producto 7</td>
+                        <td>$99.9</td>
+                        <td>Categoria 1</td>
+                        <td><i class="fa-solid fa-eye"></i></td>
+                    </tr>
+                    <tr>
+                        <td>092837</td>
+                        <td>producto 8</td>
+                        <td>$99.9</td>
+                        <td>Categoria 2</td>
+                        <td><i class="fa-solid fa-eye"></i></td>
+                    </tr>
+                </table>
+                <h3>Pagina 1 de 43</h3>  
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="perfil">
+    <div class="content-perfil">
+        <div class="content-perfil-descripcion">
+            <h1>Perfil de empresa</h1>
+            <p>
+                Gestiona tu perfil de empresa y ten un excelente alcance y presentacion para tus clientes, 
+                comparte todas tus redes sociales.
+            </p>
+        </div>
+        <div class="content-perfil-imagen">
+            <lottie-player src="https://lottie.host/d297634b-8caa-4bff-8f72-2a7f88a49d9a/F1MA7DNOvX.json" background="#FFFFFF" speed="1" style="width: 300px; height: 300px" loop autoplay direction="1" mode="normal"></lottie-player>
+        </div>
+    </div>
+    <div class="perfil-ejemplo">
+        <div class="perfil-ejemplo-content">
+            <div class="perfil-ejemplo-banner">
+                <div class="perfil-ejemplo-banner-foto">
+
+                </div>
+            </div>
+            <div class="perfil-ejemplo-content-nombre">
+                <h1>Damm_sport</h1>
+                <p>Tienda de ropa deportiva</p>
+            </div>
+            <div class="perfil-ejemplo-content-recor">
+                <div class="perfil-ejemplo-content-recor-info">
+                    <div class="perfil-ejemplo-content-recor-info-box">
+                        <i class="fa-regular fa-thumbs-up"></i>
+                        <p>239</p> 
+                        <h2>Like alcanzados</h2>
+                    </div>
+                    <div class="perfil-ejemplo-content-recor-info-box">
+                        <i class="fa-solid fa-eye"></i>
+                        <p>239</p> 
+                        <h2>Vistas a perfil</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="perfil-ejemplo-content-acercade">
+                <h2>Acerca de Damm_sport</h2>
+                <p>Somos una tienda de ropa deportiva de venta
+                    al por mayor y detal con ma de 2 años en el mercado, ofreciendo producos de excelente calidad.
+                </p>
+                <h2>Linea de atencion:</h2><span>+57 300 989 9000</span>
+                <h2>Correo:</h2><span> damm_sport@gmail.com</span>
+            </div>
+
+            <div class="perfil-ejemplo-content-catalogo">
+                <h2>Catalogos:</h2>
+                <div class="perfil-ejemplo-content-catalogo-descripcion">
+                    <div class="content-catalogo-card">
+                        <div class="content-catalogo-card-general">
+                            <img src="../static/images/foto-card.jpeg"></img>
+                            <div class="content-catalogo-card-general-descripcion">
+                                <h1>Catalogo de productos</h1>
+                                <h4>340</h4>
+                                <strong>Productos disponibles</strong>
+                                <p>Describe de la mejor forma a tu catalogo asi tus clientes podran conocer un poco de tus productos o servicios</p>
+                                <a href="#"><button>Ver catalogo</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-catalogo-card">
+                        <div class="content-catalogo-card-general">
+                            <img src="../static/images/foto-card.jpeg"></img>
+                            <div class="content-catalogo-card-general-descripcion">
+                                <h1>Catalogo de productos</h1>
+                                <h4>340</h4>
+                                <strong>Productos disponibles</strong>
+                                <p>Describe de la mejor forma a tu catalogo asi tus clientes podran conocer un poco de tus productos o servicios</p>
+                                <a href="#"><button>Ver catalogo</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="perfil-ejemplo-content-catalogo-paginacion">
+                    <p>1 de 24</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

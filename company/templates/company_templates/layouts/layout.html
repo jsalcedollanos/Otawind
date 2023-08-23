@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '../static/css/styles_layouts/layout.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_index.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_signup.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_login.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_createAccount.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_layouts/layout-dashboard.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/style_dashboard.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_bussines.css' %}">
+
+    {% comment %} Google fonts {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Koulen&display=swap" rel="stylesheet">
+
+    {% comment %} Lotties {% endcomment %}
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    {% comment %} FontAwesome {% endcomment %}
+    <script src="https://kit.fontawesome.com/3ffc99ee00.js" crossorigin="anonymous"></script>
+
+    {% block title %}
+        <title>Otawind</title>
+    {% endblock %}
+    
+</head>
+<body>
+<div class="overlay"></div>
+    <header>
+        <label for="check" class="mostrar-menu" id="mostrar-menu">
+            &#8801
+        </label>
+        <input type="checkbox" id="check">
+        <nav class="nav-bar">
+                <div class="nav-bar-content">
+                    <label for="check" class="esconder-menu">
+                        &#215
+                    </label>
+                    <a class="opc-nav" href="{% url 'index' %}">Inicio</a>
+                    {% if request.user.username %}
+                        <a href="{% url 'dashboard' %}" class="opc-nav">Mi Ota-panel</a>
+                        <p>Bienvenid@, {{request.user.username}}</p>
+                        <a class="menu-perfil">&#8801</a>
+                        <div class="nav-bar-content-menu">
+                            <h4>¿Que deseas hacer?</h4>
+                            
+                            <div class="nav-bar-content-menu-opciones">
+                                <ul>
+                                    <li><a id="opc-menu">Ver perfil</a></li>
+                                    <li><a href="{% url 'dashboard' %}" id="opc-menu">Administrar mi cuenta</a></li>
+                                    <li><a id="opc-menu">Mi cuenta</a></li>
+                                </ul>
+                            </div>
+                            <div class="nav-bar-content-menu-logout">
+                                <a id="btn-logout" href="{% url 'logout' %}"><i class="fa-solid fa-power-off"></i></a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a class="opc-nav">¿Quienes somos?</a>
+                        <a class="opc-nav" href="{% url 'ingreso' %}">Ingresar</a>
+                        <a class="opc-nav" href="{% url 'registro' %}">Registrate</a>
+                    {% endif %}
+                    <label for="check" class="esconder-menu">  
+                    </label>    
+                </div>
+        </nav>    
+    </header>
+
+    <div class="content">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+<footer>
+    <div class="content-footer">
+        <div class="content-footer-linea">
+            <div class="content-footer-social">
+                <h4>Siguenos</h4>
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+                <a href=""><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+        <div class="content-footer-general">
+            <div class="content-footer-general-acercade">
+                <h2>Acerca de OTAWIND</h2>
+                <p>Otawind es una plataforma de catalogos y productos donde se puede crear un amplio portafolio de catalogos, productos y servicios, donde se podra tener un perfil de empresa ofreciendo servicios y productos de calidad</p>
+            </div>
+            <div class="content-footer-general-menu">
+                <h2>Menu</h2>
+                <ul>
+                    <a href="{% url 'index' %}"><li>Inicio</li></a>
+                    <a href=""><li>¿Quienes somos?</li></a>
+                    <a href="{% url 'registro' %}"><li>Registrate</li></a>
+                    <a href="{% url 'ingreso' %}"><li>Ingresar</li></a>
+                </ul>
+            </div>
+        </div>  
+    </div>
+    <div class="content-footer-copyrigth">
+        <p>Todos los derechos reservados por Otawind&copy;</p>
+    </div>
+</footer>
+    
+<script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+<script>
+    $(document).ready(()=>{
+        $('.nav-bar-content-menu').hide()
+
+        
+    });
+
+    $('.menu-perfil').click(function(){
+        $('.nav-bar-content-menu').show()
+        $('.overlay').show()
+    })
+
+    $('.overlay').click(function(){
+        $('.nav-bar-content-menu').hide()
+        $('.overlay').hide()
+    })
+
+</script>
+
+</body>
+</html>

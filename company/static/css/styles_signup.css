@@ -1,0 +1,95 @@
+.registro{
+    width: 100%;
+    height: auto;
+}
+
+.content-registro{
+    display: flex;
+    margin: 40px;
+    width: 1200px;
+    height: 500px;
+    border-radius: 20px;
+    background-color: #f4f4f4;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.content-registro-info{
+    width: 100%;
+    height: auto;
+}
+
+.content-registro-info-titulo{
+    background-color: #7D05B4;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.content-registro-info-titulo h1{
+    text-align: center;
+    padding: 20px;
+    font-size: 30px;
+    color: white;
+}
+
+.content-registro-info-titulo p{
+    margin-top: 150px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.content-registro-opciones{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.content-registro-opciones-botones{
+    height: auto;
+    margin-top: 75px;
+}
+
+.content-registro-opciones-boton{
+    justify-content: center;
+    margin: 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #7D05B4;
+    background-color: aliceblue;
+    width: 350px;
+    height: 55px;
+    border-radius: 10px;
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.content-registro-opciones-boton:hover{
+    cursor: pointer;
+    background-color: #ce8feb;
+    transition: 0.2s;
+}
+
+.content-registro-opciones-boton a{
+    font-size: 16px;
+    padding: 18px;
+}
+
+.content-registro-opciones-boton .fa-facebook{
+    font-size: 40px;
+    color: blue;
+    padding: 7px;
+}
+
+.content-registro-opciones-boton .fa-google{
+    font-size: 40px;
+    color: red;
+    padding: 7px;
+}
+
+.content-registro-opciones p{
+    font-size: 20px;
+    text-align: center;
+}

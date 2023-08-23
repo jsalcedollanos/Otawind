@@ -1,0 +1,114 @@
+/* Tabla de contenido */
+/* 
+
+1 - Contenido general
+2 - Mensaje de error
+3 - Formulario
+
+*/
+
+/* 1 - Contenido general */
+.creacion{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.content-creacion{
+    display: block;
+    margin-bottom: 100px;
+    background-color: #F4F4F4;
+    width: 80%;
+    height: 700px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.content-creacion-titulo{
+    background-color: #7D05B4;
+    width: 40%;
+    height: 70px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+} 
+
+.content-creacion-titulo h1{
+    padding: 16px;
+    text-align: center;
+    color: white;
+}
+
+.content-creacion-general{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+/* Fin */
+
+/* 2 - Formulario */
+.content-creacion-general-form{
+    width: 100%;
+    height: 100%;
+    font-size: 17px;
+    display: flex;
+    justify-content: left;
+    margin-top: 70px;
+}
+
+.content-creacion-general-form-bloque input{
+    height: 15px;
+    width: 320px;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    border-style: none;
+}
+
+.content-creacion-general-form-botones{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.content-creacion-general-form #btn-registrar{
+    width: 250px;
+    height: 40px;
+    margin: 20px;
+    font-size: 16px;
+}
+
+.content-creacion-general-form #btn-registrar:hover{
+    background-color: #e1aafa;
+    cursor: pointer;
+}
+
+.content-creacion-general-form-bloque{
+    margin-top: 30px;
+    text-align: right;
+}
+
+.content-creacion-general-form-paso{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.content-creacion-general-form-paso h2{
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.content-creacion-general-form-paso #btn-siguiente{
+    margin-top: 300px;
+    border-radius: 10px;
+    height: 40px;
+    width: 200px;
+    background-color: #7D05B4;
+    color: white;
+    font-size: 15px;
+    border-style: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+/* Fin */
