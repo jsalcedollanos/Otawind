@@ -1,0 +1,66 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% load static %}
+{% block title %}
+    <title>Editar perfil | Otawind</title>
+{% endblock title %}
+
+{% block content %}
+
+{% comment %} Mensaje de error {% endcomment %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+        <p id="error">{{message}}</p>
+    {% else %}
+    <p id="success">{{message}} <a href="{% url 'perfil' perfil.name perfil.id %}">Volver al perfil</a></p>
+    {% endif %} 
+    {% endfor %}  
+{% comment %} Fin {% endcomment %} 
+
+    <div class="content-bussines">
+        {% include 'company_templates/layouts/layout-dashboard.html' %} 
+        <div class="content-bussines-general">
+            <h1>Agregar perfil de empresa</h1>
+            
+            {% comment %} <div class="content-bussines-general-errors"> 
+                <p>{{form.errors}}</p>  
+            </div> {% endcomment %}
+                
+            <form enctype="multipart/form-data" action="{% url 'edicionPerfil' id=perfil.id %}" class="content-bussines-general-form" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="content-bussines-general-form-fields">
+                        {% comment %} <spam style="color:red">{{field.errors}}</spam> {% endcomment %}
+                        <label>{{field.label}}</label><br>
+                        <div class="input-{{forloop.counter}}">
+                            {{field}}
+                        </div>
+                    </div>
+                {% endfor %}  
+                <div class="btn-form">
+                    <input id="btn-submit" type="submit" value="Guardar"> 
+                </div>           
+            </form>
+        </div> 
+    </div> 
+{% endblock content %}
+
+{% block script %}
+    <script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+    <script>
+    $(document).ready(()=>{
+        $('#id_name').val('{{perfil.name}}')       
+        $('#id_bio').val('{{perfil.bio}}')       
+        $('#id_category').val('{{perfil.category_id}}')
+        $('#id_description').val('{{perfil.description}}')
+        $('#id_contact').val('{{perfil.contact}}')
+        $('#id_email').val('{{perfil.email}}')
+        $('#id_facebook').val('{{perfil.facebook}}')
+        $('#id_instagram').val('{{perfil.instagram}}')
+        $('#id_whatsapp').val('{{perfil.whatsapp}}')
+    })
+    </script>
+{% endblock script %}
+
+
+
+

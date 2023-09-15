@@ -1,0 +1,35 @@
+.modal{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111111bd;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal--show{
+    opacity: 1;
+    pointer-events: unset;
+}
+
+.content-modal{
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    width: 30%;
+    margin: auto;
+}
+
+.content-modal-titulo{
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+.content-modal a{
+    font-size: 20px;
+    margin: 20px;
+    text-decoration: none;
+}

@@ -42,7 +42,7 @@
 
 
 #success{
-    background-color: #e09dff;
+    background-color: #d9ffe4;
     color: green;
     width: 100%;
     height: 20px;
@@ -88,16 +88,18 @@
     color: #7D05B4;
 }
 
-.content-bussines-general-form-fields #id_description{
+.content-bussines-general-form-fields textarea{
     width: 450px;
     padding: 10px;
     color: #7D05B4;
 }
 
 .content-bussines-general-form #btn-submit{
+    color: white;
+    border-radius: 20px;
+    border-style: none;
     margin-top: 30px;
     width: 150px;
-    color: white;
     background-color: #7D05B4;
     height: 40px;
 }
@@ -105,6 +107,7 @@
 .content-bussines-general-form #btn-submit:hover{
     background-color: #e5b7fa;
     color: black;
+    cursor: pointer;
 }
 
 /* Fin */

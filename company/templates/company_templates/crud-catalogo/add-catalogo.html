@@ -1,0 +1,44 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% load static %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+    <div class="content-catalogos">
+        {% include 'company_templates/layouts/layout-dashboard.html' %} 
+        <div class="content-catalogos-general">
+            {% comment %} Mensaje flash {% endcomment %}
+            {% for msg in messages %}
+            {% if msg.tags == 'error' %}
+            <div id="error">
+                <p>{{msg}}</p>
+            </div>
+            {% else %}
+            <div id="success">
+                <p>{{msg}}</p>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% comment %} Fin mensaje flash {% endcomment %}
+
+            <h1>Agrega tus catalogos</h1>
+            <div class="content-catalogos-general-form">
+                <form class="content-catalogos-general-form"  enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="content-catalogos-general-form-fields">  
+                            <div class="fields-label">                      
+                            <label>{{field.label}}</label>
+                            <p style="color:red">{{field.errors}}</p>
+                            </div>
+                            {{field}}
+                        </div>
+                    {% endfor %}
+                    <input type="submit" value="Guardar" id="btn-guardar" class="btn-guardar">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+

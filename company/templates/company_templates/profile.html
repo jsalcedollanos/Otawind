@@ -1,0 +1,103 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% load static %}
+
+{% block title %}
+    <title>perfil</title>
+{% endblock title %}
+
+{% block content %}
+    <section class="section-perfil">
+        <div class="content-perfil">
+            <div class="content-perfil-foto">
+                <div class="content-perfil-foto-portada">
+                    <div class="imagen-portada">
+                        <img src="{{perfil.photo_portada.url}}">
+                    </div>
+                </div>
+
+                <div class="content-perfil-foto-fotoPerfil">
+                    <div class="imagen-perfil">
+                        <img src="{{perfil.photo_profile.url}}">
+                    </div>
+                    <div class="info-perfil">
+                        <h1>{{perfil.name}}</h1>
+                        <p>{{perfil.category}}</p>
+                        <p id="info-perfil-bio">{{perfil.bio}}</p>
+                    </div> 
+                    <div class="botones-funciones">
+                        <a href="/edicion-perfil/{{perfil.id}}" id="btn-editar">Editar perfil</a>
+                        <a id="btn-ajustar"><i class="fa-solid fa-gears"></i> <i class="fa-solid fa-caret-down"></i></a>
+                    </div>   
+                </div>
+
+                <h2 id="titulo-catalogo">Catalogos</h2>
+                <div class="content-perfil-foto-catalogo">
+                    {% for catalogo in page_catalogos %}
+                    {{catalogo.perfil_id}}
+                    {% if catalogo.profile_id == catalogo.profile.id %}
+                    <div class="content-perfil-foto-catalogo-box">
+                        <div class="box-catalogo">
+                            <img src="{{catalogo.photo_portada.url}}">
+                            <div class="box-catalogo-descripcion">
+                                <h2 class="titulo-catalogo">{{catalogo.name}}</h2>
+                                <div class="cant-productos">
+                                    <h2>290</h2>
+                                </div>
+                                <p>Productos disponibles</p>
+                                <div class="descripcion">
+                                    <p>{{catalogo.description}}</p>
+                                </div>
+                                <a  class="btn-ver" href="">Ver catalogo</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% endif %}
+                    {% empty %}
+                    <h2>No se encontraron catalogos en tu perfil</h2>
+                    <p>¿Deseas agregar un catalogo a tu perfil?</p>
+                    {% endfor %}
+                    
+                </div>
+                {% comment %} Paginacion {% endcomment %}
+                <div id="paginacion">
+                    <span class="step-links">
+                        {% if  page_catalogos.has_previous %}
+                            <a href="?page=1">&laquo; Primero</a>
+                            <a href="?page={{  page_catalogos.previous_page_number }}">Anterior</a>
+                        {% endif %}
+                        <span class="current">
+                            Pagina {{  page_catalogos.number }} de {{  page_catalogos.paginator.num_pages }}.
+                        </span>
+                        {% if  page_catalogos.has_next %}
+                            <a href="?page={{  page_catalogos.next_page_number }}">Siguiente</a>
+                            <a href="?page={{  page_catalogos.paginator.num_pages }}">Ultima &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="content-perfil-descripcion">
+                    <div class="content-perfil-descripcion-info">
+                        <h2>Descripcion</h2>
+                        <p>{{perfil.description|safe}}</p>
+                    </div>
+                    <div class="content-perfil-descripcion-detalle">
+                        <h2>Detalles</h2>
+                        <h3>Contacto</h3>
+                        <p>{{perfil.contact}}</p>
+                        <h3>Email</h3>
+                        <p>{{perfil.email}}</p>
+                        <h3>Redes sociales</h3>
+                        <div class="content-perfil-descripcion-detalle-social">
+                            <div class="box-social">
+                                <a href="{{perfil.facebook}}" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="{{perfil.whatsapp}}" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                                <a href="{{perfil.instagram}}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+

@@ -1,0 +1,189 @@
+/* Tabla de contenido */
+/* 
+1 - contenido
+2 - Card de perfiles
+3 - Formulario
+4 - Mensaje flash
+5 - Seleccionar Catalogo
+6 - Paginacion
+*/
+
+/* Contenido */
+.content-catalogos{
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+
+
+/* Card de perfiles */
+.content-catalogos-perfiles{
+    width: 100%;
+}
+
+.content-catalogos-perfiles h1{
+    margin: 40px;
+}
+
+.content-catalogos-perfiles-general{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+.content-catalogos-perfiles-general-card-box{
+    display: flex;
+    margin: 15px;
+    justify-content: center;
+    background-color: rgb(245, 245, 245);
+    margin-top: 40px;
+    height: 240px;
+    width: 180px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.content-catalogos-perfiles-general-card-box:hover{
+    cursor: pointer;
+    box-shadow: rgba(255, 0, 221, 0.487) 0px 3px 8px;
+}
+
+.content-catalogos-perfiles-general-card-box a{
+    text-decoration: none;
+    color: black;
+}
+
+.content-catalogos-perfiles-general-card-box .perfil-imagen{
+    margin-top: 30px;
+    margin-bottom: 7px;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+}
+
+.content-catalogos-perfiles-general-card-box .perfil-imagen img{
+    border-color: black;
+    border-style: 2px solid;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+}
+
+.content-catalogos-perfiles .paginacion{
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Formulario */
+.content-catalogos-general{
+    height: auto;
+    width: 100%;
+}
+
+.content-catalogos-general h1{
+    margin: 40px;
+}
+
+.content-catalogos-general .title-catalogo{
+    margin: 40px;
+}
+
+.content-catalogos-general-form{
+    height: auto;
+    width: 100%;
+}
+
+.content-catalogos-general-form form{
+    background-color: #f4f4f4;
+    border-radius: 20px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 30px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.content-catalogos-general-form .btn-guardar{
+    background-color: #7D05B4;
+    font-size: 16px;
+    margin-left: 30px;
+    height: 50px;
+    width: 150px;
+    color: white;
+    border-radius: 20px;
+    border-style: none;
+}
+
+.content-catalogos-general-form .btn-guardar:hover{
+    background-color: #d583fa;
+    color: black;
+    cursor: pointer;
+}
+
+.content-catalogos-general-form-fields{
+    margin: 15px;
+}
+
+.content-catalogos-general-form-fields .fields-label{
+    display: flex;
+}
+
+.content-catalogos-general-form-fields input, textarea{
+    width: 380px;
+    padding: 12px;
+    color: #7D05B4;
+}
+
+/* 4 - Mensaje Flash */
+
+#error{
+    background-color: #e09dff;
+    color: red;
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+
+#success{
+    background-color: #d9ffe4;
+    color: green;
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.errorlist{
+    text-align: justify;
+    list-style: none;
+    color: red;
+    margin-left: 10px;
+    width: 320px;
+    font-size: 12px;
+}
+
+/* 5 - Seleccionar catalogo */
+.content-catalogos-general{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.content-catalogo-general-box{
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+}
+
+
+/* 6 - paginacion */
+
+.paginacion{
+    text-align: center;
+    margin-top: 30px;
+}

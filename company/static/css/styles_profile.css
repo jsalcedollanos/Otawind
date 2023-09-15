@@ -1,0 +1,327 @@
+/* Tabla de contenido 
+
+    1 - Imagenes perfil
+    2 - Descripcion
+    3 - Paginacion
+*/
+
+
+/* 1 - Imagenes perfil */
+.section-perfil{
+    width: 100%;
+    height: auto;
+}
+
+.content-perfil{
+    width: 77%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.content-perfil-foto{
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.content-perfil-foto-portada .imagen-portada{
+    background-color: antiquewhite;
+    width: 1108px;
+    height: 380px;
+    margin: 0 auto;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.content-perfil-foto-portada .imagen-portada img{
+    width: 100%;
+    height: auto;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+@supports(object-fit: cover){
+    .content-perfil-foto-portada .imagen-portada img{
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+}
+
+.content-perfil-foto-fotoPerfil{
+    display: flex;
+    width: 100%;
+}
+
+.content-perfil-foto-fotoPerfil .imagen-perfil{
+    height: 250px;
+    width: 250px;
+    margin-top: 20px;
+}
+
+.content-perfil-foto-fotoPerfil .imagen-perfil img{
+    border-radius: 50%;
+}
+
+@supports (object-fit: cover){
+    .content-perfil-foto-fotoPerfil .imagen-perfil img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+.content-perfil-foto-fotoPerfil .info-perfil{
+    margin: 50px;
+    width: 290px;
+}
+
+.content-perfil-foto-fotoPerfil .info-perfil h1{
+    font-size: 30px;
+}
+
+.content-perfil-foto-fotoPerfil .info-perfil p{
+    color: #7F38B4;
+}
+
+.content-perfil-foto-fotoPerfil .info-perfil #info-perfil-bio{
+    margin-top: 15px;
+    width: 547px;
+}
+
+.content-perfil-foto-fotoPerfil .botones-funciones{
+    width: 500px;
+    justify-content: right;
+    display: flex;
+}
+
+.content-perfil-foto-fotoPerfil .botones-funciones #btn-editar{
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    background-color: #7F38B4;
+    border-radius: 20px;
+    width: 150px;
+    height: 20px;
+    padding: 10px;
+    margin-top: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.content-perfil-foto-fotoPerfil .botones-funciones #btn-ajustar{
+    text-align: right;
+    text-align: center;
+    color: white;
+    margin-left: 20px;
+    background-color: #7F38B4;
+    border-radius: 20px;
+    width: 40px;
+    height: 20px;
+    padding: 10px;
+    margin-top: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.content-perfil-foto-fotoPerfil .botones-funciones #btn-editar:hover{
+    cursor: pointer;
+    color: black;
+    background-color: #d49bff;
+    transition: 0.3s;
+}
+
+.content-perfil-foto-fotoPerfil .botones-funciones #btn-ajustar:hover{
+    cursor: pointer;
+    background-color: #d49bff;
+    transition: 0.3s;
+}
+
+/* 2 - Catalogos */
+
+#titulo-catalogo{
+    margin-top: 60px;
+}
+
+.content-perfil-foto-catalogo{
+    height: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.content-perfil-foto-catalogo-box{
+    display: flex;
+    justify-content: center;
+    height: 410px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.content-perfil-foto-catalogo-box .box-catalogo{ 
+    height: auto;
+    display: block;
+    background-color: white;
+    width: 300px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+@supports(object-fit: cover){
+    .content-perfil-foto-catalogo .box-catalogo img{
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+}
+
+.content-perfil-foto-catalogo-box .box-catalogo img{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.content-perfil-foto-catalogo-box .box-catalogo-descripcion{
+    position: relative;
+    background: transparent;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.774),#ffffff);
+    width: 100%;
+    height: 197px;
+    bottom: 200px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.content-perfil-foto-catalogo-box .box-catalogo-descripcion .titulo-catalogo{
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+    color: black;
+    background-color: #BE92D7;
+}
+
+.content-perfil-foto-catalogo-box .box-catalogo-descripcion h2{
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.content-perfil-foto-catalogo-box .box-catalogo-descripcion p{
+    overflow: auto;
+    height: 20px;
+    font-size: 13px;
+    text-align: center;
+    padding: 7px;
+}
+
+.content-perfil-foto-catalogo-box .box-catalogo-descripcion .cant-productos{
+    background-color: rgba(0, 0, 0, 0.333);
+    padding: 3px;
+    height: 20px;
+    width: 80px;
+    border-radius: 20px;
+    margin: 0 auto;
+}
+
+.content-perfil-foto-catalogo-box .box-catalogo-descripcion .descripcion{
+    height: 50px;
+    margin-bottom: 13px;
+}
+
+.content-perfil-foto-catalogo-box .box-catalogo-descripcion .btn-ver{
+    background-color: #7e38b473;
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    width: 100px;
+    padding: 6px;
+    height: 20px;
+    border-radius: 20px;
+    margin: 0 auto;
+}
+
+/* 3 - Descripcion */
+
+.content-perfil-descripcion{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.content-perfil-descripcion-info{
+    margin-right: 10px;
+    margin-top: 80px;
+    width: 40%;
+    height: auto;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.content-perfil-descripcion-info p{
+    text-align: left;
+    font-size: 17px;
+    margin-top: 20px;
+    text-align: justify;
+    word-wrap: break-word;
+}
+
+.content-perfil-descripcion-detalle{
+    margin-left: 10px;
+    margin-top: 80px;
+    display: block;
+    width: 40%;
+    height: auto;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.content-perfil-descripcion-detalle h3{
+    margin: 20px;
+}
+
+.content-perfil-descripcion-detalle p{
+    font-size: 15px;
+    text-align: left;
+    margin-left: 30px;
+    margin-top: 0;
+}
+
+.content-perfil-descripcion-detalle-social{
+    width: 90%;
+    height: 100px;
+    padding: 23px;
+}
+
+.content-perfil-descripcion-detalle-social .box-social{
+    justify-content: center;
+    display: flex;
+}
+
+.content-perfil-descripcion-detalle-social .box-social a{
+    text-decoration: none;
+    color: black;
+}
+
+.content-perfil-descripcion-detalle-social .box-social i{
+    font-size: 60px;
+    margin: 20px;
+}
+
+/* 3 - Paginacion */
+
+#paginacion{
+    margin: 0 auto;
+    text-align: center;
+    color: black;
+    padding: 5px;
+    background-color: #BE92D7;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#paginacion span a{
+    text-decoration: none;
+}

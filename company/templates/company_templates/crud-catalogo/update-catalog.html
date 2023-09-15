@@ -1,0 +1,56 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% load static %}
+{% block title %}
+    <title>Editar Catalogo | Otawind</title>
+{% endblock title %}
+
+{% block content %}
+
+{% comment %} Mensaje de error {% endcomment %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+        <p id="error">{{message}}</p>
+    {% else %}
+    <p id="success">{{message}} <a href="{% url 'viewCatalogo' %}">Ver catalogos</a></p>
+    {% endif %} 
+    {% endfor %}  
+{% comment %} Fin {% endcomment %} 
+
+    <div class="content-catalogos">
+        {% include 'company_templates/layouts/layout-dashboard.html' %} 
+        <div class="content-catalogos-general">
+            <h1>Editar catalogo</h1>
+            <h3>Actualmente estas editando: <span style="color:red">{{catalogo.name}}</span></h3>
+            {% comment %} <div class="content-bussines-general-errors"> 
+                <p>{{form.errors}}</p>  
+            </div> {% endcomment %}
+                
+            <form enctype="multipart/form-data" action="{% url 'edicionCatalogo' id=catalogo.id %}" class="content-bussines-general-form" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="content-bussines-general-form-fields">
+                        {% comment %} <spam style="color:red">{{field.errors}}</spam> {% endcomment %}
+                        <label>{{field.label}}</label><br>
+                        <div class="input-{{forloop.counter}}">
+                            {{field}}
+                        </div>
+                    </div>
+                {% endfor %}  
+                <div class="btn-form">
+                    <input id="btn-submit" type="submit" value="Guardar"> 
+                </div>           
+            </form>
+        </div> 
+    </div> 
+{% endblock content %}
+
+{% block script %}
+    <script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+    <script>
+    $(document).ready(()=>{
+        $('#id_name').val('{{catalogo.name}}')       
+        $('#id_description').val('{{catalogo.description}}')
+        $('#id_profile').val('{{catalogo.profile_id}}')
+    })
+    </script>
+{% endblock script %}

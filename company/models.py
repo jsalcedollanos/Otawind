@@ -38,9 +38,10 @@ class Category(models.Model):
 class ProfileBussines(models.Model):
     name = models.CharField(max_length=100, verbose_name="nombre")
     user = models.ForeignKey(User, verbose_name="usuario" , on_delete=models.CASCADE)
+    bio = models.TextField(max_length=50, null=True)
     category = models.ForeignKey(Category, verbose_name="categoria", on_delete=models.CASCADE)
-    photo_portada = models.ImageField(upload_to="perfil_bussines", verbose_name="portada")
-    photo_profile = models.ImageField(upload_to="perfil_bussines", verbose_name="perfil")
+    photo_portada = models.ImageField(upload_to="perfil_bussines", verbose_name="portada", null=True)
+    photo_profile = models.ImageField(upload_to="perfil_bussines", verbose_name="perfil", null=True)
     description = models.TextField(max_length=500, verbose_name="descripcion")
     contact = models.CharField(max_length=50, verbose_name="contacto")
     email = models.EmailField(max_length=254, verbose_name="correo")
@@ -59,7 +60,11 @@ class ProfileBussines(models.Model):
 
 
 class Catalogos(models.Model):
-    name = models.CharField(max_length=100, verbose_name="nombre")
+    user = models.ForeignKey(User, verbose_name="user", on_delete=models.CASCADE, null=True)
+    profile = models.ForeignKey(ProfileBussines, verbose_name="perfil", on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=40, verbose_name="nombre")
+    photo_portada = models.ImageField(upload_to="catalogo", verbose_name="portada", null=True)
+    description = models.TextField(max_length=100, null=True, verbose_name="descripcion")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="fecha creacion")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="fecha actualizacion")
     class Meta:

@@ -1,0 +1,102 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% load static %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+    <div class="content-catalogos">
+        {% include 'company_templates/layouts/layout-dashboard.html' %}
+        <div class="content-catalogos-general">
+            <h2 class="title-catalogo">Selecciona tu catalogo</h2>
+            <div class="content-catalogo-general-box">
+                {% for catalogo in catalogos %}
+                <div class="card-catalogo">
+                    <div id ="card-catalogo-face-{{catalogo.id}}" class="card-catalogo-face">
+                        <div class="card-catalogo-face-portada">
+                            <img src="{{catalogo.photo_portada.url}}">
+                        </div>
+                        <div class="card-catalogo-face-descripcion">
+                            <h2>{{catalogo.name}}</h2>
+                            <h3>290</h3>
+                            <h4>Productos Disponibles</h4>
+                            <p>{{catalogo.description}}</p>
+                            <button id="btn-opc-{{catalogo.id}}" class="btn-opc">Opciones</button>
+                        </div>
+                    </div>
+                    <div id="card-funciones-{{catalogo.id}}" class="card-funciones">
+                        <div class="card-funciones-opc">
+                            <div class="card-funciones-opc-cerrar">
+                                <a class="cerrar-ventana" id="cerrar-ventana-{{catalogo.id}}"><i class="fa-regular fa-circle-xmark"></i></a>
+                            </div>
+                            <a href="{% url 'edicionCatalogo' catalogo.id %}"><i class="fa-solid fa-pen-to-square"></i>Editar</a>
+                            <a id="eliminar-{{catalogo.id}}"><i class="fa-solid fa-trash"></i>Borrar</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="paginacion">
+                <span class="step-links">
+                    {% if  catalogos.has_previous %}
+                        <a href="?page=1">&laquo; Primero</a>
+                        <a href="?page={{  catalogos.previous_page_number }}">Anterior</a>
+                    {% endif %}
+                    <span class="current">
+                        Pagina {{  catalogos.number }} de {{  catalogos.paginator.num_pages }}.
+                    </span>
+                    {% if  catalogos.has_next %}
+                        <a href="?page={{  catalogos.next_page_number }}">Siguiente</a>
+                        <a href="?page={{  catalogos.paginator.num_pages }}">Ultima &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+            <div class="modal">
+                <div class="content-modal">
+                    <h2 class="content-modal-titulo">¿Deseas eliminar tu catalogo?</h2>
+                    <a id="si">Si</a>
+                    <a href="">No</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+{% endblock content %}
+
+{% block script %}
+<script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+<script>
+    $(document).ready(()=>{
+        $('.card-funciones').hide()
+    })
+    {% for catalogo in catalogos %}
+    $('#btn-opc-{{catalogo.id}}').click(function(){
+        $('#card-catalogo-face-{{catalogo.id}}').hide('slow')
+        $('#card-funciones-{{catalogo.id}}').show('slow')
+    })
+    {% endfor %}
+
+    {% for catalogo in catalogos %}
+    $('#cerrar-ventana-{{catalogo.id}}').click(function(){
+        $('#card-funciones-{{catalogo.id}}').hide('slow')
+        $('#card-catalogo-face-{{catalogo.id}}').show('slow')
+    })
+    {% endfor %}
+
+    {% comment %} Modal {% endcomment %}
+    {% for catalogo in catalogos %}
+    $('#eliminar-{{catalogo.id}}').click(function(e){
+        $('.modal').addClass("modal--show")
+        $('#si').attr('href','{% url 'eliminarCatalogo' catalogo.id %}')
+    })
+    {% endfor %}
+</script>
+
+<script type="text/javascript">
+    
+</script>
+{% endblock script %}
+
+
+

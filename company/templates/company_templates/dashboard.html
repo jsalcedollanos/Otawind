@@ -12,9 +12,9 @@
             <div class="content-dash-general-estadistica">
                 <div class="content-dash-general-estadistica-card">
                     <h3>
-                        {{bussines}}
+                        <h3>{{bussines}}</h3>
                     </h3>
-                    <p>Vistas a tu empresa</p>
+                    <p>Perfiles de negocios</p>
                 </div>
                 <div class="content-dash-general-estadistica-card">
                     <h3>0</h3>
@@ -26,7 +26,24 @@
                 </div>
             </div>
             <div class="content-dash-general-productos">
-                <h1>Ultimos productos</h1>
+                <h1>Mis negocios</h1>
+                <div class="content-negocio">
+                    {% for perfil in profile %}
+                    {% if perfil.user.id == request.user.id %}
+                        <a href="{% url 'perfil' perfil.name perfil.id %}">
+                            <div class="content-negocio-card">
+                                <div class="content-negocio-card-perfil">
+                                    <img src="{{perfil.photo_profile.url}}">
+                                </div>
+                                <div class="content-negocio-card-info">
+                                    <h3>{{perfil.name}}</h3>
+                                    <span>{{perfil.category.name}}<span>
+                                </div>
+                            </div>
+                        </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

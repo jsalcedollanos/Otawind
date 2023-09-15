@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="{% static '../static/css/styles_layouts/layout-dashboard.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/style_dashboard.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_bussines.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_profile.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_catalogo.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_global/styles_catalogs.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_global/styles_modal.css' %}">
 
     {% comment %} Google fonts {% endcomment %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,9 +47,10 @@
                     <label for="check" class="esconder-menu">
                         &#215
                     </label>
-                    <a class="opc-nav" href="{% url 'index' %}">Inicio</a>
+                    
                     {% if request.user.username %}
-                        <a href="{% url 'dashboard' %}" class="opc-nav">Mi Ota-panel</a>
+                        <a class="opc-nav" href="{% url 'index' request.user.username %}">Inicio</a>
+                        <a href="{% url 'dashboard' username.username %}" class="opc-nav">Mi Ota-panel</a>
                         <p>Bienvenid@, {{request.user.username}}</p>
                         <a class="menu-perfil">&#8801</a>
                         <div class="nav-bar-content-menu">
@@ -53,8 +58,8 @@
                             
                             <div class="nav-bar-content-menu-opciones">
                                 <ul>
-                                    <li><a id="opc-menu">Ver perfil</a></li>
-                                    <li><a href="{% url 'dashboard' %}" id="opc-menu">Administrar mi cuenta</a></li>
+                                    <li><a href="{% url 'selectPerfil' %}" id="opc-menu">Mis perfiles</a></li>
+                                    <li><a href="{% url 'dashboard' name=username.username %}" id="opc-menu">Administrar mi cuenta</a></li>
                                     <li><a id="opc-menu">Mi cuenta</a></li>
                                 </ul>
                             </div>
@@ -95,7 +100,7 @@
             <div class="content-footer-general-menu">
                 <h2>Menu</h2>
                 <ul>
-                    <a href="{% url 'index' %}"><li>Inicio</li></a>
+                    <a href="{% url 'home' %}"><li>Inicio</li></a>
                     <a href=""><li>¿Quienes somos?</li></a>
                     <a href="{% url 'registro' %}"><li>Registrate</li></a>
                     <a href="{% url 'ingreso' %}"><li>Ingresar</li></a>
@@ -108,12 +113,17 @@
     </div>
 </footer>
     
+
+{% block script %}
+
+{% endblock script %}
+
+
+
 <script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
 <script>
     $(document).ready(()=>{
         $('.nav-bar-content-menu').hide()
-
-        
     });
 
     $('.menu-perfil').click(function(){
@@ -127,6 +137,5 @@
     })
 
 </script>
-
 </body>
 </html>

@@ -1,0 +1,48 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% load static %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+    <div class="content-catalogos">
+        {% include 'company_templates/layouts/layout-dashboard.html' %} 
+        <div class="content-catalogos-perfiles">
+            <h1>Selecciona tus catalogos</h1>
+            <h2>Tus perfiles:</h2>
+            <div class="content-catalogos-perfiles-general">            
+                {% for perfil in perfiles %}
+                <div class="content-catalogos-perfiles-general-card">
+                    <div class="content-catalogos-perfiles-general-card-box">
+                        <a href="agregar-catalogo/{{perfil.id}}">
+                            <div class="perfil-imagen">
+                                <img src="{{perfil.photo_profile.url}}">
+                            </div>
+                            <div class="perfil-descripcion">
+                                {{perfil.name}}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="paginacion">
+                <span class="step-links">
+                    {% if  page_perfiles.has_previous %}
+                        <a href="?page=1">&laquo; Primero</a>
+                        <a href="?page={{  page_perfiles.previous_page_number }}">Anterior</a>
+                    {% endif %}
+                    <span class="current">
+                        Pagina {{  page_perfiles.number }} de {{  page_perfiles.paginator.num_pages }}.
+                    </span>
+                    {% if  page_perfiles.has_next %}
+                        <a href="?page={{  page_perfiles.next_page_number }}">Siguiente</a>
+                        <a href="?page={{  page_perfiles.paginator.num_pages }}">Ultima &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
