@@ -1,0 +1,31 @@
+{% extends 'company_templates/layouts/layout.html' %}
+
+{% load i18n %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+<section class="creacion">
+  <div class="content-creacion">  
+    <div class="content-creacion-titulo"><h1>Sistema de registro</h1></div>
+      <p id="login">{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+        <div class="content-creacion-general">
+        <div class="content-creacion-general-form">
+            <form method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            <div class="content-creacion-general-form-bloque">
+            {{ form.as_p }}
+            </div>
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <div class="content-creacion-general-form-botones">
+              <button id="btn-registrar" type="submit">{% trans "Sign Up" %} &raquo;</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

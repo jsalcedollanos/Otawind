@@ -1,0 +1,18 @@
+    <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="content-general-form">
+            {% for field in form %}
+                <div class="field-form">
+                    <div class="field-form-label" id="content-field-{{forloop.counter}}">
+                        <label id="label-{{forloop.counter}}">{{field.label}}</label>
+                        <p>{{field.errors}}</p>
+                    </div>
+                    {{field}}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="funciones-botones">
+            <input type="submit" value="Guardar">
+            <input type="button" value="Cancelar">
+        </div>
+    </form>

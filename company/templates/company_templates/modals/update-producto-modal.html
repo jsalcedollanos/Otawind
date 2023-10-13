@@ -1,0 +1,18 @@
+<div class="modal-form">
+    <div class="content-modal">
+        <h2 class="content-modal-titulo">Edita tu producto</h2>
+        <form enctype="multipart/form-data" action="{% url "actualizarProducto" name=request.user.username id='29' %}" method="POST">
+            {% csrf_token %}
+            <div class="content-productp-general-form">
+                {% for field in form %}
+                    <div class="field-form">
+                        {{field.label}}
+                        {{field}}
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit">Editar</button>
+            <button id="btn-cancelar" type="button">Cancelar</button>
+        </form>
+    </div>
+</div>

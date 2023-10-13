@@ -3,6 +3,7 @@
     1 - Imagenes perfil
     2 - Descripcion
     3 - Paginacion
+    4 - Catalogos
 */
 
 
@@ -56,7 +57,7 @@
 .content-perfil-foto-fotoPerfil .imagen-perfil{
     height: 250px;
     width: 250px;
-    margin-top: 20px;
+    margin: 35px;
 }
 
 .content-perfil-foto-fotoPerfil .imagen-perfil img{
@@ -139,7 +140,7 @@
 /* 2 - Catalogos */
 
 #titulo-catalogo{
-    margin-top: 60px;
+    margin: 60px;
 }
 
 .content-perfil-foto-catalogo{
@@ -247,6 +248,8 @@
 .content-perfil-descripcion{
     width: 100%;
     height: 100%;
+    margin: 0 !important;
+    justify-content: center;
     display: flex;
 }
 
@@ -324,4 +327,11 @@
 
 #paginacion span a{
     text-decoration: none;
+}
+
+/* 4 - Catalogos */
+
+.catalogo-error{
+    display: block;
+    text-align: center;
 }

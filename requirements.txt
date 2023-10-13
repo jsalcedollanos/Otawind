@@ -6,3 +6,4 @@ mysqlclient==2.2.0
 protobuf==4.21.12
 PyMySQL==1.1.0
 sqlparse==0.4.4
+fontawesomefree==6.4.2

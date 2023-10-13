@@ -1,0 +1,110 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% load static %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+    <div class="content-producto">
+        {% include 'company_templates/layouts/layout-dashboard.html' %}
+        <div class="content-producto-general">
+             {% comment %} Mensaje flash {% endcomment %}
+             {% for msg in messages %}
+             {% if msg.tags == 'error' %}
+             <div id="error">
+                 <p>{{msg}}</p>
+             </div>
+             {% else %}
+             <div id="success">
+                 <p>{{msg}}</p>
+             </div>
+             {% endif %}
+             {% endfor %}
+             {% comment %} Fin mensaje flash {% endcomment %}
+            <h2>Añade tus productos</h2>
+            <div class="content-producto-general-navbar">
+                <div class="btn-opc">
+                    <div class="btn-opc-boton">
+                        <a href="{% url "addProductos" name=request.user.username id=request.user.id %}">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            <h4>Añadir producto</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="btn-opc">
+                    <div class="btn-opc-boton">
+                        <a href="{% url "addProductos" name=request.user.username id=request.user.id %}">
+                            <i class="fa-brands fa-product-hunt"></i>
+                            <h4>Añadir servicio</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="content-producto-general-tabla">
+                <table class="tabla-productos">
+                    <tr>
+                        <th>ID</th>
+                        <th>ID Producto</th>
+                        <th>Producto</th>
+                        <th>Catalogo</th>
+                        <th>Imagen</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Estado</th>
+                        <th>Funciones</th>
+                    </tr>
+                    {% for producto in productos %}
+                    <tr class="tabla-productos-datos">
+                        <td>{{producto.id}}</td>
+                        <td>{{producto.id_product}}</td>
+                        <td>{{producto.name_product}}</td>
+                        <td>{{producto.catalog.name}}</td>
+                        <td id="foto-producto"><img src="{{producto.photo_product1.url}}"></td>
+                        <td>{{producto.price}}</td>
+                        <td>{{producto.quantities}}</td>
+                        {% if producto.status == 'Activo' %}
+                            <td style="color:#7F38B4">{{producto.status}}</td>
+                        {% else %}
+                        <td style="color:red">{{producto.status}}</td>
+                        {% endif %}
+                        
+                        <td> <a><i class="fa-solid fa-eye"></i></a> | <a id="editar-{{producto.id}}" href="{% url "edicionProducto" name=request.user.username id=producto.id %}"><i class="fa-solid fa-wand-magic-sparkles"></i></a> | <a id="eliminar-{{producto.id}}"><i class="fa-solid fa-trash"></i></a> </td>
+                    </tr>
+                    {% empty %}
+                    <h2>No se encontraron productos</h2>
+                    {% endfor %}
+                </table>
+            </div>
+        </div> 
+        <div class="modal">
+            <div class="content-modal">
+                <h2 class="content-modal-titulo">¿Deseas eliminar tu catalogo?</h2>
+                <a id="si">Si</a>
+                <a href="">No</a>
+            </div>
+        </div>
+    </div> 
+{% endblock content %}
+
+{% block script %}
+<script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+<script>
+    $(document).ready(()=>{
+        setTimeout(function() {
+            $("#success").fadeOut(1500);
+        },3000);
+    })
+
+    {% comment %} Modal {% endcomment %}
+    {% for producto in productos %}
+    $('#eliminar-{{producto.id}}').click(function(e){
+        $('.modal').addClass("modal--show")
+        $('#si').attr('href','{% url 'eliminarProducto' producto.id %}')
+    })
+    {% endfor %}
+
+    $('#btn-cancelar').click(function(){
+        $('.modal-form').removeClass("modal--show");
+    });
+</script>
+{% endblock script %}

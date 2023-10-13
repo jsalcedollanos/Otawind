@@ -1,27 +1,50 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import *
 from company.models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
+import random
 # Create your views here.
 
-
 def index(request, name):
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = 'Perfil de usuario incorrecto'   
     username = User.objects.get(username=request.user.username)  
     return render(request, 'company_templates/index.html',{
-        'username' : username
+        'username' : username,
+        'perfilAccount' : perfilAccount,
+    })
+
+def layout(request):
+    perfilAccount = Account.objects.get(user_id=request.user.id)
+    return render (request, 'company_templates/layouts/layout.html', {
+        'perfilAccount' : perfilAccount,
     })
 
 def home(request):
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+        username = User.objects.get(username=request.user.username) 
+    except User.DoesNotExist:
+        username = None
+        
     return render(request, 'company_templates/index.html',{
+        'username' : username,
+        'perfil' : perfilAccount,
     })
 
 def signUp(request):
     return render(request, 'company_templates/signup.html')
 
 def logIn(request):
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -60,11 +83,14 @@ def dashboard(request, name):
     user = request.user.id
     bussines = ProfileBussines.objects.filter(user_id=user).count()
     profile = ProfileBussines.objects.all()
+    perfilAccount = Account.objects.get(user_id=request.user.id)
+    
 
     return render(request, 'company_templates/dashboard.html',{
         'bussines' : bussines,
         'username' : username,
         'profile' : profile ,
+        'perfilAccount' : perfilAccount ,
     })
 
 
@@ -72,6 +98,10 @@ def dashboard(request, name):
 def bussines(request):
     username = User.objects.get(username=request.user.username)
     users = request.user.id
+    try: 
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
 
     if request.method == 'POST':
         form = Form(request.POST, request.FILES)
@@ -116,15 +146,19 @@ def bussines(request):
 
     return render(request, 'company_templates/profile_bussines.html', {
         'form': form,
-        'username': username
+        'username': username,
+        'perfilAccount' : perfilAccount,
     })
 
 
 def profile(request, name, id):
     username = User.objects.get(username=request.user.username)
-    perfil = ProfileBussines.objects.get(name=name)
-    idperfil = perfil.id
-    
+    perfilBusiness = ProfileBussines.objects.get(name=name)
+    idperfil = perfilBusiness.id
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
 
     # Articulos
     catalogos = Catalogos.objects.filter(profile=id)
@@ -135,19 +169,25 @@ def profile(request, name, id):
     page_obj = paginator_articulos.get_page(page_number)
 
     return render(request, 'company_templates/profile.html', {
-        'perfil':perfil,
+        'perfilBusiness':perfilBusiness,
         'username' : username,
         'catalogos' : catalogos,
-        'page_catalogos' : page_obj
+        'page_catalogos' : page_obj,
+        'perfilAccount' : perfilAccount,
     })
 
 
 def editionProfile(request, id):
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
     username = User.objects.get(username=request.user.username)
-    perfil = ProfileBussines.objects.get(id=id)
+    perfilBusiness = ProfileBussines.objects.get(id=id)
     urlCurrently = request.META.get('HTTP_REFERER') # Here
 
-    form = eForm(request.POST, request.FILES, instance=perfil)
+    form = eForm(request.POST, request.FILES, instance=perfilBusiness)
     if form.is_valid():
         form.save()
         messages.success(request, f'Se ha modificado tu perfil con exito! Deseas ver tu perfil {perfil.name}?')
@@ -155,12 +195,18 @@ def editionProfile(request, id):
         #return redirect('perfil',perfil.name)
     else:
         return render(request, 'company_templates/edit-profile.html', {
-            'perfil' : perfil,
+            'perfil' : perfilBusiness,
             'form' : form,
-            'username' : username
+            'username' : username,
+            'perfilAccount' : perfilAccount,
         })
     
 def viewCatalog(request):
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
     username = User.objects.get(username=request.user.username)
     catalogos = Catalogos.objects.filter(user=request.user.id)
 
@@ -173,10 +219,16 @@ def viewCatalog(request):
     return render(request, 'company_templates/crud-catalogo/edit-catalog.html', {
         'catalogos' : page_catalogos,
         'username' : username,
+        'perfilAccount' : perfilAccount,
     })
 
 
 def editCatalog(request, id):
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
     username = User.objects.get(username=request.user.username)
     catalogos = Catalogos.objects.get(id=id)
     urlCurrently = request.META.get('HTTP_REFERER')
@@ -192,6 +244,7 @@ def editCatalog(request, id):
     else:
         return render(request, 'company_templates/crud-catalogo/update-catalog.html', {
             'username' : username,
+            'perfilAccount' : perfilAccount,
             'catalogo' : catalogos,
             'form' : form
     })
@@ -204,13 +257,19 @@ def deleteCatalog(request, id):
         return redirect(urlCurrently)
 
 def selectCatalog(request):
+
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
     user = request.user.id
     perfilId = ProfileBussines.objects.filter(user_id=user)
     username = User.objects.get(username=request.user.username)
 
-    # Articulos
+    # Catalogos
     perfil = ProfileBussines.objects.filter(user_id=user)
-    # Paginar Articulos
+    # Paginar Catalogos
     paginator_perfiles = Paginator(perfilId, 3)
     # Recoger numero pagina
     page_number = request.GET.get('page')
@@ -219,10 +278,17 @@ def selectCatalog(request):
     return render(request, 'company_templates/crud-catalogo/select-profile.html', {
         'perfiles' : perfil,
         'page_perfiles' : page_obj,
-        'username': username
+        'username': username,
+        'perfilAccount' : perfilAccount,
     })
 
 def addCatalog(request, id):
+    
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
     user = request.user.id
     username = User.objects.get(username=request.user.username)
     urlCurrently = request.META.get('HTTP_REFERER') # Here
@@ -233,10 +299,14 @@ def addCatalog(request, id):
 
             # Datos
             name = data_form.get('name')
+            category = data_form.get('category')
+            type_catalog = data_form.get('type_catalog')
             description= data_form.get('description')
             photo_portada = data_form.get('photo_portada')
             catalog = Catalogos(
                 user_id = user,
+                category = category,
+                type_catalog = type_catalog,
                 profile_id = id,
                 name = name,
                 photo_portada = photo_portada,
@@ -252,6 +322,255 @@ def addCatalog(request, id):
         form = catalogForm()   
     return render(request, 'company_templates/crud-catalogo/add-catalogo.html', {
         'form': form,
-        'username': username
+        'username': username,
+        'perfilAccount' : perfilAccount,
     })
     
+
+
+def viewProduct(request, name, id):
+    username = User.objects.get(username=request.user.username)
+    urlCurrently = request.META.get('HTTP_REFERER')
+    try:
+        productos = Products.objects.filter(user=id)
+    except Products.DoesNotExist:
+        productos = None
+
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
+    return render(request, 'company_templates/crud-productos/view-product.html', {
+    'username':username,
+    'productos':productos,
+    'url':urlCurrently,
+    'perfilAccount' : perfilAccount,
+    })
+
+def editProduct(request, name, id):
+    username = User.objects.get(username=request.user.username)
+    idproduct = request.user.id
+
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
+    try:
+        producto = Products.objects.get(id=id)
+        form = productForm(request.POST, request.FILES, instance=producto)
+        if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'El producto ha sido editado con exito.')
+                return redirect(f'productos', username, idproduct)
+            else:
+                messages.error(request, 'El producto no se pudo editar revisa los datos.')
+    except Products.DoesNotExist:
+        producto = None
+    
+    return render(request, 'company_templates/crud-productos/edit-product.html', {
+        'username' : username,
+        'producto' : producto,
+        'form' : form,
+        'perfilAccount' : perfilAccount,
+    })
+
+def addProduct(request, name, id):
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
+
+    username = User.objects.get(username=request.user.username)
+    number_random = random.randint(10000, 99999)
+    urlCurrently = request.META.get('HTTP_REFERER') 
+    if request.method == 'POST':
+        form = productForm(request.POST, request.FILES)
+        if form.is_valid():
+            data_form = form.cleaned_data
+            profile = form.cleaned_data.get('profile')
+            catalog = form.cleaned_data.get('catalog')
+            name_product = data_form.get('name_product')
+            category = data_form.get('category')
+            quantities = data_form.get('quantities')
+            price = data_form.get('price')
+            photo_product1 = data_form.get('photo_product1')
+            photo_product2 = data_form.get('photo_product2')
+            photo_product3 = data_form.get('photo_product3')
+            photo_product4 = data_form.get('photo_product4')
+
+
+            product = Products(
+                id_product = number_random,
+                user_id = request.user.id,
+                catalog = catalog,
+                profile = profile,
+                name_product = name_product,
+                category = category,
+                quantities = quantities,
+                price = price,
+                photo_product1 = photo_product1,
+                photo_product2 = photo_product2,
+                photo_product3 = photo_product3,
+                photo_product4 = photo_product4
+            )
+
+            product.save()
+            messages.success(request, 'El producto fue guardado con exito.')
+            return redirect(urlCurrently)
+        else:
+            messages.error(request, 'Error, el producto no fue guardado, revisa tus datos.')
+    else:
+        form = productForm()
+    return render(request, 'company_templates/crud-productos/add-product.html', {
+        'form' : form,
+        'perfilAccount' : perfilAccount,
+        'username' : username,
+    })
+
+def deleteProduct(request, id):
+    producto = Products.objects.get(id=id)
+    urlcurrently = request.META.get('HTTP_REFERER')
+    producto.delete()
+    messages.success(request, 'Producto eliminado con exito.')
+    return redirect(urlcurrently)
+
+
+
+def viewService(request, name, id):
+
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
+    username = User.objects.get(username=request.user.username)
+    try: 
+        servicio = Services.objects.filter(user_id=id)
+    except Services.DoesNotExist:
+        servicio = None
+
+    return render(request, 'company_templates/crud-servicios/view-services.html',{
+        'servicios' : servicio,
+        'username' : username,
+        'perfilAccount' : perfilAccount,
+    })
+
+
+def addService(request, name, id):
+
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
+    username = User.objects.get(username=request.user.username)
+    number_random = random.randint(10000, 99999)
+    urlCurrently = request.META.get('HTTP_REFERER') 
+    if request.method == 'POST':
+        form = serviceForm(request.POST, request.FILES)
+        if form.is_valid():
+            data_form = form.cleaned_data
+            profile = data_form.get('profile')
+            catalog = data_form.get('catalog')
+            name_service = data_form.get('name_service')
+            category = data_form.get('category')
+            price = data_form.get('price')
+            photo_service1 = data_form.get('photo_service1')
+            photo_service2 = data_form.get('photo_service2')
+            photo_service3 = data_form.get('photo_service3')
+            photo_service4 = data_form.get('photo_service4')
+
+
+            service = Services(
+                id_service = number_random,
+                user_id = request.user.id,
+                catalog = catalog,
+                profile = profile,
+                name_service = name_service,
+                category = category,
+                price = price,
+                photo_service1 = photo_service1,
+                photo_service2 = photo_service2,
+                photo_service3 = photo_service3,
+                photo_service4 = photo_service4
+            )
+
+            service.save()
+            messages.success(request, 'El servicio fue guardado con exito.')
+            return redirect(urlCurrently)
+        else:
+            messages.error(request, 'Error, el servicio no fue guardado, revisa tus datos.')
+    else:
+        form = serviceForm()
+    return render(request, 'company_templates/crud-servicios/add-service.html', {
+        'form' : form,
+        'perfilAccount' : perfilAccount,
+        'username' : username,
+    })
+    
+
+def view_profile(request, name, id):
+    username = User.objects.get(username=request.user.username)
+    urlCurrently = request.META.get('HTTP_REFERER')
+    
+    try:
+        profileBusiness = ProfileBussines.objects.filter(user_id=id)
+    except ProfileBussines.DoesNotExist:
+        profileBusiness = None
+
+    try:
+        perfilAccount = Account.objects.get(user_id=id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
+    if request.method == 'POST':
+        form = perfilUsuer(request.POST, request.FILES)
+        if form.is_valid():
+           data_form = form.cleaned_data
+           birthday = data_form.get('birthday')
+           photo_profile = data_form.get('photo_profile')
+           country = data_form.get('country')
+           city = data_form.get('city')
+           bio = data_form.get('bio')
+           email = data_form.get('email')
+           facebook = data_form.get('facebook')
+           instagram = data_form.get('instagram')
+           whatsapp = data_form.get('whatsapp')
+           indicative = data_form.get('indicative')
+           contact = data_form.get('contact')
+           gender = data_form.get('gender')
+
+           dates = Account(
+               user_id = request.user.id,
+               photo_profile = photo_profile,
+               birthday = birthday,
+               country = country,
+               city = city,
+               indicative = indicative,
+               contact = contact,
+               bio = bio,
+               email = email,
+               facebook = facebook,
+               instagram = instagram,
+               whatsapp = whatsapp,
+               gender = gender,
+           )
+
+           dates.save()
+           messages.success(request, 'Se ha guardado el perfil personal de tu cuenta')
+           return redirect(urlCurrently)
+        else:
+            messages.error(request, 'Lo sentimos no hemos podido guardar la informacion de tu perfil')
+    else:
+        form = perfilUsuer()   
+
+    return render(request, 'company_templates/profile-user/show-profile.html', {
+       'username' : username, 
+       'form' : form,
+       'profile' : profileBusiness,
+       'perfilAccount' : perfilAccount,
+    })

@@ -1,0 +1,108 @@
+#btn-editPerfil{
+    border-style: solid;
+    border-color: #e1aafa;
+    width: 100%;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    margin-top: 15px !important;
+    height: auto;
+    border-width: 1px;
+    font-size: 16px;
+}
+
+.content-perfil{
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+.content-anuncio{
+    height: auto;
+    margin: 0 auto;
+    color: #7F38B4;
+    width: 600px;
+    padding: 40px;
+    box-shadow: rgba(129, 2, 149, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.content-perfil-user{
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+
+.content-perfil-user-general{
+   width: 400px;
+   padding: 45px;
+   margin-top: 60px;
+   margin-bottom: 60px;
+   text-align: center;
+}
+
+.content-perfil-user-general .image-user{
+    margin: 0 auto;
+    width: 250px;
+    height: 250px;
+}
+
+.content-perfil-user-general .image-user img{
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: #BD91D6;
+}
+
+.content-perfil-user-info{
+    width: 400px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.content-perfil-user-info h4{
+    font-size: 25px !important;
+}
+
+.content-perfil-user-info p{
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.content-perfil-user-info i{
+    margin-right: 5px;
+}
+
+.content-perfil-account{
+    width: 100%;
+    height: auto;
+    padding: 40px;
+}
+
+.content-perfil-account-list{
+    display: flex;
+    margin: 50px;
+}
+
+.content-perfil-account-list .content-label{
+    margin: 10px;
+    width: 150px;
+    padding: 30px;
+    box-shadow: rgba(0, 255, 47, 0.885) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.content-perfil-account-business{
+    width: 100%;
+}
+
+.content-perfil-account-business .content-business-vacio{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    width: 600px;
+    height: 100px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.content-perfil-account-business .content-business-vacio h4{
+    color: black !important;
+}

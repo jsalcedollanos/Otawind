@@ -1,0 +1,80 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% load static %}
+{% block title %}
+
+{% endblock title %}
+<title>Perfil</title>
+{% block content %}
+<div class="content-perfil">
+    {% if perfilAccount.user_id == request.user.id %}
+        <div class="content-perfil-user">
+            <div class="content-perfil-user-general">
+                <div class="image-user">
+                    <img src="{{perfilAccount.photo_profile.url}}" alt="">
+                </div>
+                <div class="content-perfil-user-info">
+                    <h4>{{perfilAccount.user.username}} {{perfilAccount.user.last_name}}</h4>
+                    <h5>{{perfilAccount.bio}}</h5>
+                    <button id="btn-editPerfil">Editar perfil</button>
+                    <p><i class="fa-solid fa-globe"></i> {{perfilAccount.country}}</p>
+                    <p><i class="fa-solid fa-city"></i> {{perfilAccount.city}}</p>
+                    <p><i class="fa-solid fa-envelope"></i> {{perfilAccount.email}}</p>
+                    <p><i class="fa-brands fa-square-facebook"></i> {{perfilAccount.facebook}}</p>
+                    <p><i class="fa-brands fa-square-instagram"></i> {{perfilAccount.instagram}}</p>
+                    <p><i class="fa-brands fa-square-whatsapp"></i> {{perfilAccount.whatsapp}}</p>
+                    
+                </div>
+            </div>
+            <div class="content-perfil-account">
+                <h3>Estado de cuenta</h3>
+                <div class="content-perfil-account-list">
+                    <div class="content-label">
+                        <h4>Estado de cuenta</h4>
+                        <p style="color:green">Activo</i></p>
+                    </div>
+
+                    <div class="content-label">
+                        <h4>Tipo de cuenta</h4>
+                        <p style="color:green">Estandar</i></p>
+                    </div>
+                </div>
+                <div class="content-dash-general-productos">
+                    <h3>Perfiles asosiados a la cuenta</h3>
+                    <div class="content-negocio">
+                        {% for profileBusiness in profile %}
+                        {% if profileBusiness.user.id == request.user.id %}
+                            <a href="{% url 'perfil' profileBusiness.name profileBusiness.id %}">
+                                <div class="content-negocio-card">
+                                    <div class="content-negocio-card-perfil">
+                                        <img src="{{profileBusiness.photo_profile.url}}">
+                                    </div>
+                                    <div class="content-negocio-card-info">
+                                        <h3>{{profileBusiness.name}}</h3>
+                                        <span>{{profileBusiness.category.name}}<span>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endif %}
+                        {% empty %}
+                        <div class="content-business-vacio">
+                            <h4>Aun no tienes perfiles... si deseas agregar un perfil de empresa a tu cuenta
+                                porfavor ingresa <a href="{% url "bussines" %}">aqui</a>
+                            </h4>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+    <div class="content-anuncio">
+        <h4>Importante</h4>
+        <p>Aun no has configurado tu perfil, es importante configurar tu perfil asi tus clientes tienen mas seguridad al momento de contactarte.</p>
+    </div>
+    <div class="content-form">
+        <h1>Perfil de usuario</h1>
+        {% include 'company_templates/layouts/form.html' %}
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

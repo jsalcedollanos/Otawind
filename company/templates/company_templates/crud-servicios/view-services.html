@@ -1,0 +1,109 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% load static %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+    <div class="content-producto">
+        {% include 'company_templates/layouts/layout-dashboard.html' %}
+        <div class="content-producto-general">
+             {% comment %} Mensaje flash {% endcomment %}
+             {% for msg in messages %}
+             {% if msg.tags == 'error' %}
+             <div id="error">
+                 <p>{{msg}}</p>
+             </div>
+             {% else %}
+             <div id="success">
+                 <p>{{msg}}</p>
+             </div>
+             {% endif %}
+             {% endfor %}
+             {% comment %} Fin mensaje flash {% endcomment %}
+            <h2>Servicios</h2>
+            <div class="content-producto-general-navbar">
+                <div class="btn-opc">
+                    <div class="btn-opc-boton">
+                        <a href="{% url "addServicios" name=request.user.username id=request.user.id %}">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            <h4>Añadir servicio</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="btn-opc">
+                    <div class="btn-opc-boton">
+                        <a href="">
+                            <i class="fa-brands fa-product-hunt"></i>
+                            <h4>Añadir servicio</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="content-producto-general-tabla">
+                <table class="tabla-productos">
+                    <tr>
+                        <th>ID</th>
+                        <th>ID Service</th>
+                        <th>Servicio</th>
+                        <th>Catalogo</th>
+                        <th>Imagen</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Funciones</th>
+                    </tr>
+                    {% for servicio in servicios %}
+                    <tr class="tabla-productos-datos">
+                        <td>{{servicio.id}}</td>
+                        <td>{{servicio.id_service}}</td>
+                        <td>{{servicio.name_service}}</td>
+                        <td>{{servicio.catalog.name}}</td>
+                        <td id="foto-servicio"><img src="{{servicio.photo_service1.url}}"></td>
+                        <td>{{servicio.price}}</td>
+                        {% if servicio.status == 'Activo' %}
+                            <td style="color:#7F38B4">{{servicio.status}}</td>
+                        {% else %}
+                        <td style="color:red">{{servicio.status}}</td>
+                        {% endif %}
+                        
+                        <td> <a><i class="fa-solid fa-eye"></i></a> | <a id="editar-{{servicio.id}}" href="{% url "edicionProducto" name=request.user.username id=servicio.id %}"><i class="fa-solid fa-wand-magic-sparkles"></i></a> | <a id="eliminar-{{servicio.id}}"><i class="fa-solid fa-trash"></i></a> </td>
+                    </tr>
+                    {% empty %}
+                    <h2>No se encontraron servicios</h2>
+                    {% endfor %}
+                </table>
+            </div>
+        </div> 
+        <div class="modal">
+            <div class="content-modal">
+                <h2 class="content-modal-titulo">¿Deseas eliminar tu catalogo?</h2>
+                <a id="si">Si</a>
+                <a href="">No</a>
+            </div>
+        </div>
+    </div> 
+{% endblock content %}
+
+{% block script %}
+<script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+<script>
+    $(document).ready(()=>{
+        setTimeout(function() {
+            $("#success").fadeOut(1500);
+        },3000);
+    })
+
+    {% comment %} Modal {% endcomment %}
+    {% for servicio in servicios %}
+    $('#eliminar-{{servicio.id}}').click(function(e){
+        $('.modal').addClass("modal--show")
+        $('#si').attr('href','{% url 'eliminarProducto' servicio.id %}')
+    })
+
+    {% endfor %}
+
+    $('#btn-cancelar').click(function(){
+        $('.modal-form').removeClass("modal--show");
+    });
+</script>
+{% endblock script %}

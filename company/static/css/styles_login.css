@@ -63,6 +63,9 @@
 /* Fin */
 .content-login-info-form{
     padding: 50px;
+    text-align: center;
+    align-items: center;
+    
 }
 
 .content-login-info-form form{ 
@@ -86,13 +89,7 @@
 }
 
 .content-login-info-form #btn-ingresar{
-    height: 40px;
-    width: 200px;
     margin: 0 auto;
-    font-size: 20px;
-    border-radius: 10px;
-    border-style: none;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .content-login-info-form #btn-ingresar:hover{

@@ -21,22 +21,9 @@
             {% endif %}
             {% endfor %}
             {% comment %} Fin mensaje flash {% endcomment %}
-
-            <h1>Agrega tus catalogos</h1>
-            <div class="content-catalogos-general-form">
-                <form class="content-catalogos-general-form"  enctype="multipart/form-data" method="POST">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="content-catalogos-general-form-fields">  
-                            <div class="fields-label">                      
-                            <label>{{field.label}}</label>
-                            <p style="color:red">{{field.errors}}</p>
-                            </div>
-                            {{field}}
-                        </div>
-                    {% endfor %}
-                    <input type="submit" value="Guardar" id="btn-guardar" class="btn-guardar">
-                </form>
+            <div class="content-form">
+                <h1>Agrega tus catalogos</h1>
+                {% include "company_templates/layouts/form.html" %}
             </div>
         </div>
     </div>

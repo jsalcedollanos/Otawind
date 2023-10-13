@@ -1,0 +1,95 @@
+/* 
+TABLA DE CONTENIDO
+
+1 - Contenido general
+2 - Navbar
+3 - Formulario
+4 - Tabla
+
+*/
+
+/* 1 - Contenido general */
+.content-productos{
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+.content-producto-general{
+    width: 100%;
+}
+
+
+/* 2 - Navbar */
+.content-producto-general-navbar{
+    display: flex;
+    width: 100%;
+    margin: 30px;
+}
+
+.content-producto-general-navbar .btn-opc{
+    text-align: center;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    background-color: #F0CFFC;
+    margin: 10px;
+    height: 80px;
+    width: 80px;
+}
+
+.content-producto-general-navbar .btn-opc .btn-opc-boton{
+    margin: 10px;
+}
+
+.content-producto-general-navbar .btn-opc .btn-opc-boton a{
+    text-decoration: none;
+    display: contents;
+    width: 100%;
+    margin: 20px;
+    height: 100%;
+    font-size: 12px;
+}
+
+.content-producto-general-navbar .btn-opc .btn-opc-boton i{
+    font-size: 26px;
+} 
+
+
+
+
+/* 4 - Tabla */
+.content-producto-general-tabla{
+    margin-bottom: 120px;
+}
+
+.tabla-productos{
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    width: 95%;
+    background-color: #F4F4F4;
+    border-radius: 15px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.tabla-productos tr{
+    text-align: center;
+}
+
+.tabla-productos td{
+    word-wrap: break-word;
+    overflow: auto;
+}
+
+.tabla-productos td a{
+    cursor: pointer;
+}
+
+.tabla-productos .tabla-productos-datos #foto-producto{
+    width: 150px;
+    height: 100px;
+}
+
+.tabla-productos .tabla-productos-datos img{
+    width: 100%;
+    height: 100%;
+}

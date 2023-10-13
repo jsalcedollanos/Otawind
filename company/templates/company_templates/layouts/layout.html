@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static '../static/css/styles_layouts/layout.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_global/styles_globales.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_index.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_signup.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_login.css' %}">
@@ -15,8 +16,11 @@
     <link rel="stylesheet" href="{% static '../static/css/styles_bussines.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_profile.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_catalogo.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_productos.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_global/styles_catalogs.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_global/styles_form.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_global/styles_modal.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_perfil.css' %}">
 
     {% comment %} Google fonts {% endcomment %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,12 +32,15 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
     {% comment %} FontAwesome {% endcomment %}
-    <script src="https://kit.fontawesome.com/3ffc99ee00.js" crossorigin="anonymous"></script>
+    
+    <!-- Our project just needs Font Awesome Free's Solid and Brand files -->
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
 
     {% block title %}
         <title>Otawind</title>
-    {% endblock %}
-    
+    {% endblock %} 
 </head>
 <body>
 <div class="overlay"></div>
@@ -50,17 +57,23 @@
                     
                     {% if request.user.username %}
                         <a class="opc-nav" href="{% url 'index' request.user.username %}">Inicio</a>
-                        <a href="{% url 'dashboard' username.username %}" class="opc-nav">Mi Ota-panel</a>
-                        <p>Bienvenid@, {{request.user.username}}</p>
-                        <a class="menu-perfil">&#8801</a>
+                        {% if request.user.username %}
+                            <a href="{% url 'dashboard' username.username %}" class="opc-nav">Mi Ota-panel</a>
+                        {% endif %}
+                        <a class="opc-nav" href="#">Reportar error</a>
+                        <a class="opc-nav" href="#">Acerca de otawind</a>
+                        <a class="menu-perfil"><div class="nav-bar-content-imagenPerfil"><img src="{{perfilAccount.photo_profile.url}}"></div></a>
                         <div class="nav-bar-content-menu">
                             <h4>¿Que deseas hacer?</h4>
                             
                             <div class="nav-bar-content-menu-opciones">
                                 <ul>
-                                    <li><a href="{% url 'selectPerfil' %}" id="opc-menu">Mis perfiles</a></li>
+                                    <li><p id="content-bienvenido-user">Hola {{request.user.username}}</p><span style="color:green">Tipo de cuenta | Estandar</span></li>
+                                    <hr/>
+                                    <li><a href="{% url 'dashboard' name=username.username %}" id="opc-menu">Bandeja de mensajes</a></li>
+                                    <li><a href="{% url 'dashboard' name=username.username %}" id="opc-menu">Soporte</a></li>
                                     <li><a href="{% url 'dashboard' name=username.username %}" id="opc-menu">Administrar mi cuenta</a></li>
-                                    <li><a id="opc-menu">Mi cuenta</a></li>
+                                    <li><a href="{% url "viewPerfil" name=request.user.username id=request.user.id %}" id="opc-menu">Mi cuenta</a></li>
                                 </ul>
                             </div>
                             <div class="nav-bar-content-menu-logout">
@@ -68,7 +81,7 @@
                             </div>
                         </div>
                     {% else %}
-                        <a class="opc-nav">¿Quienes somos?</a>
+                        <a href="#" class="opc-nav">Acerca de Otawind</a>
                         <a class="opc-nav" href="{% url 'ingreso' %}">Ingresar</a>
                         <a class="opc-nav" href="{% url 'registro' %}">Registrate</a>
                     {% endif %}
@@ -124,6 +137,10 @@
 <script>
     $(document).ready(()=>{
         $('.nav-bar-content-menu').hide()
+
+        setTimeout(function() {
+            $("#success").fadeOut(1500);
+        },3000);
     });
 
     $('.menu-perfil').click(function(){

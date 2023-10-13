@@ -14,3 +14,5 @@ class MaxSizeFileValidator:
         if size > max_size:
             raise ValidationError(f"El tamaño maximo del archivo debe ser de {self.max_file_size}MB")
         return value
+    
+

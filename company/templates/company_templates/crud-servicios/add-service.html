@@ -1,0 +1,46 @@
+{% extends 'company_templates/layouts/layout.html' %}
+{% load static %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+    <div class="content-producto">
+        {% include 'company_templates/layouts/layout-dashboard.html' %}
+        <div class="content-producto-general">
+            {% comment %} Mensaje flash {% endcomment %}
+            {% for msg in messages %}
+            {% if msg.tags == 'error' %}
+            <div id="error">
+                <p>{{msg}}</p>
+            </div>
+            {% else %}
+            <div id="success">
+                <p>{{msg}}</p>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% comment %} Fin mensaje flash {% endcomment %}
+            <div class="content-form">
+            <h1>Añade tus servicios</h1>
+            {% include "company_templates/layouts/form.html" %}
+            </div>
+        </div> 
+    </div> 
+{% endblock content %}
+
+{% block script %}
+<script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+<script>
+    $(document).ready(()=>{
+        $('#id_price').on('input', function () { 
+            this.value = this.value.replace(/[^0-9]/,'');
+        });
+
+        setTimeout(function(){
+            $('#success').fadeOut(1500);
+        }, 3000);
+    })
+</script>
+{% endblock script %}
+

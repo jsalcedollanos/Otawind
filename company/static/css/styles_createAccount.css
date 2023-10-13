@@ -19,11 +19,16 @@
     margin-bottom: 100px;
     background-color: #F4F4F4;
     width: 80%;
-    height: 700px;
+    height: auto;
     margin-top: 30px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
+.content-creacion #login{
+    text-align: center;
+    margin-top: 20px;
+} 
 
 .content-creacion-titulo{
     background-color: #7D05B4;
@@ -51,9 +56,6 @@
     width: 100%;
     height: 100%;
     font-size: 17px;
-    display: flex;
-    justify-content: left;
-    margin-top: 70px;
 }
 
 .content-creacion-general-form-bloque input{
@@ -72,9 +74,13 @@
 }
 
 .content-creacion-general-form #btn-registrar{
+    border-style: solid;
+    border-color: #e1aafa;
     width: 250px;
     height: 40px;
     margin: 20px;
+    border-radius: 20px;
+    border-width: 1px;
     font-size: 16px;
 }
 
@@ -84,8 +90,24 @@
 }
 
 .content-creacion-general-form-bloque{
-    margin-top: 30px;
-    text-align: right;
+    width: 400px;
+    margin: auto;
+}
+
+.content-creacion-general-form-bloque ul{
+    padding: 10px;
+    list-style: none;
+    background-color: #e1aafa;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.content-creacion-general-form-bloque li{
+    margin: 10px;
+}
+
+.content-creacion-general-form-bloque p{
+    margin: 20px;
 }
 
 .content-creacion-general-form-paso{

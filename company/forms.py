@@ -5,6 +5,208 @@ from django.contrib.auth.models import User
 from company.models import *
 from .validators import MaxSizeFileValidator
 
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class perfilUsuer(forms.ModelForm):
+    list_indicativos = [
+        (0, '+1'),
+        (1, '+52'),
+        (2, '+55'),
+        (3, '+54'),
+        (4, '+57'),
+        (5, '+56'),
+        (6, '+58'),
+        (7, '+51'),
+        (8, '+593'),
+        (9, '+53'),
+        (10, '+591'),
+        (11, '+506'),
+        (12, '+507'),
+        (13, '+598'),
+        (14, '+34'),
+        (15, '+49'),
+        (16, '+33'),
+        (17, '+39'),
+    ]
+
+    indicative = forms.TypedChoiceField(
+        choices = list_indicativos
+    )
+
+    class Meta:
+        model = Account
+        exclude = ('user',)
+        fields = '__all__'
+        widgets = {
+            
+            'birthday': DateInput(attrs={'class': 'form-control'}),
+            
+        }
+        
+
+class productForm(forms.Form):
+
+    catalogo = forms.ModelChoiceField(
+        label = 'Catalogo',
+        required = True,
+        queryset = Catalogos.objects.filter(type_catalog = 'Productos')
+    )
+
+    profile = forms.ModelChoiceField(
+        label = "Perfil",
+        required = True,
+        queryset=ProfileBussines.objects.all()
+    )
+
+    name_product = forms.CharField(
+        label = "Producto",
+        required = True,
+        max_length = 40,
+        validators = [
+            validators.MinLengthValidator(3, 'El nombre es muy corto porfavor revisalo.'),
+            validators.MaxLengthValidator(40, 'El nombre es muy largo porfavor revisalo.'),
+        ]
+    )
+
+    quantities = forms.CharField(
+        label= "Cantidad",
+        required= True,
+        widget = forms.TextInput(
+            attrs={
+                'placeholder':'Cantidad de productos',
+                'id' : 'id_quantities'
+            }
+        ),
+    )
+
+    price = forms.CharField(
+        label= "Precio",
+        required= True,
+        widget = forms.TextInput(
+            attrs={
+                'placeholder':'valor de producto',
+                'id' : 'id_price'
+            }
+        ),
+    )
+
+    photo_product1 = forms.ImageField(
+    label="Foto principal",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= True
+    )
+
+    photo_product2 = forms.ImageField(
+    label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+    photo_product3 = forms.ImageField(label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+    photo_product4 = forms.ImageField(label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+
+
+    description = forms.CharField(
+        label = "Descripcion",
+        max_length = 400,
+        widget = forms.Textarea(
+            attrs = {
+                'placeholder': 'Descripcion de tu producto'
+            }
+        ),
+        validators = [
+            validators.MinLengthValidator(10, 'Descripcion muy corta, proporciona mas informacion para que tus clientes te conozcan mejor'),
+            validators.MaxLengthValidator(400, 'Solo esta permitido 400 caracteres, porfavor recorta un poco tu descripcion'),
+        ]
+    )
+
+
+
+    class Meta:
+        model = Products
+        
+        exclude = ('user', 'id_product', 'status')
+
+
+class serviceForm(forms.Form):
+
+    catalog = forms.ModelChoiceField(
+        label = 'Catalogo',
+        required = True,
+        queryset = Catalogos.objects.filter(type_catalog = 'Servicios')
+    )
+
+    profile = forms.ModelChoiceField(
+        label = "Perfil",
+        required = True,
+        queryset=ProfileBussines.objects.all()
+    )
+
+    name_service = forms.CharField(
+        label = "Servicio",
+        required = True,
+        max_length = 100,
+        validators = [
+            validators.MinLengthValidator(3, 'El nombre es muy corto porfavor revisalo.'),
+            validators.MaxLengthValidator(100, 'El nombre es muy largo porfavor revisalo.'),
+        ]
+    )
+
+    photo_service1 = forms.ImageField(
+    label="Foto principal",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= True
+    )
+
+    photo_service2 = forms.ImageField(
+    label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+    photo_service3 = forms.ImageField(label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+    photo_service4 = forms.ImageField(label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+
+
+    description = forms.CharField(
+        label = "Descripcion",
+        max_length = 400,
+        widget = forms.Textarea(
+            attrs = {
+                'placeholder': 'Descripcion de tu servicio'
+            }
+        ),
+        validators = [
+            validators.MinLengthValidator(10, 'Descripcion muy corta, proporciona mas informacion para que tus clientes te conozcan mejor'),
+            validators.MaxLengthValidator(400, 'Solo esta permitido 400 caracteres, porfavor recorta un poco tu descripcion'),
+        ]
+    )
+
+
+
+    class Meta:
+        model = Services
+        exclude = ('user', 'id_service', 'status')
+
+
 class editCatalogoForm(forms.ModelForm):
 
     name = forms.CharField(
@@ -28,7 +230,7 @@ class editCatalogoForm(forms.ModelForm):
         fields = '__all__'
         exclude = ('user',)
 
-class catalogForm(forms.Form):
+class catalogForm(forms.ModelForm):
     name = forms.CharField(
         max_length="40", 
         required=True,
@@ -44,6 +246,11 @@ class catalogForm(forms.Form):
         ]
     )
 
+    category = forms.ModelChoiceField(
+        label = "Categoria",
+        queryset=Category.objects.all()
+    )
+
     photo_portada = forms.ImageField(label="Foto de portada",
     validators=[MaxSizeFileValidator(max_file_size=1)],
     required= False
@@ -51,7 +258,7 @@ class catalogForm(forms.Form):
 
     description = forms.CharField(
         label = "Descripcion",
-        max_length = 400,
+        max_length = 100,
         widget = forms.Textarea(
             attrs = {
                 'placeholder': 'Descripcion de tu empresa'
@@ -62,6 +269,9 @@ class catalogForm(forms.Form):
             validators.MaxLengthValidator(150, 'Cantidad maxima de caracteres es de 150, porfavor reduce tu descripcion.')
         ]
     )
+    class Meta:
+        model = Catalogos
+        fields = ('type_catalog',)
 
 
 class eForm(forms.ModelForm):

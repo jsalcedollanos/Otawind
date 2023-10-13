@@ -1,4 +1,8 @@
 {% extends 'company_templates/layouts/layout.html' %}
+
+{% load i18n %}
+{% load account %}
+
 {% block title %}
 
 {% endblock title %}
@@ -42,6 +46,8 @@
                             </div>
                         </a>
                     {% endif %}
+                    {% empty %}
+                    <h2>Aun no tienes perfiles...</h2>
                     {% endfor %}
                 </div>
             </div>

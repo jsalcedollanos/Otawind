@@ -11,21 +11,21 @@
             <div class="content-perfil-foto">
                 <div class="content-perfil-foto-portada">
                     <div class="imagen-portada">
-                        <img src="{{perfil.photo_portada.url}}">
+                        <img src="{{perfilBusiness.photo_portada.url}}">
                     </div>
                 </div>
 
                 <div class="content-perfil-foto-fotoPerfil">
                     <div class="imagen-perfil">
-                        <img src="{{perfil.photo_profile.url}}">
+                        <img src="{{perfilBusiness.photo_profile.url}}">
                     </div>
                     <div class="info-perfil">
-                        <h1>{{perfil.name}}</h1>
-                        <p>{{perfil.category}}</p>
-                        <p id="info-perfil-bio">{{perfil.bio}}</p>
+                        <h1>{{perfilBusiness.name}}</h1>
+                        <p>{{perfilBusiness.category}}</p>
+                        <p id="info-perfil-bio">{{perfilBusiness.bio}}</p>
                     </div> 
                     <div class="botones-funciones">
-                        <a href="/edicion-perfil/{{perfil.id}}" id="btn-editar">Editar perfil</a>
+                        <a href="/edicion-perfil/{{perfilBusiness.id}}" id="btn-editar">Editar perfil</a>
                         <a id="btn-ajustar"><i class="fa-solid fa-gears"></i> <i class="fa-solid fa-caret-down"></i></a>
                     </div>   
                 </div>
@@ -54,8 +54,11 @@
                     
                     {% endif %}
                     {% empty %}
-                    <h2>No se encontraron catalogos en tu perfil</h2>
-                    <p>¿Deseas agregar un catalogo a tu perfil?</p>
+                    <div class="catalogo-error">
+                        <h2>No se encontraron catalogos en tu perfil</h2>
+                        <p>¿Deseas agregar un catalogo a tu perfil?</p>
+                        <a href="{% url "addCatalogo" id=perfilBusiness.id %}"><button>Agregar catalogo</button></a>
+                    </div>
                     {% endfor %}
                     
                 </div>
@@ -78,20 +81,20 @@
                 <div class="content-perfil-descripcion">
                     <div class="content-perfil-descripcion-info">
                         <h2>Descripcion</h2>
-                        <p>{{perfil.description|safe}}</p>
+                        <p>{{perfilBusiness.description|safe}}</p>
                     </div>
                     <div class="content-perfil-descripcion-detalle">
                         <h2>Detalles</h2>
                         <h3>Contacto</h3>
-                        <p>{{perfil.contact}}</p>
+                        <p>{{perfilBusiness.contact}}</p>
                         <h3>Email</h3>
-                        <p>{{perfil.email}}</p>
+                        <p>{{perfilBusiness.email}}</p>
                         <h3>Redes sociales</h3>
                         <div class="content-perfil-descripcion-detalle-social">
                             <div class="box-social">
-                                <a href="{{perfil.facebook}}" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                                <a href="{{perfil.whatsapp}}" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-                                <a href="{{perfil.instagram}}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="{{perfilBusiness.facebook}}" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="{{perfilBusiness.whatsapp}}" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                                <a href="{{perfilBusiness.instagram}}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>

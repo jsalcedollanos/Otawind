@@ -1,0 +1,47 @@
+{% extends 'company_templates/layouts/layout.html' %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock head_title %}
+
+{% block content %}
+<section class="login">
+  <div class="content-login">
+    <div class="content-login-info">
+      <div class="content-login-info-titulo">
+        <h1>Ingresa y empieza a lucir como un profeisonal</h1>
+      </div>
+      <div class="content-login-info-form">
+
+          {% include "socialaccount/snippets/login_extra.html" %}
+
+    
+          <p>Si aun no tienes una cuenta
+          <a href="{{ signup_url }}">Registrate</a></p>
+
+
+          <div class="linespace"></div>
+          <form method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <button id="btn-ingresar" class="content-login-info-form-ingresar" type="submit">{% trans "Sign In" %}</button>
+            <a href="{% url 'account_reset_password' %}">¿Olvidaste tu contraseña?</a>
+          </form>
+      </div>
+    </div>
+    <div class="content-login-opciones ">
+      <div class="content-login-opciones-social">
+          <p>Ó ingresa con:</p>
+          <div class="content-login-opciones-social-icon">
+              <a href="/accounts/facebook/login/?process=login"><i class="fa-brands fa-facebook"></i></a>
+              <a href="/accounts/google/login/?process=login"><i class="fa-brands fa-google"></i></a>
+          </div>
+      </div>
+  </div>
+  </div>
+</section>
+{% endblock content %}

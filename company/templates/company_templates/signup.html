@@ -1,8 +1,8 @@
 {% extends 'company_templates/layouts/layout.html' %}
 {% block title %}
-    
+<title>¿Como deseas ingresar?</title>
 {% endblock title %}
-    <title></title>
+    
 {% block content %}
 <section class="registro">
     <div class="content-registro">
@@ -16,17 +16,17 @@
             <div class="content-registro-opciones-botones">
                 <div class="content-registro-opciones-boton">
                     <i class="fa-brands fa-google"></i>
-                    <a>Empezar con Google</a>
+                    <a href="/accounts/google/login/?process=login">Empezar con Google</a>
                 </div>
                 <div class="content-registro-opciones-boton">
                     <i class="fa-brands fa-facebook"></i>
-                    <a>Empezar con Fcebook</a>
+                    <a href="/accounts/facebook/login/?process=login">Empezar con Fcebook</a>
                 </div>
                 <p>
                     o
                 </p>
                 <div class="content-registro-opciones-boton">
-                    <a href="{% url 'creacion' %}">Empezar con Otawind</a>
+                    <a href="accounts/signup/">Empezar con Otawind</a>
                 </div>
             </div>
         </div>

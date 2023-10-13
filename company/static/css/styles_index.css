@@ -1,10 +1,30 @@
 
 /* CONTEXT INDEX */
 /* 
+
+0 - ESTILOS GLOBALES
 1 - BANNER
 2 - PRODUCTO
 3 - CATALOGO
+
 */
+
+/* FUENTES GLOBALES */
+button { 
+    border-style: solid;
+    padding: 5px;
+    border-color: #e1aafa; 
+    width: 250px;
+    height: auto;
+    margin: 20px;
+    border-radius: 20px;
+    border-width: 1px;
+    font-size: 16px;
+}
+button:hover { 
+    cursor: pointer;
+    background-color: #e1aafa;
+}
 
 /* fuentes de colores por defecto */
 h2, h3, h4, h5{
