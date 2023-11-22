@@ -1,13 +1,21 @@
+<div class="form-register">
     <form enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         <div class="content-general-form">
             {% for field in form %}
-                <div class="field-form">
+                <div class="field-form" id="field-form-{{field.name}}">
                     <div class="field-form-label" id="content-field-{{forloop.counter}}">
                         <label id="label-{{forloop.counter}}">{{field.label}}</label>
                         <p>{{field.errors}}</p>
                     </div>
-                    {{field}}
+                    
+                    <div class="content-field-{{forloop.counter}}" id="{{field.name}}">
+                        {{field}}
+                        <div id="msg-file-{{field.name}}">
+                            
+                        </div>
+                        <span id="arc-{{field.name}}"></span>
+                    </div>         
                 </div>
             {% endfor %}
         </div>
@@ -16,3 +24,4 @@
             <input type="button" value="Cancelar">
         </div>
     </form>
+</div>

@@ -74,14 +74,17 @@
     })
     {% for catalogo in catalogos %}
     $('#btn-opc-{{catalogo.id}}').click(function(){
-        $('#card-catalogo-face-{{catalogo.id}}').hide('slow')
-        $('#card-funciones-{{catalogo.id}}').show('slow')
+        $('#card-catalogo-face-{{catalogo.id}}').hide('slow');
+        $('#card-funciones-{{catalogo.id}}').css('opacity','100');
+        $('#card-funciones-{{catalogo.id}}').show('slow');
+        
     })
     {% endfor %}
 
     {% for catalogo in catalogos %}
     $('#cerrar-ventana-{{catalogo.id}}').click(function(){
         $('#card-funciones-{{catalogo.id}}').hide('slow')
+        $('#card-funciones-{{catalogo.id}}').css('opacity','100');
         $('#card-catalogo-face-{{catalogo.id}}').show('slow')
     })
     {% endfor %}

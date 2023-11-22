@@ -21,7 +21,7 @@
              {% endif %}
              {% endfor %}
              {% comment %} Fin mensaje flash {% endcomment %}
-            <h2>Servicios</h2>
+            <h2 id="titulo-sesion">Servicios</h2>
             <div class="content-producto-general-navbar">
                 <div class="btn-opc">
                     <div class="btn-opc-boton">
@@ -31,14 +31,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="btn-opc">
-                    <div class="btn-opc-boton">
-                        <a href="">
-                            <i class="fa-brands fa-product-hunt"></i>
-                            <h4>Añadir servicio</h4>
-                        </a>
-                    </div>
-                </div>
+                
             </div>
             <div class="content-producto-general-tabla">
                 <table class="tabla-productos">
@@ -58,7 +51,7 @@
                         <td>{{servicio.id_service}}</td>
                         <td>{{servicio.name_service}}</td>
                         <td>{{servicio.catalog.name}}</td>
-                        <td id="foto-servicio"><img src="{{servicio.photo_service1.url}}"></td>
+                        <td id="foto-producto"><img src="{{servicio.photo_service1.url}}"></td>
                         <td>{{servicio.price}}</td>
                         {% if servicio.status == 'Activo' %}
                             <td style="color:#7F38B4">{{servicio.status}}</td>
@@ -66,7 +59,7 @@
                         <td style="color:red">{{servicio.status}}</td>
                         {% endif %}
                         
-                        <td> <a><i class="fa-solid fa-eye"></i></a> | <a id="editar-{{servicio.id}}" href="{% url "edicionProducto" name=request.user.username id=servicio.id %}"><i class="fa-solid fa-wand-magic-sparkles"></i></a> | <a id="eliminar-{{servicio.id}}"><i class="fa-solid fa-trash"></i></a> </td>
+                        <td> <a><i class="fa-solid fa-eye"></i></a> | <a id="editar-{{servicio.id}}" href="{% url "edicionServicio" name=servicio.name_service id=servicio.id %}"><i class="fa-solid fa-wand-magic-sparkles"></i></a> | <a id="eliminar-{{servicio.id}}"><i class="fa-solid fa-trash"></i></a> </td>
                     </tr>
                     {% empty %}
                     <h2>No se encontraron servicios</h2>
@@ -87,11 +80,7 @@
 {% block script %}
 <script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
 <script>
-    $(document).ready(()=>{
-        setTimeout(function() {
-            $("#success").fadeOut(1500);
-        },3000);
-    })
+    
 
     {% comment %} Modal {% endcomment %}
     {% for servicio in servicios %}

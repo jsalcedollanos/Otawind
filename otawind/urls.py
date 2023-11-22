@@ -21,7 +21,7 @@ urlpatterns = [
     path('edicion-perfil/<int:id>',login_required(views.editionProfile), name="edicionPerfil"),
     path('seleccionar-perfil',login_required(views.selectCatalog), name="selectPerfil"),
     path('agregar-catalogo/<int:id>',login_required(views.addCatalog), name="addCatalogo"),
-    path('ver-catalogo/', login_required(views.viewCatalog), name="viewCatalogo"),
+    path('ver-catalogo/<str:name>/<int:id>', login_required(views.viewCatalogUser), name="viewCatalogo"),
     path('edicion-catalogo/<int:id>', login_required(views.editCatalog), name="edicionCatalogo"),
     path('eliminar-catalogo/<int:id>', login_required(views.deleteCatalog), name="eliminarCatalogo"),
     path('productos/<str:name>/<int:id>', login_required(views.viewProduct), name="productos"),
@@ -30,7 +30,9 @@ urlpatterns = [
     path('eliminar-producto/<int:id>', login_required(views.deleteProduct), name="eliminarProducto"),
     path('servicios/<str:name>/<int:id>', login_required(views.viewService), name="servicios"),
     path('agregar-servicio/<str:name>/<int:id>', login_required(views.addService), name="addServicios"),
+    path('editar-servicio/<str:name>/<int:id>', login_required(views.editService), name="edicionServicio"),
     path('perfil-usuario/<str:name>/<int:id>', login_required(views.view_profile), name="viewPerfil"),
+    path('catalogo/<str:name>/<int:id>', views.viewCatalog, name="verCatalogo"),
    
 ]
 

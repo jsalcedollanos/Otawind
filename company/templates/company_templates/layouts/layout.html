@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,10 +37,10 @@
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
-
-    {% block title %}
-        <title>Otawind</title>
-    {% endblock %} 
+    
+    <title>
+        {% block title %}{% endblock %}
+    </title>
 </head>
 <body>
 <div class="overlay"></div>
@@ -62,7 +62,11 @@
                         {% endif %}
                         <a class="opc-nav" href="#">Reportar error</a>
                         <a class="opc-nav" href="#">Acerca de otawind</a>
+                        {% if perfilAccount.photo_profile.url %}
                         <a class="menu-perfil"><div class="nav-bar-content-imagenPerfil"><img src="{{perfilAccount.photo_profile.url}}"></div></a>
+                        {% else %}
+                        <a class="menu-perfil"><div class="nav-bar-content-imagenPerfil-none"></div></a>
+                        {% endif %}
                         <div class="nav-bar-content-menu">
                             <h4>¿Que deseas hacer?</h4>
                             
@@ -93,7 +97,7 @@
 
     <div class="content">
         {% block content %}
-        
+            
         {% endblock %}
     </div>
 <footer>
@@ -137,10 +141,14 @@
 <script>
     $(document).ready(()=>{
         $('.nav-bar-content-menu').hide()
-
+        // Mensaje de success
         setTimeout(function() {
             $("#success").fadeOut(1500);
-        },3000);
+        },2000);
+        //Mensaje de error
+        setTimeout(function() {
+            $("#error").fadeOut(1500);
+        },2000);
     });
 
     $('.menu-perfil').click(function(){

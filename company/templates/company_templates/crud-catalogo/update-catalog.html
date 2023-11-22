@@ -1,7 +1,7 @@
 {% extends 'company_templates/layouts/layout.html' %}
 {% load static %}
 {% block title %}
-    <title>Editar Catalogo | Otawind</title>
+    Editar Catalogo | Otawind
 {% endblock title %}
 
 {% block content %}
@@ -9,7 +9,7 @@
 {% comment %} Mensaje de error {% endcomment %}
     {% for message in messages %}
     {% if message.tags == 'error' %}
-        <p id="error">{{message}}</p>
+        <p id="error" style="display:block;">{{message}}</p>
     {% else %}
     <p id="success">{{message}} <a href="{% url 'viewCatalogo' %}">Ver catalogos</a></p>
     {% endif %} 
@@ -38,6 +38,8 @@
         $('#id_name').val('{{catalogo.name}}')       
         $('#id_description').val('{{catalogo.description}}')
         $('#id_profile').val('{{catalogo.profile_id}}')
+        $('#id_category').val('{{catalogo.category.id}}')
+        $('#id_type_catalog').val('{{catalogo.category.type_categorie}}')
     })
     </script>
 {% endblock script %}

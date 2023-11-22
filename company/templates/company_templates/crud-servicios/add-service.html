@@ -36,10 +36,65 @@
         $('#id_price').on('input', function () { 
             this.value = this.value.replace(/[^0-9]/,'');
         });
-
+        // Cerrar mensaje emergente
         setTimeout(function(){
             $('#success').fadeOut(1500);
         }, 3000);
+
+        //Agregando texto a los recuadros de input type="file"
+        $('#msg-file-photo_service1').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
+        $('#msg-file-photo_service2').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
+        $('#msg-file-photo_service3').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
+        $('#msg-file-photo_service4').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
+
+        // Solo imagenes
+        $('input[type=file]').attr('accept','image/.jpg, .png, .jpeg, .webp');
+        
+
+        // Validacion de INPUT file
+        $('#id_photo_service1').on("change", function(){
+            if($('id_photo_service1').value != null){
+                console.log('vacio')
+            }else{
+                const archivo = this.value.replace('C:\\fakepath\\','')
+                //const nameArc = archivo.replace('fakepath',' ')
+                $('#msg-file-photo_service1').html('<div> <p style="font-size:12px; text-align:center;">Se a cargado su imagen con exito.</p></div>')
+                $('#arc-photo_service1').html(archivo)  
+            }  
+        })
+
+        $('#id_photo_service2').on("change", function(){
+            if($('id_photo_service2').value != null){
+                console.log('vacio')
+            }else{
+                const archivo = this.value.replace('C:\\fakepath\\','')
+                //const nameArc = archivo.replace('fakepath',' ')
+                $('#msg-file-photo_service2').html('<div> <p style="font-size:12px; text-align:center;">Se a cargado su imagen con exito.</p></div>')
+                $('photo_service2').html(archivo)  
+            }  
+        })
+
+        $('#id_photo_service3').on("change", function(){
+            if($('id_photo_service3').value != null){
+                console.log('vacio')
+            }else{
+                const archivo = this.value.replace('C:\\fakepath\\','')
+                //const nameArc = archivo.replace('fakepath',' ')
+                $('#msg-file-photo_service3').html('<div> <p style="font-size:12px; text-align:center;">Se a cargado su imagen con exito.</p></div>')
+                $('photo_service3').html(archivo)  
+            }  
+        })
+
+        $('#id_photo_service4').on("change", function(){
+            if($('id_photo_service4').value != null){
+                console.log('vacio')
+            }else{
+                const archivo = this.value.replace('C:\\fakepath\\','')
+                //const nameArc = archivo.replace('fakepath',' ')
+                $('#msg-file-photo_service4').html('<div> <p style="font-size:12px; text-align:center;">Se a cargado su imagen con exito.</p></div>')
+                $('photo_service4').html(archivo)  
+            }  
+        })
     })
 </script>
 {% endblock script %}

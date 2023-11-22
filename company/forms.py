@@ -45,29 +45,157 @@ class perfilUsuer(forms.ModelForm):
             
         }
         
+class serviceEditForm(forms.ModelForm):
+
+    catalog = forms.ModelChoiceField(
+        label = 'Catalogo',
+        required = True,
+        queryset = Catalogos.objects.filter(type_catalog = 'Servicios')
+    )
+
+    list_status = [
+        ('Activo', 'Activo'),
+        ('Inactivo', 'Inactivo')
+    ]
+
+    status = forms.TypedChoiceField(
+        choices = list_status
+    )
+
+    photo_service1 = forms.ImageField(
+    label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= True
+    )
+
+    photo_service2 = forms.ImageField(
+    label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+    photo_service3 = forms.ImageField(label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+    photo_service4 = forms.ImageField(label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+
+    class Meta:
+        model = Services
+        fields = ('category','profile','name_service','price','description')
+        
+
+
+class productEditForm(forms.ModelForm):
+    """ list_status = [
+        ('Activo', 'Activo'),
+        ('Inactivo', 'Inactivo')
+    ] """
+
+    name_product = forms.CharField(
+        label = 'Producto',
+    )
+
+    """ status = forms.TypedChoiceField(
+        choices = list_status
+    ) """
+
+    description = forms.CharField(
+        label = 'Descripcionnn',
+        widget = forms.Textarea(
+            attrs = {
+                'placeholder' : 'Describe aqui tu producto'
+            }
+        )
+    )
+
+    photo_product1 = forms.ImageField(
+    label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+    photo_product2 = forms.ImageField(
+    label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+    photo_product3 = forms.ImageField(label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+    photo_product4 = forms.ImageField(label="Agregar foto(opcional)",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
+
+
+    class Meta:
+        model = Products
+        fields = '__all__'
+        exclude = ('user', 'id_product','valoration','status')
 
 class productForm(forms.Form):
 
-    catalogo = forms.ModelChoiceField(
+    list_color = [
+        ('Red','Rojo'),
+        ('Blue','Azul'),
+        ('White','Blanco'),
+        ('Black','Negro'),
+        ('Yellow','Amarillo'),
+        ('Green','Verde'),
+        ('Bronw','Marron'),
+        ('Pinck','Rosado'),
+        ('Purple','Morado'),
+    ]
+
+    name_product = forms.CharField(
+        label = "Producto",
+        required = True,
+        max_length = 100,
+        validators = [
+            validators.MinLengthValidator(3, 'El nombre es muy corto porfavor revisalo.'),
+            validators.MaxLengthValidator(101, 'El nombre es muy largo porfavor revisalo.'),
+        ]
+    )
+
+    catalog_id = forms.ModelChoiceField(
         label = 'Catalogo',
         required = True,
         queryset = Catalogos.objects.filter(type_catalog = 'Productos')
     )
 
-    profile = forms.ModelChoiceField(
+    category_id = forms.ModelChoiceField(
+        label = "Categoria Producto",
+        required = True,
+        queryset = Category.objects.filter(type_categorie = 'Producto')
+    )
+
+    profile_id = forms.ModelChoiceField(
         label = "Perfil",
         required = True,
         queryset=ProfileBussines.objects.all()
     )
 
-    name_product = forms.CharField(
-        label = "Producto",
+    color = forms.ChoiceField(
+        choices=list_color
+    )
+
+    brand = forms.CharField(
+        label = 'Marca',
         required = True,
-        max_length = 40,
-        validators = [
-            validators.MinLengthValidator(3, 'El nombre es muy corto porfavor revisalo.'),
-            validators.MaxLengthValidator(40, 'El nombre es muy largo porfavor revisalo.'),
-        ]
+        widget = forms.TextInput(
+            attrs = {
+                'placeholder' : 'Marca del producto'
+            }
+        )
     )
 
     quantities = forms.CharField(
@@ -90,6 +218,31 @@ class productForm(forms.Form):
                 'id' : 'id_price'
             }
         ),
+    )
+
+    price_promo = forms.CharField(
+        label = 'Promocion',
+        required = False,
+        widget = forms.TextInput(
+            attrs = {
+                'placeholder' : 'Promocion Opcional',
+                'id' : 'id_price'
+            }
+        )
+    )
+
+    description = forms.CharField(
+        label = "Descripcion",
+        max_length = 1000,
+        widget = forms.Textarea(
+            attrs = {
+                'placeholder': 'Descripcion de tu producto'
+            }
+        ),
+        validators = [
+            validators.MinLengthValidator(10, 'Descripcion muy corta, proporciona mas informacion para que tus clientes te conozcan mejor'),
+            validators.MaxLengthValidator(1000, 'Solo esta permitido 400 caracteres, porfavor recorta un poco tu descripcion'),
+        ]
     )
 
     photo_product1 = forms.ImageField(
@@ -116,29 +269,17 @@ class productForm(forms.Form):
 
 
 
-    description = forms.CharField(
-        label = "Descripcion",
-        max_length = 400,
-        widget = forms.Textarea(
-            attrs = {
-                'placeholder': 'Descripcion de tu producto'
-            }
-        ),
+class serviceForm(forms.Form):
+
+    name_service = forms.CharField(
+        label = "Servicio",
+        required = True,
+        max_length = 100,
         validators = [
-            validators.MinLengthValidator(10, 'Descripcion muy corta, proporciona mas informacion para que tus clientes te conozcan mejor'),
-            validators.MaxLengthValidator(400, 'Solo esta permitido 400 caracteres, porfavor recorta un poco tu descripcion'),
+            validators.MinLengthValidator(3, 'El nombre es muy corto porfavor revisalo.'),
+            validators.MaxLengthValidator(100, 'El nombre es muy largo porfavor revisalo.'),
         ]
     )
-
-
-
-    class Meta:
-        model = Products
-        
-        exclude = ('user', 'id_product', 'status')
-
-
-class serviceForm(forms.Form):
 
     catalog = forms.ModelChoiceField(
         label = 'Catalogo',
@@ -152,13 +293,39 @@ class serviceForm(forms.Form):
         queryset=ProfileBussines.objects.all()
     )
 
-    name_service = forms.CharField(
-        label = "Servicio",
+    category = forms.ModelChoiceField(
+        label = "Categoria",
         required = True,
-        max_length = 100,
+        queryset=Category.objects.all()
+    )
+
+    price = forms.CharField(
+        label = 'Precio',
+        required = True,
+    )
+
+    price_promo = forms.CharField(
+        label = 'Promocion',
+        required = False,
+        widget = forms.TextInput(
+            attrs = {
+                'placeholder' : 'Promocion Opcional',
+                'id' : 'id_price'
+            }
+        )
+    )
+
+    description = forms.CharField(
+        label = "Descripcion",
+        max_length = 2000,
+        widget = forms.Textarea(
+            attrs = {
+                'placeholder': 'Descripcion de tu servicio'
+            }
+        ),
         validators = [
-            validators.MinLengthValidator(3, 'El nombre es muy corto porfavor revisalo.'),
-            validators.MaxLengthValidator(100, 'El nombre es muy largo porfavor revisalo.'),
+            validators.MinLengthValidator(10, 'Descripcion muy corta, proporciona mas informacion para que tus clientes te conozcan mejor'),
+            validators.MaxLengthValidator(2000, 'Solo esta permitido 400 caracteres, porfavor recorta un poco tu descripcion'),
         ]
     )
 
@@ -186,19 +353,7 @@ class serviceForm(forms.Form):
 
 
 
-    description = forms.CharField(
-        label = "Descripcion",
-        max_length = 400,
-        widget = forms.Textarea(
-            attrs = {
-                'placeholder': 'Descripcion de tu servicio'
-            }
-        ),
-        validators = [
-            validators.MinLengthValidator(10, 'Descripcion muy corta, proporciona mas informacion para que tus clientes te conozcan mejor'),
-            validators.MaxLengthValidator(400, 'Solo esta permitido 400 caracteres, porfavor recorta un poco tu descripcion'),
-        ]
-    )
+    
 
 
 
@@ -258,7 +413,7 @@ class catalogForm(forms.ModelForm):
 
     description = forms.CharField(
         label = "Descripcion",
-        max_length = 100,
+        max_length = 2000,
         widget = forms.Textarea(
             attrs = {
                 'placeholder': 'Descripcion de tu empresa'
@@ -266,7 +421,7 @@ class catalogForm(forms.ModelForm):
         ),
         validators = [
             validators.MinLengthValidator(10, 'Descripcion muy corta, proporciona mas informacion para que tus clientes te conozcan mejor.'),
-            validators.MaxLengthValidator(150, 'Cantidad maxima de caracteres es de 150, porfavor reduce tu descripcion.')
+            validators.MaxLengthValidator(2000, 'Cantidad maxima de caracteres es de 150, porfavor reduce tu descripcion.')
         ]
     )
     class Meta:
@@ -305,7 +460,7 @@ class Form(forms.Form):
 
     bio = forms.CharField(
         label = "Bio",
-        max_length = 50,
+        max_length = 2000,
         widget = forms.Textarea(
             attrs = {
                 'placeholder': 'Presentacion corta de tu empresa'

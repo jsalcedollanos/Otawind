@@ -1,13 +1,22 @@
+
+
+
 .content-form{
-    width: 800px;
+    text-align: center;
     height: auto;
-    margin: 30px;
+    width: 900px;
+    margin-top: 100px;
+    margin-left: 30px;
+    margin-bottom: 30px;
     border-radius: 20px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     background-color: #F4F4F4;
 }
 
 .content-form .content-general-form{
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
     margin: 40px;
 }
 
@@ -33,11 +42,271 @@
 }
 
 .content-form .field-form{
-    width: 410px;
+    width: 360px;
     font-size: 18px;
     margin: 20px;
     text-align: left;
 }
+
+/* STYLES PRODUCTS IN ESPECIFIC */
+
+#field-form-name_product{
+    width: 700px;
+}
+
+#id_name_product{
+    width: 100%;
+}
+
+#field-form-description{
+    width: 700px;
+}
+
+.content-form #id_photo_product1{
+    opacity: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.content-form #id_photo_product2{
+    opacity: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.content-form #id_photo_product3{
+    opacity: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.content-form #id_photo_product4{
+    opacity: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    z-index: 100;
+}
+
+#photo_product1, #photo_product2, #photo_product3, #photo_product4{
+    width: auto;
+    cursor: pointer;
+    border: dashed #7D05B4;
+    border-radius: 6px;
+    background-color: white;
+    margin-top: 10px;
+    padding: 5px;
+    height: 70px;
+}
+
+#photo_product1:hover{
+    background-color: #F0CFFC;
+    cursor: pointer;
+}
+
+#photo_product2:hover{
+    background-color: #F0CFFC;
+    cursor: pointer;
+}
+
+#photo_product3:hover{
+    background-color: #F0CFFC;
+    cursor: pointer;
+}
+
+#photo_product4:hover{
+    background-color: #F0CFFC;
+    cursor: pointer;
+}
+
+#msg-file-photo_product1, #msg-file-photo_product2, #msg-file-photo_product3, #msg-file-photo_product4{
+    position: relative;
+    cursor: pointer;
+    bottom: 82px;
+}
+
+#arc-photo_product1, #arc-photo_product2, #arc-photo_product3, #arc-photo_product4{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    bottom: 80px;
+    font-size: 12px;
+    color: #7D05B4;
+}
+
+/* END STYLES PRODUCT - FORM PRODUCTO */
+
+
+/* STYLE PROFILE-BUSINESS */
+#field-form-photo_portada, #field-form-photo_profile, #field-form-name{
+    width: 88%;
+}
+
+#id_name{
+    width: 100%;
+}
+
+#photo_portada, #photo_profile{
+    width: auto;
+    cursor: pointer;
+    border: dashed #7D05B4;
+    border-radius: 6px;
+    background-color: white;
+    margin-top: 10px;
+    padding: 5px;
+    height: 70px;
+}
+
+.content-form #id_photo_portada, #id_photo_profile{
+    opacity: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    z-index: 100;
+}
+
+#photo_portada:hover, 
+#photo_profile:hover{
+    background-color: #F0CFFC;
+    cursor: pointer;
+}
+
+#msg-file-photo_portada, #msg-file-photo_profile{
+    position: relative;
+    cursor: pointer;
+    bottom: 82px;
+}
+
+#arc-photo_portada, #arc-photo_profile{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    bottom: 80px;
+    font-size: 12px;
+    color: #7D05B4;
+}
+
+/* END STYLE PROFILE-BUSINESS */
+
+/* STYLES SERVICE ESPECIFIC */
+
+#field-form-name_service{
+    width: 700px;
+}
+
+#id_name_service{
+    width: 100%;
+}
+
+#field-form-description{
+    width: 700px;
+}
+
+.content-form #id_photo_service1{
+    opacity: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.content-form #id_photo_service2{
+    opacity: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.content-form #id_photo_service3{
+    opacity: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.content-form #id_photo_service4{
+    opacity: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    z-index: 100;
+}
+
+#photo_service1, #photo_service2, #photo_service3, #photo_service4{
+    width: auto;
+    cursor: pointer;
+    border: dashed #7D05B4;
+    border-radius: 6px;
+    background-color: white;
+    margin-top: 10px;
+    padding: 5px;
+    height: 70px;
+}
+
+#photo_service1:hover{
+    background-color: #F0CFFC;
+    cursor: pointer;
+}
+
+#photo_service2:hover{
+    background-color: #F0CFFC;
+    cursor: pointer;
+}
+
+#photo_service3:hover{
+    background-color: #F0CFFC;
+    cursor: pointer;
+}
+
+#photo_service4:hover{
+    background-color: #F0CFFC;
+    cursor: pointer;
+}
+
+#msg-file-photo_service1, #msg-file-photo_service2, #msg-file-photo_service3, #msg-file-photo_service4{
+    position: relative;
+    cursor: pointer;
+    bottom: 82px;
+}
+
+#arc-photo_service1, #arc-photo_service2, #arc-photo_service3, #arc-photo_service4{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    bottom: 80px;
+    font-size: 12px;
+    color: #7D05B4;
+}
+
+#photo_service1, #photo_service2, #photo_service3, #photo_service4{
+    width: auto;
+    cursor: pointer;
+    border: dashed #7D05B4;
+    border-radius: 6px;
+    background-color: white;
+    margin-top: 10px;
+    padding: 5px;
+    height: 70px;
+}
+
+/* END STYLES SERVICE */
 
 .content-form .field-form label{
     display: block;
@@ -48,7 +317,7 @@
 .content-form .field-form select{
     border-style: none;
     border-radius: 10px;
-    width: 370px;
+    width: 320px;
     height: 40px;
     padding: 10px;
     color: #7D05B4;
@@ -57,7 +326,7 @@
 .content-form .field-form input{
     border-style: none;
     border-radius: 10px;
-    width: 350px;
+    width: 300px;
     height: 20px;
     padding: 10px;
     color: #7D05B4;
@@ -65,7 +334,7 @@
 
 .content-form .field-form textarea{
     border-style: none;
-    width: 350px;
+    width: 100%;
     padding: 10px;
     color: #7D05B4;
     border-radius: 10px;

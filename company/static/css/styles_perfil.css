@@ -26,17 +26,17 @@
 }
 
 .content-perfil-user{
-    width: 100%;
     display: flex;
     justify-content: left;
+    width: 100%;
 }
 
 .content-perfil-user-general{
+   text-align: center;
    width: 400px;
    padding: 45px;
    margin-top: 60px;
    margin-bottom: 60px;
-   text-align: center;
 }
 
 .content-perfil-user-general .image-user{

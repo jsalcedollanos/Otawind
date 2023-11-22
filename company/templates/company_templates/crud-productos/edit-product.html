@@ -8,24 +8,10 @@
     <div class="content-producto">
         {% include 'company_templates/layouts/layout-dashboard.html' %}
         <div class="content-producto-general">
-            <h2>Edita tu producto</h2>
-            <form class="form-producto" enctype="multipart/form-data" action="{% url "edicionProducto" name=request.user.username id=producto.id %}" method="POST">
-                {% csrf_token %}
-                <div class="content-producto-general-form">
-                    {% for field in form %}
-                      
-                            <div class="field-form">
-                                <label>{{field.label}}</label>
-                                {{field}}
-                            </div>
-                   
-                    {% endfor %}
-                </div>
-                <div class="funciones-botones">
-                    <input type="submit" value="Editar">
-                    <input id="btn-cancelar" value="Cancelar" type="button">
-                </div>
-            </form> 
+            <div class="content-form">
+                <h1>Editar producto</h1>
+                {% include "company_templates/layouts/form.html" %}
+            </div>
         </div> 
     </div> 
 {% endblock content %}
@@ -39,21 +25,63 @@
         $('#id_name_product').val('{{producto.name_product}}')
         $('#id_quantities').val('{{producto.quantities}}')
         $('#id_description').val('{{producto.description}}')
+        $('#id_status').val('{{producto.status}}')
+        $('#id_brand').val('{{producto.brand}}')
+        $('#id_valoration').val('{{producto.valoration}}')
         $('#id_price').val('{{producto.price}}')
-
-
-        $('#opc-Catalogo').text('Selecciona un catalogo para tu producto')
-
+        $('#id_price_promo').val('{{producto.price_promo}}')
+        $('#id_color').val('{{producto.color}}')
         setTimeout(function() {
             $("#success").fadeOut(1500);
         },3000);
 
     })
 
-    
-
     $('#btn-cancelar').click(function(){
         $('.modal-form').removeClass("modal--show");
     });
+
+
+    // Solo imagenes
+    $('input[type=file]').attr('accept','image/.jpg, .png, .jpeg, .webp');
+
+    //Editar recuadro de imagen para Editar
+    $('.content-field-11').html('<input type="file" name="photo_product1" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_product1"><div id="msg-file-11" style="position:relative; bottom:70px; font-size:12px; text-align:center;"><p>Puedes editar tu imagen aqui</p><p>{{producto.photo_product1}}</p></div>')
+    $('.content-field-12').html('<input type="file" name="photo_product2" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_product2"><div id="msg-file-12" style="position:relative; bottom:70px; font-size:12px; text-align:center;"><p>Puedes editar tu imagen aqui</p><p>{{producto.photo_product2}}</p></div>')
+    $('.content-field-13').html('<input type="file" name="photo_product3" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_product3"><div id="msg-file-13" style="position:relative; bottom:70px; font-size:12px; text-align:center;"><p>Puedes editar tu imagen aqui</p><p>{{producto.photo_product3}}</p></div>')
+    $('.content-field-14').html('<input type="file" name="photo_product4" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_product4"><div id="msg-file-14" style="position:relative; bottom:70px; font-size:12px; text-align:center;"><p>Puedes editar tu imagen aqui</p><p>{{producto.photo_product4}}</p></div>')
+
+    // Validacion de INPUT file
+    $('#id_photo_product1').on("change", function(){
+        if($('id_photo_product1').value != ""){
+            const archivo = this.value.replace('C:\\fakepath\\','')
+            $('#msg-file-11').html('<div style="position:relative; bottom:43px; font-size:12px; text-align:center;"><input type="file" name="photo_product1" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_product1"><p>Se a cargado la nueva imagen</p><p style="display:relative; top:2px;" id="arc-11"></p></div>')  
+            $('#arc-11').html(archivo)  
+        } 
+    })
+
+    $('#id_photo_product2').on("change", function(){
+        if($('id_photo_product2').value != ""){
+            const archivo = this.value.replace('C:\\fakepath\\','')
+            $('#msg-file-12').html('<div style="position:relative; bottom:43px; font-size:12px; text-align:center;"><input type="file" name="photo_product2" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_product1"><p>Se a cargado la nueva imagen</p><p style="display:relative; top:2px;" id="arc-12"></p></div>')  
+            $('#arc-12').html(archivo)  
+        } 
+    })
+
+    $('#id_photo_product3').on("change", function(){
+        if($('id_photo_product3').value != ""){
+            const archivo = this.value.replace('C:\\fakepath\\','')
+            $('#msg-file-13').html('<div style="position:relative; bottom:43px; font-size:12px; text-align:center;"><input type="file" name="photo_product3" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_product1"><p>Se a cargado la nueva imagen</p><p style="display:relative; top:2px;" id="arc-13"></p></div>')  
+            $('#arc-13').html(archivo)  
+        } 
+    })
+
+    $('#id_photo_product4').on("change", function(){
+        if($('id_photo_product4').value != ""){
+            const archivo = this.value.replace('C:\\fakepath\\','')
+            $('#msg-file-14').html('<div style="position:relative; bottom:43px; font-size:12px; text-align:center;"><input type="file" name="photo_product4" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_product1"><p>Se a cargado la nueva imagen</p><p style="display:relative; top:2px;" id="arc-14"></p></div>')  
+            $('#arc-14').html(archivo)  
+        } 
+    })
 </script>
 {% endblock script %}

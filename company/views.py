@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import *
 from company.models import *
+from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
@@ -26,14 +27,18 @@ def layout(request):
 
 def home(request):
     try:
-        perfilAccount = Account.objects.get(user_id=request.user.id)
         username = User.objects.get(username=request.user.username) 
     except User.DoesNotExist:
         username = None
-        
+
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
     return render(request, 'company_templates/index.html',{
         'username' : username,
-        'perfil' : perfilAccount,
+        'perfilAccount' : perfilAccount,
     })
 
 def signUp(request):
@@ -83,8 +88,10 @@ def dashboard(request, name):
     user = request.user.id
     bussines = ProfileBussines.objects.filter(user_id=user).count()
     profile = ProfileBussines.objects.all()
-    perfilAccount = Account.objects.get(user_id=request.user.id)
-    
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
 
     return render(request, 'company_templates/dashboard.html',{
         'bussines' : bussines,
@@ -201,7 +208,7 @@ def editionProfile(request, id):
             'perfilAccount' : perfilAccount,
         })
     
-def viewCatalog(request):
+def viewCatalogUser(request, name, id):
     try:
         perfilAccount = Account.objects.get(user_id=request.user.id)
     except Account.DoesNotExist:
@@ -359,7 +366,7 @@ def editProduct(request, name, id):
 
     try:
         producto = Products.objects.get(id=id)
-        form = productForm(request.POST, request.FILES, instance=producto)
+        form = productEditForm(request.POST, request.FILES, instance=producto)
         if request.method == 'POST':
             if form.is_valid():
                 form.save()
@@ -367,6 +374,7 @@ def editProduct(request, name, id):
                 return redirect(f'productos', username, idproduct)
             else:
                 messages.error(request, 'El producto no se pudo editar revisa los datos.')
+        
     except Products.DoesNotExist:
         producto = None
     
@@ -382,8 +390,7 @@ def addProduct(request, name, id):
         perfilAccount = Account.objects.get(user_id=request.user.id)
     except Account.DoesNotExist:
         perfilAccount = None
-
-
+    
     username = User.objects.get(username=request.user.username)
     number_random = random.randint(10000, 99999)
     urlCurrently = request.META.get('HTTP_REFERER') 
@@ -391,26 +398,33 @@ def addProduct(request, name, id):
         form = productForm(request.POST, request.FILES)
         if form.is_valid():
             data_form = form.cleaned_data
-            profile = form.cleaned_data.get('profile')
-            catalog = form.cleaned_data.get('catalog')
+            profile = data_form.get('profile')
+            catalog = data_form.get('catalog_id')
             name_product = data_form.get('name_product')
-            category = data_form.get('category')
+            color = data_form.get('color')
+            brand = data_form.get('brand')
+            category = data_form.get('category_id')
             quantities = data_form.get('quantities')
             price = data_form.get('price')
+            description = data_form.get('description')
             photo_product1 = data_form.get('photo_product1')
             photo_product2 = data_form.get('photo_product2')
             photo_product3 = data_form.get('photo_product3')
             photo_product4 = data_form.get('photo_product4')
-
-
+            
+            
             product = Products(
+            
                 id_product = number_random,
                 user_id = request.user.id,
                 catalog = catalog,
                 profile = profile,
                 name_product = name_product,
                 category = category,
+                color = color,
+                brand = brand,
                 quantities = quantities,
+                description = description,
                 price = price,
                 photo_product1 = photo_product1,
                 photo_product2 = photo_product2,
@@ -511,6 +525,36 @@ def addService(request, name, id):
         'perfilAccount' : perfilAccount,
         'username' : username,
     })
+
+def editService(request, name, id):
+    username = User.objects.get(username=request.user.username)
+    idservicio = request.user.id
+
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
+    try:
+        servicio = Services.objects.get(id=id)
+        form = serviceEditForm(request.POST, request.FILES, instance=servicio)
+        if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'El servicio ha sido editado con exito.')
+                return redirect(f'productos', username, idservicio)
+            else:
+                messages.error(request, 'El servicio no se pudo editar revisa los datos.')
+        
+    except Services.DoesNotExist:
+        servicio = None
+    
+    return render(request, 'company_templates/crud-servicios/edit-service.html', {
+        'username' : username,
+        'servicio' : servicio,
+        'form' : form,
+        'perfilAccount' : perfilAccount,
+    })
     
 
 def view_profile(request, name, id):
@@ -573,4 +617,64 @@ def view_profile(request, name, id):
        'form' : form,
        'profile' : profileBusiness,
        'perfilAccount' : perfilAccount,
+    })
+
+def viewCatalog(request, name, id):
+    urlCurrently = request.META.get('HTTP_REFERER')
+    busqueda = request.GET.get("buscar")
+    color = request.GET.get("color")
+    filCategory = request.GET.get("category")
+    profileBusiness = ProfileBussines.objects.get(user_id=request.user.id)
+
+    username = User.objects.get(username=request.user.username)
+    try:
+        perfilAccount = Account.objects.get(user_id=request.user.id)
+    except Account.DoesNotExist:
+        perfilAccount = None
+
+    try:
+        productos = Products.objects.filter(catalog_id=id)
+    except Products.DoesNotExist:
+        productos = None
+
+    try:
+        servicios = Services.objects.filter(catalog_id=id)
+    except Products.DoesNotExist:
+        servicios = None
+
+    if busqueda :
+        productos = Products.objects.filter(
+            Q(name_product__icontains = busqueda)
+        ).distinct()
+
+    if color :
+        productos = Products.objects.filter(
+            Q(name_product__icontains = busqueda),
+            Q(color__icontains = color)
+        ).distinct()
+
+    if filCategory:
+        productos = Products.objects.filter(
+            Q(category_id__icontains = filCategory)
+        ).distinct()
+    
+    # Filtro de catalogos
+    profileUser = ProfileBussines.objects.get(user_id=request.user.id)
+    filterCatalog = Catalogos.objects.filter(profile_id=profileUser.id, type_catalog='Productos')
+
+    # Filtro de Categorias
+    filterCategory = Category.objects.filter(type_categorie='Producto')
+
+
+    catalogo = Catalogos.objects.get(id=id)
+
+    return render(request, 'company_templates/crud-catalogo/view-catalog.html', {
+        'catalogo' : catalogo,
+        'profileBusiness' : profileBusiness,
+        'filterCategories' : filterCategory,
+        'filtroCatalogos' : filterCatalog,
+        'username' : username, 
+        'productos' : productos,
+        'servicios' : servicios,
+        'perfilAccount' : perfilAccount,
     })

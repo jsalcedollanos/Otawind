@@ -85,7 +85,7 @@ class Catalogos(models.Model):
         choices = [('Servicios','Servicios'),('Productos','Productos')]
     )
     photo_portada = models.ImageField(upload_to="catalogo", verbose_name="portada", null=True)
-    description = models.TextField(max_length=100, null=True, verbose_name="descripcion")
+    description = models.TextField(max_length=2000, null=True, verbose_name="descripcion")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="fecha creacion")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="fecha actualizacion")
     class Meta:
@@ -96,16 +96,20 @@ class Catalogos(models.Model):
         return self.name
     
 class Products(models.Model):
+    name_product = models.CharField(max_length=100, verbose_name="Nombre")
     user = models.ForeignKey(User, verbose_name="user", on_delete=models.CASCADE)
     catalog = models.ForeignKey(Catalogos, verbose_name="catalogo", on_delete=models.CASCADE)
     id_product = models.CharField(max_length=10, unique=True, verbose_name="id_producto")
     profile = models.ForeignKey(ProfileBussines, verbose_name="Perfil", on_delete=models.CASCADE, null=True)
-    name_product = models.CharField(max_length=40, verbose_name="Nombre")
     category = models.ForeignKey(Category, verbose_name="Categoria", on_delete=models.CASCADE, default="None")
     quantities = models.CharField(max_length=4, verbose_name="Cantidades", null=True)
-    description = models.TextField(max_length=400, verbose_name="descripcion", default="Descripcion del producto")
+    brand = models.CharField(max_length=30, verbose_name="Marca")
     status = models.CharField(max_length=20, verbose_name="estado", default='Activo')
-    price = models.DecimalField(max_digits=9, decimal_places=3, verbose_name="precio")
+    color = models.CharField(max_length=50, null=True)
+    valoration = models.CharField(verbose_name="Valoracion", max_length=3, default='3.5')
+    price = models.IntegerField(verbose_name="precio")
+    price_promo = models.IntegerField(verbose_name='promocion', default="0")
+    description = models.TextField(max_length=1000, verbose_name="descripcion", default="Descripcion del producto")
     photo_product1 = models.ImageField(upload_to="productos", verbose_name="foto_producto1")
     photo_product2 = models.ImageField(upload_to="productos", verbose_name="foto_producto2", null=True)
     photo_product3 = models.ImageField(upload_to="productos", verbose_name="foto_producto3", null=True)
@@ -119,22 +123,24 @@ class Products(models.Model):
     
 
 class Services(models.Model):
+    name_service = models.CharField(max_length=40, verbose_name="Nombre")
     user = models.ForeignKey(User, verbose_name="user", on_delete=models.CASCADE)
     catalog = models.ForeignKey(Catalogos, verbose_name="catalogo", on_delete=models.CASCADE)
-    id_service = models.CharField(max_length=10, unique=True, verbose_name="id_producto")
+    id_service = models.CharField(max_length=10, unique=True, verbose_name="id_servicio")
     profile = models.ForeignKey(ProfileBussines, verbose_name="Perfil", on_delete=models.CASCADE, null=True)
-    name_service = models.CharField(max_length=40, verbose_name="Nombre")
     category = models.ForeignKey(Category, verbose_name="Categoria", on_delete=models.CASCADE, default="None")
-    description = models.TextField(max_length=400, verbose_name="descripcion", default="Descripcion del producto")
+    valoration = models.CharField(verbose_name="Valoracion", max_length=3, default='3.5')
     status = models.CharField(max_length=20, verbose_name="estado", default='Activo')
-    price = models.DecimalField(max_digits=9, decimal_places=3, verbose_name="precio")
-    photo_service1 = models.ImageField(upload_to="productos", verbose_name="foto_producto1")
-    photo_service2 = models.ImageField(upload_to="productos", verbose_name="foto_producto2", null=True)
-    photo_service3 = models.ImageField(upload_to="productos", verbose_name="foto_producto3", null=True)
-    photo_service4 = models.ImageField(upload_to="productos", verbose_name="foto_producto4", null=True)
+    price = models.IntegerField(verbose_name="precio")
+    price_promo = models.IntegerField(verbose_name='promocion', default="0")
+    description = models.TextField(max_length=1000, verbose_name="descripcion", default="Descripcion del servicio")
+    photo_service1 = models.ImageField(upload_to="servicios", verbose_name="foto_servicio1")
+    photo_service2 = models.ImageField(upload_to="servicios", verbose_name="foto_servicio2", null=True)
+    photo_service3 = models.ImageField(upload_to="servicios", verbose_name="foto_servicio3", null=True)
+    photo_service4 = models.ImageField(upload_to="servicios", verbose_name="foto_servicio4", null=True)
     class Meta:
-        verbose_name = "Producto"
-        verbose_name_plural = "Productos"
+        verbose_name = "Servicio"
+        verbose_name_plural = "Servicios"
     
     def __str__(self):
-        return self.name_product
+        return self.name_service

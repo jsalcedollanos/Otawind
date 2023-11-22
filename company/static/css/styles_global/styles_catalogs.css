@@ -105,6 +105,7 @@
 
 .card-funciones{
     display: flex;
+    opacity: 0;
     align-content: space-around;
     flex-wrap: wrap;
     background-color: white;

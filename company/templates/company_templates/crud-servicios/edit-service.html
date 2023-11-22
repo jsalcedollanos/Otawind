@@ -8,24 +8,10 @@
     <div class="content-producto">
         {% include 'company_templates/layouts/layout-dashboard.html' %}
         <div class="content-producto-general">
-            <h2>Edita tu producto</h2>
-            <form class="form-producto" enctype="multipart/form-data" action="{% url "edicionProducto" name=request.user.username id=producto.id %}" method="POST">
-                {% csrf_token %}
-                <div class="content-producto-general-form">
-                    {% for field in form %}
-                      
-                            <div class="field-form">
-                                <label>{{field.label}}</label>
-                                {{field}}
-                            </div>
-                   
-                    {% endfor %}
-                </div>
-                <div class="funciones-botones">
-                    <input type="submit" value="Editar">
-                    <input id="btn-cancelar" value="Cancelar" type="button">
-                </div>
-            </form> 
+            <div class="content-form">
+                <h1>Editar servicio</h1>
+                {% include "company_templates/layouts/form.html" %}
+            </div>
         </div> 
     </div> 
 {% endblock content %}
@@ -34,12 +20,13 @@
 <script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
 <script>
     $(document).ready(()=>{
-        $('#id_catalog').val('{{producto.catalog.id}}')
-        $('#id_profile').val('{{producto.profile.id}}')
-        $('#id_name_product').val('{{producto.name_product}}')
-        $('#id_quantities').val('{{producto.quantities}}')
-        $('#id_description').val('{{producto.description}}')
-        $('#id_price').val('{{producto.price}}')
+        $('#id_catalog').val('{{servicio.catalog.id}}')
+        $('#id_profile').val('{{servicio.profile.id}}')
+        $('#id_name_service').val('{{servicio.name_service}}')
+        $('#id_description').val('{{servicio.description}}')
+        $('#id_price').val('{{servicio.price}}')
+        $('#id_valoration').val('{{producto.valoration}}')
+        $('#id_price_promo').val('{{producto.price_promo}}')
 
 
         $('#opc-Catalogo').text('Selecciona un catalogo para tu producto')

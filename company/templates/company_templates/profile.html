@@ -47,7 +47,7 @@
                                 <div class="descripcion">
                                     <p>{{catalogo.description}}</p>
                                 </div>
-                                <a  class="btn-ver" href="">Ver catalogo</a>
+                                <a  class="btn-ver" href="{% url "verCatalogo" name=catalogo.name id=catalogo.id %}">Ver catalogo</a>
                             </div>
                         </div>
                     </div>

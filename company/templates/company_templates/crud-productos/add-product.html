@@ -41,11 +41,70 @@
             this.value = this.value.replace(/[^0-9]/,'');
         });
 
-        
 
         setTimeout(function(){
             $('#success').fadeOut(1500);
         }, 3000);
+
+        
+        //Agregando texto a los recuadros de input type="file"
+        $('#msg-file-photo_product1').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
+        $('#msg-file-photo_product2').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
+        $('#msg-file-photo_product3').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
+        $('#msg-file-photo_product4').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
+
+        // Solo imagenes
+        $('input[type=file]').attr('accept','image/.jpg, .png, .jpeg, .webp');
+        
+
+        // Validacion de INPUT file
+        $('#id_photo_product1').on("change", function(){
+            if($('id_photo_product1').value != null){
+                console.log('vacio')
+            }else{
+                const archivo = this.value.replace('C:\\fakepath\\','')
+                //const nameArc = archivo.replace('fakepath',' ')
+                $('#msg-file-photo_product1').html('<div> <p style="font-size:12px; text-align:center;">Se a cargado su imagen con exito.</p></div>')
+                $('#arc-photo_product1').html(archivo)  
+            }  
+        })
+
+        $('#id_photo_product2').on("change", function(){
+            if($('id_photo_product2').value != null){
+                console.log('vacio')
+            }else{
+                const archivo = this.value.replace('C:\\fakepath\\','')
+                //const nameArc = archivo.replace('fakepath',' ')
+                $('#msg-file-photo_product2').html('<div> <p style="font-size:12px; text-align:center;">Se a cargado su imagen con exito.</p></div>')
+                $('#arc-photo_product2').html(archivo)  
+            }  
+        })
+
+        $('#id_photo_product3').on("change", function(){
+            if($('id_photo_product3').value != null){
+                console.log('vacio')
+            }else{
+                const archivo = this.value.replace('C:\\fakepath\\','')
+                //const nameArc = archivo.replace('fakepath',' ')
+                $('#msg-file-photo_product3').html('<div> <p style="font-size:12px; text-align:center;">Se a cargado su imagen con exito.</p></div>')
+                $('#arc-photo_product3').html(archivo)  
+            }  
+        })
+
+        $('#id_photo_product4').on("change", function(){
+            if($('id_photo_product4').value != null){
+                console.log('vacio')
+            }else{
+                const archivo = this.value.replace('C:\\fakepath\\','')
+                //const nameArc = archivo.replace('fakepath',' ')
+                $('#msg-file-photo_product4').html('<div> <p style="font-size:12px; text-align:center;">Se a cargado su imagen con exito.</p></div>')
+                $('#arc-photo_product4').html(archivo)  
+            }  
+        })
+
+
+        
+        
     })
 </script>
 {% endblock script %}

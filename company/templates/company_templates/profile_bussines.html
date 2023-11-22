@@ -7,42 +7,67 @@
 {% block content %}
 
 {% comment %} Mensaje de error {% endcomment %}
-    {% for message in messages %}
-    {% if message.tags == 'error' %}
-        <p id="error">{{message}}</p>
-    {% else %}
-    <p id="success">{{message}}</p>
-    {% endif %} 
-    {% endfor %}  
+        {% for msg in messages %}
+        {% if msg.tags == 'error' %}
+        <div id="error">
+            <p>{{msg}}</p>
+        </div>
+        {% else %}
+        <div id="success">
+            <p>{{msg}}</p>
+        </div>
+        {% endif %}
+        {% endfor %} 
 {% comment %} Fin {% endcomment %} 
     <div class="content-bussines">
         {% include 'company_templates/layouts/layout-dashboard.html' %} 
         <div class="content-bussines-general">
-            <h1>Agregar perfil de empresa</h1>
             
-            <div class="content-bussines-general-errors"> 
-                <p>{{form.errors}}</p>  
-            </div>
-                
-            <form enctype="multipart/form-data" class="content-bussines-general-form" method="POST" action="">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div class="content-bussines-general-form-fields">
-                        <label>{{field.label}}</label><br>
-                        <div class="input-{{forloop.counter}}">
-                            {{field}}
-                        </div>
-                    </div>
-                {% endfor %}  
-                <div class="btn-form">
-                    <input id="btn-submit" type="submit" value="Guardar"> 
-                </div>           
-            </form>
+             
+            <div class="content-form">
+                <h1>Crea tu perfil de empresa</h1>
+                {% include "company_templates/layouts/form.html" %}
             </div>
         </div> 
     </div> 
 {% endblock content %}
 
+{% block script %}
 <script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+<script>
+$(document).ready(()=>{
+    // Solo imagenes
+    $('input[type=file]').attr('accept','image/.jpg, .png, .jpeg, .webp');
+
+    $('#msg-file-photo_portada').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
+    $('#msg-file-photo_profile').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
+
+    $('#id_photo_portada').on("change", function(){
+        if($('id_photo_portada').value != null){
+            console.log('vacio')
+        }else{
+            const archivo = this.value.replace('C:\\fakepath\\','')
+            //const nameArc = archivo.replace('fakepath',' ')
+            $('#msg-file-photo_portada').html('<div> <p style="font-size:12px; text-align:center;">Se a cargado su imagen con exito.</p></div>')
+            $('#arc-photo_portada').html(archivo)  
+        }  
+    })
+
+    $('#id_photo_profile').on("change", function(){
+        if($('id_photo_profile').value != null){
+            console.log('vacio')
+        }else{
+            const archivo = this.value.replace('C:\\fakepath\\','')
+            //const nameArc = archivo.replace('fakepath',' ')
+            $('#msg-file-photo_profile').html('<div> <p style="font-size:12px; text-align:center;">Se a cargado su imagen con exito.</p></div>')
+            $('#arc-photo_profile').html(archivo)  
+        }  
+    })
+
+})
+
+</script>
+{% endblock script %}
+
 
 
