@@ -8,6 +8,10 @@ Contenido principal
 
 */
 
+a{
+    text-decoration: none;
+}
+
 #msg-comming{
     position: relative;
     font-size: 11px;

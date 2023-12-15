@@ -1,7 +1,7 @@
 {% extends 'company_templates/layouts/layout.html' %}
 {% load static %}
 {% block title %}
-
+    Productos
 {% endblock title %}
 
 {% block content %}
@@ -9,55 +9,94 @@
         {% include 'company_templates/layouts/layout-dashboard.html' %}
         <div class="content-producto-general">
              {% comment %} Mensaje flash {% endcomment %}
-             {% for msg in messages %}
-             {% if msg.tags == 'error' %}
-             <div id="error">
-                 <p>{{msg}}</p>
-             </div>
-             {% else %}
-             <div id="success">
-                 <p>{{msg}}</p>
-             </div>
-             {% endif %}
-             {% endfor %}
-             {% comment %} Fin mensaje flash {% endcomment %}
+            {% for msg in messages %}
+            {% if msg.tags == 'error' %}
+            <div id="flash-error">
+                <div id="content-error"><p>{{msg}}</p></div>
+            </div>
+            {% else %}
+            <div id="flash-success">
+                <div id="content-success"><p>{{msg}}</p></div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% comment %} Fin mensaje flash {% endcomment %}
             <h2 id="titulo-productos">Productos</h2>
             <div class="content-producto-general-navbar">
                 <div class="btn-opc">
                     <div class="btn-opc-boton">
                         <a href="{% url "addProductos" name=request.user.username id=request.user.id %}">
-                            <i class="fa-solid fa-circle-plus"></i>
+                            <i class="fa-brands fa-product-hunt"></i>
                             <h4>Añadir producto</h4>
                         </a>
                     </div>
                 </div>
-                <div class="btn-opc">
-                    <div class="btn-opc-boton">
-                        <a href="{% url "addProductos" name=request.user.username id=request.user.id %}">
-                            <i class="fa-brands fa-product-hunt"></i>
-                            <h4>Añadir servicio</h4>
-                        </a>
-                    </div>
+                <div class="content-filters">
+                    <h4>Filtros aplicados:</h4><a href="{% url "productos" name=request.user.username id=request.user.id %}" id="deleteFilter"><i class="fa-sharp fa-solid fa-filter-circle-xmark"></i></a>
+                    <ul>
+                    {% if query != None %}
+                        <li><p> <span>Producto:</span> {{query}} </p></li>
+                    {% else %}
+                        <li><p> <span>Producto:</span> </p></li>
+                    {% endif %}
+                    {% if filter_category != None %}
+                        <li><p> <span>Categoria:</span> {{filter_category}} </p></li>
+                    {% else %}
+                        <li><p> <span>Categoria:</span> </p></li>
+                    {% endif %}
+                    {% if filter_catalog != None %}
+                        <li><p> <span>Catalogo:</span> {{filter_catalog}} </p></li>
+                    {% else %}
+                        <li><p> <span>Catalogo:</span> </p></li>
+                    {% endif %}
+                    </ul>
                 </div>
             </div>
             <div class="content-producto-general-tabla">
+                <form class="form-product">
+                    <label>Producto:</label>
+                    <input type="text" placeholder="Producto, codigo, descripcion" name="buscar" id="productName" class="productName" value="{{query}}">
+                    <label>Categoria</label>
+                    <select name="category">
+                        {% if filter_category != None %}
+                            <option value="{{filter_category}}">{{filter_category}}</option>
+                            {% else %}
+                            <option value=""></option>
+                        {% endif %}
+                        {% for category in category %}
+                            <option value="{{category.name}}">{{category.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <label>Catalogo</label>
+                    <select name="catalog">
+                        {% if filter_category != None %}
+                            <option value="{{filter_catalog}}">{{filter_catalog}}</option>
+                            {% else %}
+                            <option value=""></option>
+                        {% endif %}
+                        {% for catalogs in catalogs %}
+                            <option value="{{catalogs.name}}">{{catalogs.name}}</option>
+                        {% endfor %} 
+                    </select>
+                    <button id="buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
                 <table class="tabla-productos">
                     <tr>
-                        <th>ID</th>
-                        <th>ID Producto</th>
-                        <th>Producto</th>
-                        <th>Catalogo</th>
-                        <th>Imagen</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Estado</th>
-                        <th>Funciones</th>
+                        <th id="id">ID</th>
+                        <th id="idProducto">ID Producto</th>
+                        <th id="producto">Producto</th>
+                        <th id="catalogo">Catalogo</th>
+                        <th id="imagen">Imagen</th>
+                        <th id="precio">Precio</th>
+                        <th id="cantidad">Cantidad</th>
+                        <th id="estado">Estado</th>
+                        <th id="funciones">Funciones</th>
                     </tr>
                     {% for producto in productos %}
                     <tr class="tabla-productos-datos">
                         <td>{{producto.id}}</td>
                         <td>{{producto.id_product}}</td>
-                        <td>{{producto.name_product}}</td>
+                        <td id="name_product">{{producto.name_product}}</td>
                         <td>{{producto.catalog.name}}</td>
                         <td id="foto-producto"><img src="{{producto.photo_product1.url}}"></td>
                         <td>{{producto.price}}</td>
@@ -71,7 +110,7 @@
                         <td> <a><i class="fa-solid fa-eye"></i></a> | <a id="editar-{{producto.id}}" href="{% url "edicionProducto" name=request.user.username id=producto.id %}"><i class="fa-solid fa-wand-magic-sparkles"></i></a> | <a id="eliminar-{{producto.id}}"><i class="fa-solid fa-trash"></i></a> </td>
                     </tr>
                     {% empty %}
-                    <h2>No se encontraron productos</h2>
+                    <h2 id="no-found">No se encontraron productos</h2>
                     {% endfor %}
                 </table>
             </div>

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>perfil</title>
+    Perfil | Otawind
 {% endblock title %}
 
 {% block content %}
@@ -26,6 +26,7 @@
                     </div> 
                     <div class="botones-funciones">
                         <a href="/edicion-perfil/{{perfilBusiness.id}}" id="btn-editar">Editar perfil</a>
+                        <button id="generar-url"><i class="fa-solid fa-share-nodes"> </i></button>
                         <a id="btn-ajustar"><i class="fa-solid fa-gears"></i> <i class="fa-solid fa-caret-down"></i></a>
                     </div>   
                 </div>
@@ -41,13 +42,27 @@
                             <div class="box-catalogo-descripcion">
                                 <h2 class="titulo-catalogo">{{catalogo.name}}</h2>
                                 <div class="cant-productos">
-                                    <h2>290</h2>
+                                    {% if catalogo.type_catalog == 'Productos' %}
+                                    {% for catalogs in cant_catalogs %}
+                                        {% if catalogs.id == catalogo.id and catalogo.type_catalog == 'Productos' %}
+                                            <span id="cantProduct">{{catalogs.cantPro}}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+
+                                    {% if catalogo.type_catalog == 'Servicios' %}
+                                    {% for catalogs in cant_services %}
+                                        {% if catalogs.id == catalogo.id and catalogo.type_catalog == 'Servicios' %}
+                                            <span id="cantProduct">{{catalogs.cantSer}}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
                                 </div>
                                 <p>Productos disponibles</p>
                                 <div class="descripcion">
                                     <p>{{catalogo.description}}</p>
                                 </div>
-                                <a  class="btn-ver" href="{% url "verCatalogo" name=catalogo.name id=catalogo.id %}">Ver catalogo</a>
+                                <a  class="btn-ver" href="{% url "verCatalogo" name_profile=catalogo.profile.name name=catalogo.name id=catalogo.id %}">Ver catalogo</a>
                             </div>
                         </div>
                     </div>
@@ -92,9 +107,12 @@
                         <h3>Redes sociales</h3>
                         <div class="content-perfil-descripcion-detalle-social">
                             <div class="box-social">
-                                <a href="{{perfilBusiness.facebook}}" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                                <a href="{{perfilBusiness.whatsapp}}" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-                                <a href="{{perfilBusiness.instagram}}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="{{perfilBusiness.facebook}}" target="_blank"><dotlottie-player src="https://lottie.host/ec75b7fe-3ad9-4faf-9d58-435cc22dbbf5/LWiUZ6fcGg.json" background="transparent" speed="1" style="width: 90px; height: 90px" loop autoplay></dotlottie-player></a>
+                                <a href="{{perfilBusiness.whatsapp}}" target="_blank"><dotlottie-player src="https://lottie.host/52bda2bc-1c9a-4430-a554-4dc1fe4188a7/cp6aH1u1R6.json" background="transparent" speed="1" style="width: 80px; height: 80px" loop autoplay></dotlottie-player></a>
+                                <a href="{{perfilBusiness.instagram}}" target="_blank"><dotlottie-player src="https://lottie.host/2e7afe45-b4ea-49c0-a03e-4e62aa53b95d/IIqg7xkZZA.json" background="transparent" speed="1" style="width: 90px; height: 90px;" loop autoplay></dotlottie-player></a>
+                                
+                            
+                            
                             </div>
                         </div>
                     </div>
@@ -103,4 +121,31 @@
         </div>
     </section>
 {% endblock content %}
+
+{% block script %}  
+
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+<script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        $("#generar-url").click(function(){
+            // Realiza una solicitud AJAX para obtener la URL generada
+            $.ajax({
+                url: '/generar_url/',
+                type: 'GET',
+                success: function(data) {
+                    // Copia la URL al portapapeles
+                    var tempInput = $("<input>");
+                    $("body").append(tempInput);
+                    tempInput.val(data.url_generada).select();
+                    document.execCommand("copy");
+                    tempInput.remove();
+
+                    alert("Se ha copiado la URL de tu perfil, pegala donde quieras! " + data.url_generada);
+                }
+            });
+        });
+    });
+</script>
+{% endblock script %}
 

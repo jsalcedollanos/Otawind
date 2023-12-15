@@ -1,7 +1,7 @@
 {% extends 'company_templates/layouts/layout.html' %}
 {% load static %}
 {% block title %}
-    <title>Editar perfil | Otawind</title>
+    Editar perfil
 {% endblock title %}
 
 {% block content %}
@@ -18,28 +18,11 @@
 
     <div class="content-bussines">
         {% include 'company_templates/layouts/layout-dashboard.html' %} 
-        <div class="content-bussines-general">
-            <h1>Agregar perfil de empresa</h1>
-            
-            {% comment %} <div class="content-bussines-general-errors"> 
-                <p>{{form.errors}}</p>  
-            </div> {% endcomment %}
-                
-            <form enctype="multipart/form-data" action="{% url 'edicionPerfil' id=perfil.id %}" class="content-bussines-general-form" method="POST">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div class="content-bussines-general-form-fields">
-                        {% comment %} <spam style="color:red">{{field.errors}}</spam> {% endcomment %}
-                        <label>{{field.label}}</label><br>
-                        <div class="input-{{forloop.counter}}">
-                            {{field}}
-                        </div>
-                    </div>
-                {% endfor %}  
-                <div class="btn-form">
-                    <input id="btn-submit" type="submit" value="Guardar"> 
-                </div>           
-            </form>
+        <div class="content-bussines-general">  
+            <div class="content-form">
+                <h1>Añade tus productos</h1>
+                {% include "company_templates/layouts/form.html" %}
+            </div>
         </div> 
     </div> 
 {% endblock content %}
@@ -57,6 +40,31 @@
         $('#id_facebook').val('{{perfil.facebook}}')
         $('#id_instagram').val('{{perfil.instagram}}')
         $('#id_whatsapp').val('{{perfil.whatsapp}}')
+
+         // Solo imagenes
+         $('input[type=file]').attr('accept','image/.jpg, .png, .jpeg, .webp');
+
+         //Editar recuadro de imagen para Editar
+        $('.content-field-4').html('<input type="file" name="photo_portada" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_portada"><div id="msg-file-11" style="position:relative; bottom:70px; font-size:12px; text-align:center;"><p>Puedes editar tu imagen aqui</p><p>{{perfil.photo_portada}}</p></div>')
+        $('.content-field-5').html('<input type="file" name="photo_profile" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_profile"><div id="msg-file-12" style="position:relative; bottom:70px; font-size:12px; text-align:center;"><p>Puedes editar tu imagen aqui</p><p>{{perfil.photo_profile}}</p></div>')
+
+        // Validacion de INPUT file
+        $('#id_photo_portada').on("change", function(){
+            if($('id_photo_portada').value != ""){
+                const archivo = this.value.replace('C:\\fakepath\\','')
+                $('#msg-file-11').html('<div style="position:relative; bottom:43px; font-size:12px; text-align:center;"><input type="file" name="photo_portada" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_portada"><p>Se a cargado la nueva imagen</p><p style="display:relative; top:2px;" id="arc-11"></p></div>')  
+                $('#arc-11').html(archivo)  
+            } 
+        })
+
+        $('#id_photo_profile').on("change", function(){
+            if($('id_photo_profile').value != ""){
+                const archivo = this.value.replace('C:\\fakepath\\','')
+                $('#msg-file-12').html('<div style="position:relative; bottom:43px; font-size:12px; text-align:center;"><input type="file" name="photo_profile" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_profile"><p>Se a cargado la nueva imagen</p><p style="display:relative; top:2px;" id="arc-12"></p></div>')  
+                $('#arc-12').html(archivo)  
+            } 
+        })
+
     })
     </script>
 {% endblock script %}

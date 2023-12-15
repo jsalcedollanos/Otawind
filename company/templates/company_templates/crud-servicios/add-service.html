@@ -1,7 +1,7 @@
 {% extends 'company_templates/layouts/layout.html' %}
 {% load static %}
 {% block title %}
-
+    Agregar Servicios
 {% endblock title %}
 
 {% block content %}
@@ -11,12 +11,12 @@
             {% comment %} Mensaje flash {% endcomment %}
             {% for msg in messages %}
             {% if msg.tags == 'error' %}
-            <div id="error">
-                <p>{{msg}}</p>
+            <div id="flash-error">
+                <div id="content-error"><p>{{msg}}</p></div>
             </div>
             {% else %}
-            <div id="success">
-                <p>{{msg}}</p>
+            <div id="flash-success">
+                <div id="content-success"><p>{{msg}}</p></div>
             </div>
             {% endif %}
             {% endfor %}
@@ -38,7 +38,8 @@
         });
         // Cerrar mensaje emergente
         setTimeout(function(){
-            $('#success').fadeOut(1500);
+            $('#flash-success').fadeOut(1500);
+            $('#flash-error').fadeOut(1500);
         }, 3000);
 
         //Agregando texto a los recuadros de input type="file"
@@ -53,7 +54,7 @@
 
         // Validacion de INPUT file
         $('#id_photo_service1').on("change", function(){
-            if($('id_photo_service1').value != null){
+            if($('photo_service1').value != null){
                 console.log('vacio')
             }else{
                 const archivo = this.value.replace('C:\\fakepath\\','')
@@ -63,7 +64,7 @@
             }  
         })
 
-        $('#id_photo_service2').on("change", function(){
+        $('#photo_service2').on("change", function(){
             if($('id_photo_service2').value != null){
                 console.log('vacio')
             }else{
@@ -74,7 +75,7 @@
             }  
         })
 
-        $('#id_photo_service3').on("change", function(){
+        $('#photo_service3').on("change", function(){
             if($('id_photo_service3').value != null){
                 console.log('vacio')
             }else{
@@ -85,7 +86,7 @@
             }  
         })
 
-        $('#id_photo_service4').on("change", function(){
+        $('#photo_service4').on("change", function(){
             if($('id_photo_service4').value != null){
                 console.log('vacio')
             }else{

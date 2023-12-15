@@ -1,0 +1,161 @@
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    margin: 0 auto;
+
+}
+
+a{
+    text-decoration: none;
+}
+
+.content-acercaDe{
+    display: block;
+    width: 100%;
+    height: 150vh;
+    background: linear-gradient(to bottom, rgba(125, 5, 180, 85%), rgba(125, 5, 180, 96%), rgba(125, 5, 180, 100%), rgba(125, 5, 180, 80%), rgba(125, 5, 180, 75%));
+}
+
+.content-acercaDe .content-home{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7F38B4;
+    font-size: 50px;
+    width: 80px;
+    height: 80px;
+    top: 40px;
+    left: 60px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+
+.content-linetime{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    top: 60px;
+    width: 100%;
+    height: auto;
+}
+
+#line{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    width: 60%;
+    height: 6px;
+    background-color: #B03AE5;
+}
+
+#circle1{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #B03AE5;
+}
+
+#circle1 a{
+position: relative;
+display: inline-flex;
+color: #B03AE5;
+width: 200px;
+right: 62px;
+top: 25px;
+}
+
+#circle2{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #B03AE5;
+}
+
+#circle2 a{
+    position: relative;
+    display: inline-flex;
+    color: #B03AE5;
+    width: 260px;
+    right: 94px;
+    top: 25px;
+    }
+
+#circle3{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #B03AE5;
+}
+
+#circle3 a{
+    position: relative;
+    display: inline-flex;
+    color: #B03AE5;
+    width: 200px;
+    right: 77px;
+    top: 25px;
+}
+
+.content-acercaDe .content-acercaDe-info{
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    width: 100%;
+    margin-top: 200px;
+}
+
+.content-acercaDe .content-acercaDe-info .content-acercaDeOtawind{
+    margin: 0 auto;
+    display: block;
+    width: 730px;
+}
+
+.content-acercaDeOtawind .title-acercaDe{
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 380px;
+    height: 40px;
+    padding: 10px;
+    border: 6px solid #B03AE5;
+    border-radius: 20px;
+}
+
+.content-acercaDeOtawind .title-acercaDe h1{
+    color: yellow;
+}
+
+.content-acercaDe-info .guide-line{
+    position: absolute;
+    border-left: 6px solid #B03AE5;
+    border-top: 6px solid #B03AE5;
+    border-top-left-radius: 20px;
+    height: 200px;
+    width: 125px;
+    left: 388px;
+    top: 241px;
+}
+
+.content-acercaDe-info .info{
+    display: flex;
+    position: relative;
+    height: auto;
+    margin: 0 auto;
+    text-align: justify;
+    padding: 15px;
+    border-radius: 20px;
+    border: 6px solid #B03AE5;
+    top: 166px;
+    width: 750px;
+    color: white;
+}

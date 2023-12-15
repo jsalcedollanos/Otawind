@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static '../static/css/styles_login.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_createAccount.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_layouts/layout-dashboard.css' %}">
-    <link rel="stylesheet" href="{% static '../static/css/style_dashboard.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/styles_dashboard.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_bussines.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_profile.css' %}">
     <link rel="stylesheet" href="{% static '../static/css/styles_catalogo.css' %}">
@@ -39,7 +39,9 @@
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
     
     <title>
-        {% block title %}{% endblock %}
+        {% block title %}
+        {% endblock %}
+        | Otawind
     </title>
 </head>
 <body>
@@ -60,8 +62,8 @@
                         {% if request.user.username %}
                             <a href="{% url 'dashboard' username.username %}" class="opc-nav">Mi Ota-panel</a>
                         {% endif %}
-                        <a class="opc-nav" href="#">Reportar error</a>
-                        <a class="opc-nav" href="#">Acerca de otawind</a>
+                        <a class="opc-nav" id="report-error" href="#">Reportar error</a>
+                        <a class="opc-nav" href="{% url 'acercaDe' %}">Acerca de otawind</a>
                         {% if perfilAccount.photo_profile.url %}
                         <a class="menu-perfil"><div class="nav-bar-content-imagenPerfil"><img src="{{perfilAccount.photo_profile.url}}"></div></a>
                         {% else %}

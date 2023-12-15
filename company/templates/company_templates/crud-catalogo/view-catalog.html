@@ -17,7 +17,7 @@
                 <div class="content-catalog-list-catalog" id="list-catalog">
                     <ul>
                         {% for filtroCatalogo in filtroCatalogos %}
-                        <li><a href="{% url "verCatalogo" name=filtroCatalogo.name id=filtroCatalogo.id %}">{{filtroCatalogo.name}}</a></li>
+                            <li><a href="{% url "verCatalogo" name_profile=filtroCatalogo.profile.name name=filtroCatalogo.name id=filtroCatalogo.id %}">{{filtroCatalogo.name}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -32,9 +32,9 @@
                 <form class="content-catalog-nav-form" method="GET">
                     <input type="text" placeholder="Buscar producto" name="buscar" value="{{request.GET.buscar}}">
                     <label>Filtrar por color:</label>
-                    <button type="button" id="btn-color"><i class="fa-solid fa-fill-drip"></i></button>
+                    <button id="btn-color"><i class="fa-solid fa-fill-drip"></i></button>
                     <button id="btn-buscar" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    
+                    <button id="generar-url"><i class="fa-solid fa-fill-drip"></i></button>
                     <div class="palette-color" id="palette-color">
                         <p>Paleta de colores</p><span id="close"><i class="fa-solid fa-xmark"></i></span>
                         <div class="palette-color-list">
@@ -56,149 +56,35 @@
         </div>
         <h1>{{catalogo.name}}</h1>
         {% if catalogo.type_catalog == 'Productos' %}
-                {% for producto in productos %}  
-                <div class="content-catalog-general">
-                    <div class="imagen-producto">
-                        <div class="galeria-imagen">
-                            {% if producto.photo_product2 == "" %}
-                            {% else %}
-                                <div id="photo-2-{{producto.id}}" class="galeria-imagen-producto">
-                                    <img src="{{producto.photo_product2.url}}">
-                                </div>
-                            {% endif %}
-                            {% if producto.photo_product3 == "" %}
-                            {% else %}
-                                <div id="photo-3-{{producto.id}}" class="galeria-imagen-producto">
-                                    <img src="{{producto.photo_product3.url}}">
-                                </div>
-                            {% endif %}
-                            {% if producto.photo_product4 == "" %}
-                            {% else %}
-                                <div id="photo-4-{{producto.id}}" class="galeria-imagen-producto">
-                                    <img src="{{producto.photo_product4.url}}">
-                                </div>
-                            {% endif %}
-                        </div>
-                        {% comment %} Imagne principal {% endcomment %}
-                            <div class='img-wrapper' id="img-wrapper-{{forloop.counter}}">
-                                <div class="content-image-original" id="content-image-original-{{forloop.counter}}">
-                                    <img id="img-original-{{forloop.counter}}" class="img-original-{{forloop.counter}}" src="{{producto.photo_product1.url}}"/>
-                                </div>
-                                {% comment %} <div id="img-zoom-{{forloop.counter}}" class="img-zoom-result"></div> {% endcomment %}
+                  
+                <div class="content-card-product">
+                    {% for producto in productos %}
+                    <div class="content-card-product-catalog">
+                        <div class="background-card-product">
+                            <div class="react">
+                                <i class="fa-solid fa-heart"></i>
+                                <i class="fa-solid fa-thumbs-up"><span style="font-size:13px; color:black;">45</span></i>
                             </div>
-                        {% comment %} FIN {% endcomment %}
-                    </div>
-                    
-                    <div class="header-producto">
-                        <div class="content-anuncio">
-                            <p>Me interesa:</p>
-                            <dotlottie-player src="https://lottie.host/2e7afe45-b4ea-49c0-a03e-4e62aa53b95d/IIqg7xkZZA.json" background="transparent" speed="1" style="width: 90px; height: 90px;" loop autoplay></dotlottie-player>
-                            <dotlottie-player src="https://lottie.host/ec75b7fe-3ad9-4faf-9d58-435cc22dbbf5/LWiUZ6fcGg.json" background="transparent" speed="1" style="width: 90px; height: 90px" loop autoplay></dotlottie-player>
-                            <dotlottie-player src="https://lottie.host/52bda2bc-1c9a-4430-a554-4dc1fe4188a7/cp6aH1u1R6.json" background="transparent" speed="1" style="width: 80px; height: 80px" loop autoplay></dotlottie-player>
-                        </div>
-                        <h2>{{producto.name_product}}</h2><p id="titulo-valoracion">Valoracion: <span id="valoracion">{{producto.valoration}}</span></p>
-                        <p id="titulo-valoracion">Categoria producto: <span id="valoracion">{{producto.category.name}}</span></p>  
-                        <p id="titulo-empresa">Empresa: <span id="ver-empresa"><a href="{% url "perfil" profileBusiness.name profileBusiness.id %}">{{producto.profile.name}}</a></span></p>  
-                        <div class="header-producto-info">
-                            {% if producto.price_promo > 0 %}
-                                <h4 id="old-price">Antes: ${{producto.price}}</h4> <h3>Ahora: {{producto.price_promo}}</h3>
-                                <div class="content-description-product">
-                                    <span>Descripcion</span>
-                                    <p>{{producto.description}}</p>
-                                    {% if producto.color %}
-                                    <div class="content-feature-product">
-                                        <div id="content-item">
-                                            <p id="t-color">Color:</p> 
-                                            <div class="circle-color" style="background-color:{{producto.color}}"></div>
-                                        </div>
-                                        <div id="content-item">
-                                            <p id="marca">Marca:</p>
-                                        </div>
-                                    </div>
-                                    {% endif %}
+                            <img src="{{producto.photo_product1.url}}">
+                            <div class="info-card-product">
+                                <h1>{{producto.name_product}}</h1>
+                                {% if producto.price_promo > 0 %}
+                                    <p id="price-product">Antes: <span id="promo">{{producto.price}}</span></p>
+                                    <p id="price-product">Ahora: <span style="background-color:#F7BB44; border-radius:10px; border:1px double #7D05B4; padding:2px;">{{producto.price}}</span></p>
+                                {% else %}
+                                    <p id="price-product">Precio: <span style="background-color:#F7BB44; border-radius:10px; border:1px double #7D05B4; padding:2px;">{{producto.price}}</span></p>
+                                {% endif %}
+                                <div id="feature-product">
+                                    <p>Empresa: <span id="ver-empresa"><a href="{% url "perfil" profileBusiness.name profileBusiness.id %}">{{producto.profile.name}}</a></span></p>
+                                    <span style="margin-right:6px;">Color:</span> <div class="circle-color" style="background-color:{{producto.color}}; width:20px; height:20px; border-radius:50%;"><div style="width:100%; height:100%;"></div></div>
+                                    <p style="color:#7D05B4">Ver fotos</p>
                                 </div>
-                            {% else %}
-                                <h3>${{producto.price}}</h3>{% comment %}<p>Productos en stock: <span style="color:#7D05B4;">{{producto.quantities}}</span></p> {% endcomment %}
-                                <div class="content-description-product">
-                                    <span>Descripcion</span>
-                                    <p>{{producto.description}}</p>
-                                    {% if producto.color %}
-                                    <div class="content-color-product">
-                                        <p id="t-color">Color:</p> 
-                                        <div class="circle-color" style="background-color:{{producto.color}}"></div>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
+                                <p>{{producto.description}}</p> 
+                            </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% empty %}
-                <div class="content-empty">
-                    <img src="/static/images/bot-no-found.jpg" alt="bot no found">
-                    <h3>No se encontro el producto buscado</h3>
-                </div>
-            {% endfor %}
-        {% else %}
-            {% for servicio in servicios %}  
-            <div class="content-catalog-general">
-                <div class="imagen-producto">
-                    <div class="galeria-imagen">
-                        {% if servicio.photo_service2 == "" %}
-                        {% else %}
-                            <div id="photo-2-{{service.id}}" class="galeria-imagen-producto">
-                                <img src="{{servicio.photo_service2.url}}">
-                            </div>
-                        {% endif %}
-                        {% if servicio.photo_service3 == "" %}
-                        {% else %}
-                            <div id="photo-3-{{servicio.id}}" class="galeria-imagen-producto">
-                                <img src="{{servicio.photo_service3.url}}">
-                            </div>
-                        {% endif %}
-                        {% if servicio.photo_service4 == "" %}
-                        {% else %}
-                            <div id="photo-4-{{servicio.id}}" class="galeria-imagen-producto">
-                                <img src="{{servicio.photo_service4.url}}">
-                            </div>
-                        {% endif %}
-                    </div>
-                    {% comment %} Imagne principal {% endcomment %}
-                        <div class='img-wrapper' id="img-wrapper-{{forloop.counter}}">
-                            <div class="content-image-original" id="content-image-original-{{forloop.counter}}">
-                                <img id="img-original-{{forloop.counter}}" class="img-original-{{forloop.counter}}" src="{{servicio.photo_service1.url}}"/>
-                            </div>
-                            <div id="img-zoom-{{forloop.counter}}" class="img-zoom-result"></div>
-                        </div>
-                    {% comment %} FIN {% endcomment %}
-                </div>
-                <div class="header-producto">
-                    <h2>{{servicio.name_service}}</h2><p id="titulo-valoracion">Valoracion: <span id="valoracion">{{servicio.valoration}}</span></p>
-                    <p id="titulo-valoracion">Categoria servicio: <span id="valoracion">{{servicio.category.name}}</span></p>  
-                    <p id="titulo-empresa">Empresa: <span id="ver-empresa"><a href="{% url "perfil" profileBusiness.name profileBusiness.id %}">{{servicio.profile.name}}</a></span></p>  
-                    <div class="header-producto-info">
-                        {% if producto.price_promo > 0 %}
-                            <h4 id="old-price">Antes: ${{servicio.price}}</h4> <h3>Ahora: {{servicio.price_promo}}</h3>
-                            <p>{{servicio.description}}</p>
-                            {% if servicio.color %}
-                                <h4>Color: {{servicio.color}}</h4>
-                            {% endif %}
-                        {% else %}
-                            <h3>${{servicio.price}}</h3>
-                            <p>{{servicio.description}}</p>
-                            {% if servicio.color %}
-                                <h4>Color: {{servicio.color}}</h4>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="content-empty">
-                <img src="/static/images/bot-no-found.jpg" alt="bot no found">
-                <h3>No se encontro el servicio buscado</h3>
-            </div>
-            {% endfor %}
         {% endif %}
     </div>
 </div>
@@ -210,7 +96,24 @@
 <script>
 
     $(document).ready(function(){
-        
+        $("#generar-url").click(function(){
+            // Realiza una solicitud AJAX para obtener la URL generada
+            $.ajax({
+                url: '/url_catalogo/',
+                type: 'GET',
+                success: function(data) {
+                    // Copia la URL al portapapeles
+                    var tempInput = $("<input>");
+                    $("body").append(tempInput);
+                    tempInput.val(data.url_generada).select();
+                    document.execCommand("copy");
+                    tempInput.remove();
+
+                    alert("Se ha copiado la URL de tu perfil, pegala donde quieras! " + data.url_generada);
+                }
+            });
+        });
+
         {% for producto in productos %}
 
             {% if producto.photo_product2 != '' %}

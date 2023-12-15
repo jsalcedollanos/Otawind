@@ -1,3 +1,4 @@
+{% load static %}
 <div class="form-register">
     <form enctype="multipart/form-data" method="POST">
         {% csrf_token %}
@@ -24,4 +25,14 @@
             <input type="button" value="Cancelar">
         </div>
     </form>
+
+    
 </div>
+{% block js %}
+<script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+<script>
+    $(document).ready(()=>{
+       
+    })
+</script>
+{% endblock js %}

@@ -5,7 +5,7 @@
     text-align: center;
     height: auto;
     width: 900px;
-    margin-top: 100px;
+    margin-top: 90px;
     margin-left: 30px;
     margin-bottom: 30px;
     border-radius: 20px;
@@ -307,6 +307,12 @@
 }
 
 /* END STYLES SERVICE */
+
+/* STYLE CATALOG */
+
+
+
+
 
 .content-form .field-form label{
     display: block;

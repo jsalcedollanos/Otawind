@@ -1,18 +1,24 @@
 /* 1 - Anuncios */
-#success{
-    background-color: #d9ffe4;
-    width: 75%;
-    top: 60px;
+#flash-success{
+    display: flex;
+    position: relative;
     color: green;
-    width: 100%;
-    height: 20px;
-    padding: 10px;
-    text-align: center;
+    width: auto;
+    background-color: #d9ffe4;
+    bottom: 40px;
+    top: 61px;
+    height: 30px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     z-index: 100;
 }
 
-#error{
+#content-success{
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+#flash-error{
     background-color: #e09dff;
     color: red;
     width: 75%;
@@ -21,6 +27,33 @@
     padding: 10px;
     text-align: center;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+#buscar{
+    background-color: white;
+    border: 1px double #7F38B4;
+    width: 35px;
+    border-radius: 100%;
+}
+
+#buscar:hover{
+    background-color: #e09dff;
+    cursor: pointer;
+}
+
+#deleteFilter{
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: 207px;
+    left: 617px;
+    border-radius: 100%;
+}
+
+#content-error{
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .content-anuncios{
@@ -105,3 +138,53 @@
     font-size: 16px;
     padding: 4px;
 }
+
+/* Tooltip mensaje emergente */
+[data-tooltip]{ 
+    position:relative; 
+    border-bottom: 1px dotted rgb(0, 238, 255);
+    cursor:pointer;
+    }
+    [data-tooltip]::before {
+    content : attr(data-tooltip);
+    font-size: 12px;
+    background-color:rgba(0, 0, 0, 0.75);
+    color:rgb(255, 255, 255);
+    width:150px;
+    padding:10px;
+    height:auto;
+    border-radius:3px;
+    display:none;
+    position:absolute;
+    bottom:25px;
+    left:calc(100% - 75%);
+    pointer-events: none;
+    z-index:99;
+     }
+
+    [data-tooltip]::after{
+    content:"";
+    height:1px;
+    width:1px;
+    border:10px solid transparent;
+    border-top-color:rgba(0,0,0,.75);
+    position:absolute;
+    bottom:4px;
+    left:50%;
+    display: none;
+    }
+    [data-tooltip]:hover::before,
+    [data-tooltip]:hover::after
+    { display:block;} 
+
+
+    /* Paginaciones */
+
+    .paginacion{
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .paginacion a{
+        color: #7F38B4;
+    }

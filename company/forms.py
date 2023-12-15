@@ -167,7 +167,7 @@ class productForm(forms.Form):
     )
 
     catalog_id = forms.ModelChoiceField(
-        label = 'Catalogo',
+        label = 'Selecciona el catalogo',
         required = True,
         queryset = Catalogos.objects.filter(type_catalog = 'Productos')
     )
@@ -175,7 +175,7 @@ class productForm(forms.Form):
     category_id = forms.ModelChoiceField(
         label = "Categoria Producto",
         required = True,
-        queryset = Category.objects.filter(type_categorie = 'Producto')
+        queryset = Category.objects.filter(type_categorie = 'Productos')
     )
 
     profile_id = forms.ModelChoiceField(
@@ -193,7 +193,8 @@ class productForm(forms.Form):
         required = True,
         widget = forms.TextInput(
             attrs = {
-                'placeholder' : 'Marca del producto'
+                'placeholder' : 'Marca del producto',
+                'list' : 'brand'
             }
         )
     )
@@ -296,7 +297,7 @@ class serviceForm(forms.Form):
     category = forms.ModelChoiceField(
         label = "Categoria",
         required = True,
-        queryset=Category.objects.all()
+        queryset=Category.objects.filter(type_categorie = 'Servicios')
     )
 
     price = forms.CharField(
@@ -385,11 +386,17 @@ class editCatalogoForm(forms.ModelForm):
         fields = '__all__'
         exclude = ('user',)
 
-class catalogForm(forms.ModelForm):
+class catalogForm(forms.Form):
+
+    type_catalog = [
+        ('Servicios','Servicios'),
+        ('Productos','Productos'),
+    ]
+
     name = forms.CharField(
         max_length="40", 
         required=True,
-        label="Nombre",
+        label="¿Como se llamara tu catalogo?",
         widget= forms.TextInput(
             attrs={
                 'placeholder':'Ingresa nombre de catalogo'
@@ -401,14 +408,14 @@ class catalogForm(forms.ModelForm):
         ]
     )
 
+    type_catalog = forms.ChoiceField(
+        label = "Tipo de catalogo",
+        choices = type_catalog,
+    )
+
     category = forms.ModelChoiceField(
         label = "Categoria",
         queryset=Category.objects.all()
-    )
-
-    photo_portada = forms.ImageField(label="Foto de portada",
-    validators=[MaxSizeFileValidator(max_file_size=1)],
-    required= False
     )
 
     description = forms.CharField(
@@ -416,7 +423,7 @@ class catalogForm(forms.ModelForm):
         max_length = 2000,
         widget = forms.Textarea(
             attrs = {
-                'placeholder': 'Descripcion de tu empresa'
+                'placeholder': 'Descripcion de tu catalogo'
             }
         ),
         validators = [
@@ -424,9 +431,11 @@ class catalogForm(forms.ModelForm):
             validators.MaxLengthValidator(2000, 'Cantidad maxima de caracteres es de 150, porfavor reduce tu descripcion.')
         ]
     )
-    class Meta:
-        model = Catalogos
-        fields = ('type_catalog',)
+
+    photo_portada = forms.ImageField(label="Foto de portada",
+    validators=[MaxSizeFileValidator(max_file_size=1)],
+    required= False
+    )
 
 
 class eForm(forms.ModelForm):

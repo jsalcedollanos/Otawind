@@ -1,7 +1,7 @@
 {% extends 'company_templates/layouts/layout.html' %}
 {% load static %}
 {% block title %}
-
+    Agregar Catalogo
 {% endblock title %}
 
 {% block content %}
@@ -12,11 +12,11 @@
             {% for msg in messages %}
             {% if msg.tags == 'error' %}
             <div id="error">
-                <p>{{msg}}</p>
+                <div id="content-error"><p>{{msg}}</p></div>
             </div>
             {% else %}
             <div id="success">
-                <p>{{msg}}</p>
+                <div id="content-success"><p>{{msg}}</p></div>
             </div>
             {% endif %}
             {% endfor %}
@@ -28,4 +28,35 @@
         </div>
     </div>
 {% endblock content %}
+
+
+{% block script %}
+<script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+<script>
+
+    $(document).ready(()=>{
+        //Agregando texto a los recuadros de input type="file"
+        $('#msg-file-photo_portada').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
+
+        // Solo imagenes
+        $('input[type=file]').attr('accept','image/.jpg, .png, .jpeg, .webp');
+
+
+        // Validacion de INPUT file
+        $('#id_photo_portada').on("change", function(){
+            if($('id_photo_portada').value != null){
+                console.log('vacio')
+            }else{
+                const archivo = this.value.replace('C:\\fakepath\\','')
+                //const nameArc = archivo.replace('fakepath',' ')
+                $('#msg-file-photo_portada').html('<div> <p style="font-size:12px; text-align:center;">Se a cargado su imagen con exito.</p></div>')
+                $('#arc-photo_portada').html(archivo)  
+            }  
+        })
+
+    })
+
+</script>    
+
+{% endblock script %}
 

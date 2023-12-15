@@ -115,12 +115,22 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
+#content-btn{
+   text-align: center;
+}
+
 .card-funciones-opc-cerrar{
     position: relative;
     display: flex;
     justify-content: flex-end;
-    bottom: 140px;
+    bottom: 95px;
     font-size: 30px;
+}
+
+.card-funciones-opc-cerrar .cerrar-ventana{
+    border: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
 }
 
 .card-funciones-opc{
@@ -129,12 +139,23 @@
 }
 
 .card-funciones-opc a{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
     margin: 20px;
+    border: 1px double #af75d1;
+    border-radius: 10px;
+    width: 150px;
+    height: 40px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 .card-funciones-opc a:hover{
     cursor: pointer;
+    background-color: #af75d1;
 }
+
 
 .cerrar-ventana:hover{
     cursor: pointer;

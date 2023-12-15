@@ -1,12 +1,45 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import *
 from company.models import *
+from django.contrib.postgres.search import SearchQuery, SearchRank
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
 import random
+import secrets
+from django.urls import reverse
+from django.http import JsonResponse
 # Create your views here.
+
+def generar_codigo_unico(length=10):
+    """
+    Genera un código único aleatorio.
+    
+    Parameters:
+    - length (int): Longitud del código único (por defecto, 10).
+
+    Returns:
+    - str: Código único generado.
+    """
+    return secrets.token_hex(length // 2)
+
+# Ejemplo de uso
+codigo_unico = generar_codigo_unico()
+print(codigo_unico)
+
+def generar_url(request):
+    # Reemplaza 'nombre_de_vista' con el nombre de la vista para la cual deseas generar la URL
+    url_generada = reverse('perfil', args=[request.user.username, request.user.id])  # Puedes pasar argumentos según sea necesario
+    data = {'url_generada': request.build_absolute_uri(url_generada)}
+    return JsonResponse(data)
+
+def url_catalogo(request):
+    
+    url_catalogo = reverse('catalogo', args=[])  # Puedes pasar argumentos según sea necesario
+    data = {'url_catalogo': request.build_absolute_uri(url_catalogo)}
+    return JsonResponse(data)
+
 
 def index(request, name):
     try:
@@ -86,6 +119,7 @@ def createAccount(request):
 def dashboard(request, name):
     username = User.objects.get(username=name)
     user = request.user.id
+    cant_catalog = Catalogos.objects.filter(user_id=user).count()
     bussines = ProfileBussines.objects.filter(user_id=user).count()
     profile = ProfileBussines.objects.all()
     try:
@@ -95,6 +129,7 @@ def dashboard(request, name):
 
     return render(request, 'company_templates/dashboard.html',{
         'bussines' : bussines,
+        'cant_catalog' : cant_catalog,
         'username' : username,
         'profile' : profile ,
         'perfilAccount' : perfilAccount ,
@@ -167,6 +202,10 @@ def profile(request, name, id):
     except Account.DoesNotExist:
         perfilAccount = None
 
+    # Contador de productos y servicios de catalogos
+    cant_catalogs = Catalogos.objects.annotate(cantPro = models.Count('product'))
+    cant_services = Catalogos.objects.annotate(cantSer = models.Count('service'))
+
     # Articulos
     catalogos = Catalogos.objects.filter(profile=id)
     # Paginar Articulos
@@ -178,6 +217,8 @@ def profile(request, name, id):
     return render(request, 'company_templates/profile.html', {
         'perfilBusiness':perfilBusiness,
         'username' : username,
+        'cant_catalogs' : cant_catalogs,
+        'cant_services' : cant_services,
         'catalogos' : catalogos,
         'page_catalogos' : page_obj,
         'perfilAccount' : perfilAccount,
@@ -216,6 +257,8 @@ def viewCatalogUser(request, name, id):
 
     username = User.objects.get(username=request.user.username)
     catalogos = Catalogos.objects.filter(user=request.user.id)
+    cant_catalogs = Catalogos.objects.annotate(cantPro = models.Count('product'))
+    cant_services = Catalogos.objects.annotate(cantSer = models.Count('service'))
 
     # Paginar Catalogos
     paginator = Paginator(catalogos, 3)
@@ -227,6 +270,8 @@ def viewCatalogUser(request, name, id):
         'catalogos' : page_catalogos,
         'username' : username,
         'perfilAccount' : perfilAccount,
+        'cant_catalogs' : cant_catalogs,
+        'cant_services' : cant_services,
     })
 
 
@@ -337,6 +382,10 @@ def addCatalog(request, id):
 
 def viewProduct(request, name, id):
     username = User.objects.get(username=request.user.username)
+    query = request.GET.get('buscar','')
+    filter_catalog = request.GET.get('catalog')
+    filter_category = request.GET.get('category')
+
     urlCurrently = request.META.get('HTTP_REFERER')
     try:
         productos = Products.objects.filter(user=id)
@@ -347,10 +396,42 @@ def viewProduct(request, name, id):
         perfilAccount = Account.objects.get(user_id=request.user.id)
     except Account.DoesNotExist:
         perfilAccount = None
+    
+    # Filtro por categorias
+    category = Category.objects.filter(type_categorie='Productos')
+
+    # Filtro por catalogos
+    catalogs = Catalogos.objects.filter(type_catalog='Productos',user_id=request.user.id)
+
+    if query:
+        # Utilizamos Q objects para realizar una búsqueda OR entre campos
+        productos = Products.objects.filter(
+            Q(name_product__icontains=query) | Q(description__icontains=query) | Q(id_product__icontains=query),
+            # Agrega más campos según tus necesidades
+        )
+
+    if filter_catalog:
+        productos = Products.objects.filter(
+            Q(name_product__icontains=query) | Q(description__icontains=query) | Q(id_product__icontains=query),
+            Q(catalog_id__name__icontains=filter_catalog)
+        )
+    
+    if filter_category:
+        productos = Products.objects.filter(
+            Q(name_product__icontains=query) | Q(description__icontains=query) | Q(id_product__icontains=query),
+            Q(catalog_id__name__icontains=filter_catalog),
+            Q(category_id__name__icontains=filter_category)
+        )
+    
 
     return render(request, 'company_templates/crud-productos/view-product.html', {
     'username':username,
     'productos':productos,
+    'filter_catalog':filter_catalog,
+    'filter_category':filter_category,
+    'query':query,
+    'category':category,
+    'catalogs':catalogs,
     'url':urlCurrently,
     'perfilAccount' : perfilAccount,
     })
@@ -455,6 +536,9 @@ def deleteProduct(request, id):
 
 
 def viewService(request, name, id):
+    query = request.GET.get('buscar','')
+    filter_catalog = request.GET.get('catalog')
+    filter_category = request.GET.get('category')
 
     try:
         perfilAccount = Account.objects.get(user_id=request.user.id)
@@ -467,10 +551,41 @@ def viewService(request, name, id):
     except Services.DoesNotExist:
         servicio = None
 
+    # Filtro por categorias
+    category = Category.objects.filter(type_categorie='Servicios')
+
+    # Filtro por catalogos
+    catalogs = Catalogos.objects.filter(type_catalog='Servicios',user_id=request.user.id)
+
+    if query:
+        # Utilizamos Q objects para realizar una búsqueda OR entre campos
+        servicio = Services.objects.filter(
+            Q(name_service__icontains=query) | Q(description__icontains=query) | Q(id_service__icontains=query),
+            # Agrega más campos según tus necesidades
+        )
+
+    if filter_catalog:
+        servicio = Services.objects.filter(
+            Q(name_service__icontains=query) | Q(description__icontains=query) | Q(id_service__icontains=query),
+            Q(catalog_id__name__icontains=filter_catalog)
+        )
+    
+    if filter_category:
+        servicio = Services.objects.filter(
+            Q(name_service__icontains=query) | Q(description__icontains=query) | Q(id_service__icontains=query),
+            Q(catalog_id__name__icontains=filter_catalog),
+            Q(category_id__name__icontains=filter_category)
+        )
+
     return render(request, 'company_templates/crud-servicios/view-services.html',{
         'servicios' : servicio,
         'username' : username,
         'perfilAccount' : perfilAccount,
+        'filter_catalog':filter_catalog,
+        'filter_category':filter_category,
+        'query':query,
+        'category':category,
+        'catalogs':catalogs,
     })
 
 
@@ -619,12 +734,16 @@ def view_profile(request, name, id):
        'perfilAccount' : perfilAccount,
     })
 
-def viewCatalog(request, name, id):
-    urlCurrently = request.META.get('HTTP_REFERER')
+def viewCatalog(request, name_profile, name, id):
+    urlCurrently = request.get_full_path()
     busqueda = request.GET.get("buscar")
     color = request.GET.get("color")
     filCategory = request.GET.get("category")
-    profileBusiness = ProfileBussines.objects.get(user_id=request.user.id)
+
+    try:
+        profileBusiness = ProfileBussines.objects.get(name=name_profile)
+    except ProfileBussines.DoesNotExist:
+        profileBusiness = None
 
     username = User.objects.get(username=request.user.username)
     try:
@@ -641,6 +760,8 @@ def viewCatalog(request, name, id):
         servicios = Services.objects.filter(catalog_id=id)
     except Products.DoesNotExist:
         servicios = None
+
+    # url 
 
     if busqueda :
         productos = Products.objects.filter(
@@ -659,8 +780,7 @@ def viewCatalog(request, name, id):
         ).distinct()
     
     # Filtro de catalogos
-    profileUser = ProfileBussines.objects.get(user_id=request.user.id)
-    filterCatalog = Catalogos.objects.filter(profile_id=profileUser.id, type_catalog='Productos')
+    filterCatalog = Catalogos.objects.filter(profile_id=request.user.id, type_catalog='Productos')
 
     # Filtro de Categorias
     filterCategory = Category.objects.filter(type_categorie='Producto')
@@ -670,6 +790,7 @@ def viewCatalog(request, name, id):
 
     return render(request, 'company_templates/crud-catalogo/view-catalog.html', {
         'catalogo' : catalogo,
+        'urlCurrently' : urlCurrently,
         'profileBusiness' : profileBusiness,
         'filterCategories' : filterCategory,
         'filtroCatalogos' : filterCatalog,
@@ -677,4 +798,8 @@ def viewCatalog(request, name, id):
         'productos' : productos,
         'servicios' : servicios,
         'perfilAccount' : perfilAccount,
+    })
+
+def acercaDe (request):
+    return render(request, 'company_templates/acerca-de/index.html',{
     })

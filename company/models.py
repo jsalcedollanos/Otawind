@@ -72,20 +72,18 @@ class ProfileBussines(models.Model):
     def __str__(self):
         return self.name
 
-
-
 class Catalogos(models.Model):
+    name = models.CharField(max_length=40, verbose_name="nombre")
     user = models.ForeignKey(User, verbose_name="user", on_delete=models.CASCADE, null=True)
     profile = models.ForeignKey(ProfileBussines, verbose_name="perfil", on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=40, verbose_name="nombre")
     category = models.ForeignKey(Category, verbose_name="categoria", on_delete=models.CASCADE)
     type_catalog = models.CharField(
         max_length = 10,
         verbose_name = 'Tipo catalogo',
         choices = [('Servicios','Servicios'),('Productos','Productos')]
     )
+    description = models.TextField(max_length=1000, null=True, verbose_name="descripcion")
     photo_portada = models.ImageField(upload_to="catalogo", verbose_name="portada", null=True)
-    description = models.TextField(max_length=2000, null=True, verbose_name="descripcion")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="fecha creacion")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="fecha actualizacion")
     class Meta:
@@ -98,7 +96,7 @@ class Catalogos(models.Model):
 class Products(models.Model):
     name_product = models.CharField(max_length=100, verbose_name="Nombre")
     user = models.ForeignKey(User, verbose_name="user", on_delete=models.CASCADE)
-    catalog = models.ForeignKey(Catalogos, verbose_name="catalogo", on_delete=models.CASCADE)
+    catalog = models.ForeignKey(Catalogos, verbose_name="catalogo", on_delete=models.CASCADE, related_name='product')
     id_product = models.CharField(max_length=10, unique=True, verbose_name="id_producto")
     profile = models.ForeignKey(ProfileBussines, verbose_name="Perfil", on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(Category, verbose_name="Categoria", on_delete=models.CASCADE, default="None")
@@ -125,7 +123,7 @@ class Products(models.Model):
 class Services(models.Model):
     name_service = models.CharField(max_length=40, verbose_name="Nombre")
     user = models.ForeignKey(User, verbose_name="user", on_delete=models.CASCADE)
-    catalog = models.ForeignKey(Catalogos, verbose_name="catalogo", on_delete=models.CASCADE)
+    catalog = models.ForeignKey(Catalogos, verbose_name="catalogo", on_delete=models.CASCADE, related_name='service')
     id_service = models.CharField(max_length=10, unique=True, verbose_name="id_servicio")
     profile = models.ForeignKey(ProfileBussines, verbose_name="Perfil", on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(Category, verbose_name="Categoria", on_delete=models.CASCADE, default="None")

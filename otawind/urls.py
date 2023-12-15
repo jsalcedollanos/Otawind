@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf.urls import handler404
 
 urlpatterns = [
+    path('generar_url/', views.generar_url, name="generar_url"),
+    path('url_catalogo/', views.generar_url, name="url_catalogo"),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', views.home, name="home"),
@@ -32,8 +34,8 @@ urlpatterns = [
     path('agregar-servicio/<str:name>/<int:id>', login_required(views.addService), name="addServicios"),
     path('editar-servicio/<str:name>/<int:id>', login_required(views.editService), name="edicionServicio"),
     path('perfil-usuario/<str:name>/<int:id>', login_required(views.view_profile), name="viewPerfil"),
-    path('catalogo/<str:name>/<int:id>', views.viewCatalog, name="verCatalogo"),
-   
+    path('catalogo/<str:name_profile>/<str:name>/<int:id>', views.viewCatalog, name="verCatalogo"),
+    path('acerca-de-otawind/', views.acercaDe, name="acercaDe"),
 ]
 
 

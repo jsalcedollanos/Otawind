@@ -1,24 +1,24 @@
 {% extends 'company_templates/layouts/layout.html' %}
 {% load static %}
 {% block title %}
-
+    Agregar perfil
 {% endblock title %}
 
 {% block content %}
 
-{% comment %} Mensaje de error {% endcomment %}
-        {% for msg in messages %}
-        {% if msg.tags == 'error' %}
-        <div id="error">
-            <p>{{msg}}</p>
-        </div>
-        {% else %}
-        <div id="success">
-            <p>{{msg}}</p>
-        </div>
-        {% endif %}
-        {% endfor %} 
-{% comment %} Fin {% endcomment %} 
+    {% comment %} Mensaje flash {% endcomment %}
+    {% for msg in messages %}
+    {% if msg.tags == 'error' %}
+    <div id="error">
+        <div id="content-error"><p>{{msg}}</p></div>
+    </div>
+    {% else %}
+    <div id="success">
+        <div id="content-success"><p>{{msg}}</p></div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% comment %} Fin mensaje flash {% endcomment %}
     <div class="content-bussines">
         {% include 'company_templates/layouts/layout-dashboard.html' %} 
         <div class="content-bussines-general">

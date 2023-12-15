@@ -1,7 +1,7 @@
 {% extends 'company_templates/layouts/layout.html' %}
 {% load static %}
 {% block title %}
-    Editar Catalogo | Otawind
+    Editar Catalogo
 {% endblock title %}
 
 {% block content %}
@@ -9,9 +9,9 @@
 {% comment %} Mensaje de error {% endcomment %}
     {% for message in messages %}
     {% if message.tags == 'error' %}
-        <p id="error" style="display:block;">{{message}}</p>
+        <p id="error">{{message}}</p>
     {% else %}
-    <p id="success">{{message}} <a href="{% url 'viewCatalogo' %}">Ver catalogos</a></p>
+    <p id="success">{{message}}</p>
     {% endif %} 
     {% endfor %}  
 {% comment %} Fin {% endcomment %} 
@@ -41,5 +41,20 @@
         $('#id_category').val('{{catalogo.category.id}}')
         $('#id_type_catalog').val('{{catalogo.category.type_categorie}}')
     })
+
+     // Solo imagenes
+     $('input[type=file]').attr('accept','image/.jpg, .png, .jpeg, .webp');
+
+        //Editar recuadro de imagen para Editar
+        $('#photo_portada').html('<input type="file" name="photo_product1" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_product1"><div id="msg-file-11" style="position:relative; bottom:70px; font-size:12px; text-align:center;"><p style="color:#7D05B4;">Puedes editar tu imagen aqui</p><p id="ruta">{{catalogo.photo_portada}}</p></div>')
+
+     $('#photo_portada').on("change", function(){
+        if($('id_photo_portada').value != ""){
+            const archivo = this.value.replace('C:\\fakepath\\','')
+            $('#msg-file-photo_portada').html('<div style="position:relative; bottom:43px; font-size:12px; text-align:center;"><input type="file" name="photo_product4" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_product1"><p>Se a cargado la nueva imagen</p><p style="display:relative; top:2px;" id="arc-14"></p></div>')  
+            $('#arc-photo_portada').html(archivo)  
+        } 
+    })
+
     </script>
 {% endblock script %}

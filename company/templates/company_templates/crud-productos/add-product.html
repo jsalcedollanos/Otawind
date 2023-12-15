@@ -1,7 +1,7 @@
 {% extends 'company_templates/layouts/layout.html' %}
 {% load static %}
 {% block title %}
-
+    Agregar producto
 {% endblock title %}
 
 {% block content %}
@@ -11,12 +11,12 @@
             {% comment %} Mensaje flash {% endcomment %}
             {% for msg in messages %}
             {% if msg.tags == 'error' %}
-            <div id="error">
-                <p>{{msg}}</p>
+            <div id="flash-error">
+                <div id="content-error"><p>{{msg}}</p></div>
             </div>
             {% else %}
-            <div id="success">
-                <p>{{msg}}</p>
+            <div id="flash-success">
+                <div id="content-success"><p>{{msg}}</p></div>
             </div>
             {% endif %}
             {% endfor %}
@@ -25,6 +25,7 @@
                 <h1>Añade tus productos</h1>
                 {% include "company_templates/layouts/form.html" %}
             </div>
+            
         </div> 
     </div> 
 {% endblock content %}
@@ -43,7 +44,8 @@
 
 
         setTimeout(function(){
-            $('#success').fadeOut(1500);
+            $('#flash-succes').fadeOut(1500);
+            $('#flash-error').fadeOut(1500);
         }, 3000);
 
         
@@ -53,8 +55,8 @@
         $('#msg-file-photo_product3').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
         $('#msg-file-photo_product4').html('<div style="cursor:pointer; text-align:center;"><i style="color:#7D05B4;" class="fa-regular fa-upload"><span style="font-size:14px;">Seleccionar</span></i><span style="font-size:14px"> o arrastrar el archivo hasta aqui.</span><p style="font-size:12px; text-align:center;">Sube tu imagen en JPG, PNG, JPEG, WEBP hasta de 5 MB de peso.</p></div>')
 
-        // Solo imagenes
-        $('input[type=file]').attr('accept','image/.jpg, .png, .jpeg, .webp');
+            // Solo imagenes
+            $('input[type=file]').attr('accept','image/.jpg, .png, .jpeg, .webp');
         
 
         // Validacion de INPUT file
@@ -101,9 +103,6 @@
                 $('#arc-photo_product4').html(archivo)  
             }  
         })
-
-
-        
         
     })
 </script>

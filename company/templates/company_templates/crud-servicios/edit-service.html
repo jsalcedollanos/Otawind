@@ -1,7 +1,7 @@
 {% extends 'company_templates/layouts/layout.html' %}
 {% load static %}
 {% block title %}
-
+    Editar Servicio
 {% endblock title %}
 
 {% block content %}
@@ -42,5 +42,48 @@
     $('#btn-cancelar').click(function(){
         $('.modal-form').removeClass("modal--show");
     });
+
+
+    // Solo imagenes
+    $('input[type=file]').attr('accept','image/.jpg, .png, .jpeg, .webp');
+
+    //Editar recuadro de imagen para Editar
+    $('#photo_service1').html('<input type="file" name="photo_service1" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_service1"><div id="msg-file-11" style="position:relative; bottom:70px; font-size:12px; text-align:center;"><p>Puedes editar tu imagen aqui</p><p style="color:#7F38B4;">{{servicio.photo_service1}}</p></div>')
+    $('#photo_service2').html('<input type="file" name="photo_service2" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_service2"><div id="msg-file-12" style="position:relative; bottom:70px; font-size:12px; text-align:center;"><p>Puedes editar tu imagen aqui</p><p style="color:#7F38B4;">{{servicio.photo_service2}}</p></div>')
+    $('#photo_service3').html('<input type="file" name="photo_service3" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_service3"><div id="msg-file-13" style="position:relative; bottom:70px; font-size:12px; text-align:center;"><p>Puedes editar tu imagen aqui</p><p style="color:#7F38B4;">{{servicio.photo_service3}}</p></div>')
+    $('#photo_service4').html('<input type="file" name="photo_service4" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_service4"><div id="msg-file-14" style="position:relative; bottom:70px; font-size:12px; text-align:center;"><p>Puedes editar tu imagen aqui</p><p style="color:#7F38B4;">{{servicio.photo_service4}}</p></div>')
+
+    // Validacion de INPUT file
+    $('#id_photo_service1').on("change", function(){
+        if($('id_photo_service1').value != ""){
+            const archivo = this.value.replace('C:\\fakepath\\','')
+            $('#msg-file-11').html('<div style="position:relative; bottom:43px; font-size:12px; text-align:center;"><input type="file" name="photo_service1" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_service1"><p>Se a cargado la nueva imagen</p><p style="display:relative; top:2px;" id="arc-11"></p></div>')  
+            $('#arc-11').html(archivo)  
+        } 
+    })
+
+    $('#id_photo_service2').on("change", function(){
+        if($('id_photo_service2').value != ""){
+            const archivo = this.value.replace('C:\\fakepath\\','')
+            $('#msg-file-12').html('<div style="position:relative; bottom:43px; font-size:12px; text-align:center;"><input type="file" name="photo_service2" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_service2"><p>Se a cargado la nueva imagen</p><p style="display:relative; top:2px;" id="arc-12"></p></div>')  
+            $('#arc-12').html(archivo)  
+        } 
+    })
+
+    $('#id_photo_service3').on("change", function(){
+        if($('id_photo_service3').value != ""){
+            const archivo = this.value.replace('C:\\fakepath\\','')
+            $('#msg-file-13').html('<div style="position:relative; bottom:43px; font-size:12px; text-align:center;"><input type="file" name="photo_service3" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_service3"><p>Se a cargado la nueva imagen</p><p style="display:relative; top:2px;" id="arc-13"></p></div>')  
+            $('#arc-13').html(archivo)  
+        } 
+    })
+
+    $('#id_photo_service4').on("change", function(){
+        if($('id_photo_service4').value != ""){
+            const archivo = this.value.replace('C:\\fakepath\\','')
+            $('#msg-file-14').html('<div style="position:relative; bottom:43px; font-size:12px; text-align:center;"><input type="file" name="photo_service4" accept="image/.jpg, .png, .jpeg, .webp" id="id_photo_service4"><p>Se a cargado la nueva imagen</p><p style="display:relative; top:2px;" id="arc-14"></p></div>')  
+            $('#arc-14').html(archivo)  
+        } 
+    })
 </script>
 {% endblock script %}

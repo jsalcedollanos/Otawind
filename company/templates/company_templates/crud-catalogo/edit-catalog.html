@@ -1,7 +1,8 @@
 {% extends 'company_templates/layouts/layout.html' %}
+{% load mathfilters %}
 {% load static %}
 {% block title %}
-
+    Editar Catalogo
 {% endblock title %}
 
 {% block content %}
@@ -17,8 +18,24 @@
                             <img src="{{catalogo.photo_portada.url}}">
                         </div>
                         <div class="card-catalogo-face-descripcion">
-                            <h2>{{catalogo.name}}</h2>
-                            <h3>290</h3>
+                            <input type="text" style="opacity:0;" id="id-{{forloop.counter}}" value="{{catalogo.id}}">
+                            <h2 id="id-{{catalogo.id}}">{{catalogo.name}}</h2>
+                            {% if catalogo.type_catalog == 'Productos' %}
+                            {% for catalogs in cant_catalogs %}
+                                {% if catalogs.id == catalogo.id and catalogo.type_catalog == 'Productos' %}
+                                    <h3 id="cantProduct-{{forloop.counter}}">{{catalogs.cantPro}}</h3>
+                                {% endif %}
+                            {% endfor %}
+                            {% endif %}
+
+                            {% if catalogo.type_catalog == 'Servicios' %}
+                            {% for catalogs in cant_services %}
+                                {% if catalogs.id == catalogo.id and catalogo.type_catalog == 'Servicios' %}
+                                    <h3 id="cantProduct-{{forloop.counter}}">{{catalogs.cantSer}}</h3>
+                                {% endif %}
+                            {% endfor %}
+                            {% endif %}
+
                             <h4>Productos Disponibles</h4>
                             <p>{{catalogo.description}}</p>
                             <button id="btn-opc-{{catalogo.id}}" class="btn-opc">Opciones</button>
@@ -29,8 +46,12 @@
                             <div class="card-funciones-opc-cerrar">
                                 <a class="cerrar-ventana" id="cerrar-ventana-{{catalogo.id}}"><i class="fa-regular fa-circle-xmark"></i></a>
                             </div>
-                            <a href="{% url 'edicionCatalogo' catalogo.id %}"><i class="fa-solid fa-pen-to-square"></i>Editar</a>
-                            <a id="eliminar-{{catalogo.id}}"><i class="fa-solid fa-trash"></i>Borrar</a>
+                            <div id="content-btn">
+                                <a href="{% url 'edicionCatalogo' catalogo.id %}"><i class="fa-solid fa-pen-to-square"></i>Editar</a>
+                            </div>
+                            <div id="content-btn">
+                                <a id="eliminar-{{catalogo.id}}"><i class="fa-solid fa-trash"></i>Borrar</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -57,7 +78,7 @@
                 <div class="content-modal">
                     <h2 class="content-modal-titulo">¿Deseas eliminar tu catalogo?</h2>
                     <a id="si">Si</a>
-                    <a href="">No</a>
+                    <a id="no">No</a>
                 </div>
             </div>
         </div>
@@ -95,6 +116,11 @@
         $('.modal').addClass("modal--show")
         $('#si').attr('href','{% url 'eliminarCatalogo' catalogo.id %}')
     })
+
+    $('#no').click(function(){
+        $('.modal').addClass("modal")
+    })
+
     {% endfor %}
 </script>
 

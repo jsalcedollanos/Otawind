@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'company',
     'fontawesomefree',
-
+    'mathfilters',
     'django.contrib.sites',
     'allauth',
     'allauth.account',

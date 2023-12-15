@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static '../static/css/styles_acercaDe.css' %}">
+    {% comment %} Google fonts {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Quicksand:wght@300&display=swap" rel="stylesheet">
+        <!-- Our project just needs Font Awesome Free's Solid and Brand files -->
+        <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <title>Acerca de | Otawind</title>
+</head>
+<body>
+    <div class="content-acercaDe">
+        <div class="content-linetime">
+            <div id="line">
+                <div id="circle1"><a  id="title-acercaDe" href="#">Acerda de Otawind</a></div>
+                <div id="circle2"><a  id="title-caracteristica" href="#">Caracteristicas principales</a></div>
+                <div id="circle3"><a  id="title-ventajas" href="#">Ventajas competitivas</a></div>
+            </div>
+        </div>
+
+        {% comment %} Bloque de informacion {% endcomment %}
+            <div class="content-acercaDe-info">
+                <div class="content-acercaDeOtawind">
+                    <div class="content-home">
+                        <a href="{% url 'home' %}"><i class="fa-solid fa-house-chimney"></i></a>
+                    </div>
+                    <div class="acercaDe" style="display:block;">
+                        <div class="title-acercaDe">
+                            <h1>Acerca de Otawind</h1>
+                        </div>
+                        <div class="guide-line"></div>
+                        <div class="info">
+                            <p>
+                                La plataforma web de catálogos Otawind se presenta como una solución integral diseñada 
+                                para optimizar la gestión y exhibición de productos y servicios, brindando a usuarios y 
+                                empresas una experiencia única de exploración y compra. A continuación, se destacan 
+                                los aspectos clave:<br>
+                                <span style="color:yellow;">Propósito:</span>
+                                La plataforma tiene como objetivo principal simplificar la presentación y 
+                                distribución de productos mediante catálogos digitales, facilitando a los 
+                                usuarios la búsqueda, visualización y adquisición de productos o servicios.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="caracteristica" style="display:none;">
+                        <div class="title-acercaDe">
+                            <h1 style="font-size:28px;">Caracteristicas principales</h1>
+                        </div>
+                        <div class="guide-line"></div>
+                        <div class="info">
+                            <p>
+                                <span style="color:yellow;">Catálogos Dinámicos:</span> La plataforma ofrece la capacidad de crear catálogos dinámicos y atractivos que pueden actualizarse fácilmente con nuevos productos, descripciones y precios.<br>
+
+                                <span style="color:yellow;">Interfaz Intuitiva:</span> Diseñada con una interfaz fácil de usar, la plataforma garantiza una experiencia de usuario fluida, permitiendo a los visitantes explorar catálogos de manera eficiente.<br>
+
+                                <span style="color:yellow;">Funcionalidades de Búsqueda Avanzada:</span> Ofrece potentes herramientas de búsqueda que permiten a los usuarios filtrar productos según categorías, precios, marcas, etc., mejorando la precisión y rapidez de la búsqueda.<br>
+
+                                <span style="color:yellow;">Compatibilidad Móvil:</span> La plataforma es completamente responsive, asegurando una experiencia consistente y atractiva tanto en dispositivos de escritorio como móviles.<br>
+
+                                <span style="color:yellow;">Personalización de Catálogos:</span> Los usuarios pueden personalizar sus catálogos según sus preferencias, creando listas de favoritos o compartiendo productos con facilidad.<br>
+
+                                <span style="color:yellow;">Gestión de Inventario:</span> Para las empresas, la plataforma incluye herramientas de gestión de inventario que simplifican el seguimiento de existencias y la actualización de información de productos.<br>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="ventajas" style="display:none;">
+                        <div class="title-acercaDe">
+                            <h1>Ventajas competitivas</h1>
+                        </div>
+                        <div class="guide-line"></div>
+                        <div class="info">
+                            <p>
+                                - Mayor visibilidad y accesibilidad de productos.<br>
+                                - Mejora en la eficiencia operativa para empresas mediante la gestión centralizada de catálogos.<br>
+                                - Experiencia de usuario mejorada, lo que lleva a mayores conversiones.<br>
+                                - Otawind se posiciona como una herramienta esencial para aquellos que buscan una solución completa y eficiente para la presentación y distribución de productos a través de catálogos digitales.<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+
+<script src="{% static '../static/js/jquery-3.6.4.js' %}"></script>
+<script>
+    $(document).ready(()=>{
+
+            $('#circle1').css('background-color','yellow');
+            $('#title-acercaDe').css('color','yellow');
+    })
+
+    $('#title-acercaDe').click(function(){
+        
+        $('.caracteristica').animate({
+            opacity: 0
+        }, 'slow', function(){
+            $(this).hide()
+        });
+
+        $('.ventajas').animate({
+            opacity: 0
+        }, 'slow', function(){
+            $(this).hide()
+        });
+
+        $('.acercaDe').animate({
+            opacity: 100
+        }, 'slow', function(){
+            $(this).fadeIn('slow');
+        })
+        
+
+        $('#circle2').css('background-color','#B03AE5');
+        $('#circle3').css('background-color','#B03AE5');
+        $('#title-caracteristica').css('color','#B03AE5');
+        $('#title-ventajas').css('color','#B03AE5');
+        $('#circle1').css('background-color','yellow');
+        $('#title-acercaDe').css('color','yellow');
+    })
+
+
+    $('#title-caracteristica').click(function(){
+        $('.acercaDe').animate({ 
+            opacity: 0
+        }, 'slow', function(){
+            $(this).hide()
+            $('.caracteristica').fadeIn('slow');
+        }); 
+
+        $('.ventajas').animate({ 
+            opacity: 0
+        }, 'slow', function(){
+            $(this).hide()
+            $('.caracteristica').fadeIn('slow');
+        }); 
+
+        $('.caracteristica').animate({ 
+            opacity: 100
+        }, 'slow', function(){
+            $(this).fadeIn('slow');
+        });
+
+        
+
+        $('#circle1').css('background-color','#B03AE5');
+        $('#circle3').css('background-color','#B03AE5');
+        $('#title-acercaDe').css('color','#B03AE5');
+        $('#title-ventajas').css('color','#B03AE5');
+        $('#circle2').css('background-color','yellow');
+        $('#title-caracteristica').css('color','yellow');
+    })
+
+    $('#title-ventajas').click(function(){
+
+        $('.acercaDe').animate({ 
+            opacity: 0
+        }, 'slow', function(){
+            $(this).hide()
+            $('.ventajas').fadeIn('slow');
+        }); 
+
+        $('.caracteristica').animate({ 
+            opacity: 0
+        }, 'slow', function(){
+            $(this).hide()
+            $('.ventajas').fadeIn('slow');
+        }); 
+
+        $('.ventajas').animate({ 
+            opacity: 100
+        }, 'slow', function(){
+            $(this).fadeIn('slow');
+        });
+
+        $('#circle1').css('background-color','#B03AE5');
+        $('#circle2').css('background-color','#B03AE5');
+        $('#title-acercaDe').css('color','#B03AE5');
+        $('#title-caracteristica').css('color','#B03AE5');
+        $('#circle3').css('background-color','yellow');
+        $('#title-ventajas').css('color','yellow');
+    })
+</script>
+
+</html>
